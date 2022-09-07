@@ -1,0 +1,101 @@
+<div class="section-padding">
+    <div class="container">
+        <div class="donation_form">
+            <form>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-2">
+                            <label class="form-label">Donation Amount *</label>
+                        </div>
+                        <div class="col-md-9 col-lg-10">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">$</span>
+                                </div>
+                                <input type="text" class="form-control border w-auto" placeholder="100" value="{{donation.value}}" required>
+                            </div>
+                            <ul class="select_amount">
+                                <li>$10.00</li>
+                                <li>$25.00</li>
+                                <li>$50.00</li>
+                                <li class="active">$100.00</li>
+                                <li>$500.00</li>
+                            </ul>
+                            <input type="number" class="form-control border w-auto" placeholder="Custom Donation" #donation (keyup)="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-2">
+                            <label class="form-label">Payment Method *</label>
+                        </div>
+                        <div class="col-md-9 col-lg-10">
+                            <div class="radio d-inline mr-4">
+                                <input type="radio" name="payment" id="online" checked>
+                                <label for="online">Online Payment</label>
+                            </div>
+                            <div class="radio d-inline">
+                                <input type="radio" name="payment" id="offline">
+                                <label for="offline">Offline Payment</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-2">
+                            <label class="form-label">Campaigns * </label>
+                        </div>
+                        <div class="col-md-9 col-lg-10">
+                            <div class="select">
+                                <select class="form-control border" required>
+                                    <option>Education for Every Child - (Target: 10000.00)</option>
+                                    <option>Education for Every Child - (Target: 15000.00)</option>
+                                    <option>Education for Every Child - (Target: 20000.00)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-2">
+                            <label class="form-label">Message</label>
+                        </div>
+                        <div class="col-md-9 col-lg-10">
+                            <textarea rows="3" class="form-control border" placeholder="Your Custom text" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-2">
+                            <label class="form-label">Donator Details * </label>
+                        </div>
+                        <div class="col-md-9 col-lg-10">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control border" placeholder="Full Name" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="email" class="form-control border" placeholder="Email Address" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-2 m_none">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-9 col-lg-10">
+                            <button type="submit" class="btn dark-btn">Donate Now</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

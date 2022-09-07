@@ -1,0 +1,174 @@
+<section class="section-padding checkout-form">
+    <div class="container">
+        <div class="section-header text-center">
+            <div class="sj-about-heading sj-section-heading">
+                <h2>Checkout</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-xl-6">
+                <div class="card mb-3">
+                    <div class="card-title">
+                        <h6>Buyer Info</h6>
+                        <h6>
+                            <a routerLink="/login">Login Here</a>
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <form class="hm-checkout-body" method="post">
+                            <div class="form-group row">
+                                <label for="inputFname" class="col-sm-4 col-form-label">First Name:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="inputFname">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputLname" class="col-sm-4 col-form-label">Last Name:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="inputLname">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputAddress1" class="col-sm-4 col-form-label">Address 1:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="inputAddress1">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputAddress2" class="col-sm-4 col-form-label">Address 2:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="inputAddress2">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputCity" class="col-sm-4 col-form-label">City:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="inputCity">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputPcode" class="col-sm-4 col-form-label">Postal Code:</label>
+                                <div class="col-sm-8">
+                                    <input type="number" class="form-control" id="inputPcode">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputState" class="col-sm-4 col-form-label">State:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="inputState">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputCount" class="col-sm-4 col-form-label">Country:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="inputCount">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xl-6">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-title">
+                                <h6>Billing Details</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="hm-checkout-body">
+                                    <table class="table hm-table-borderless">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Product</th>
+                                                <th scope="col">Qty</th>
+                                                <th scope="col">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Data -->
+                                            <tr *ngFor="let item of cartItems">
+                                                <td>{{item.title}}</td>
+                                                <td>{{getItemQuantity(item)}}</td>
+                                                <td>${{item.price * getItemQuantity(item) | number:'1.2-2'}}</td>
+                                            </tr>
+                                            <!-- Data -->
+                                        </tbody>
+                                        <tfoot>
+                                            <tr class="hm-table-footer">
+                                                <td>Order total</td>
+                                                <td></td>
+                                                <td>${{calculateprice() + 2.99 | number:'1.2-2'}}</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-title">
+                                <h6>Payment Methods</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="hm-checkout-body">
+                                    <div class="hm-text-content">
+                                        <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    </div>
+                                    <div class="hm-payment-form">
+                                        <form class="hm-pay-form">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <label for="inputCnumber" class="col-form-label">Card Number:</label>
+                                                        </td>
+                                                        <td colspan="3">
+                                                            <input type="text" class="form-control" id="inputCnumber">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label for="inputCcv" class="col-form-label">CCV:</label>
+                                                        </td>
+                                                        <td colspan="3">
+                                                            <input type="text" class="form-control" id="inputCcv">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label for="inputMonth" class="col-form-label">Month</label>
+                                                        </td>
+                                                        <td>
+                                                            <span>
+                                                                <input type="number" class="form-control" id="inputMonth">
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <label for="inputYear" class="col-form-label">Year</label>
+                                                        </td>
+                                                        <td>
+                                                            <span>
+                                                                <input type="number" class="form-control" id="inputYear">
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12">
+                <div class="hm-checkout-btn mt-5  hm-center-item text-right">
+                    <button class="btn sj-btn-round-2 btn-md">Place order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,33 @@
+<section class="sj-prayer">
+    <div class="container-fluid no-gutter ">
+        <div class="row">
+            <div class="col-12 col-lg-7 p-0">
+                <div class="sj_custom sj_bg_wrap sj_bg_overlay">
+                    <div class="sj-prayer-timeing">
+                        <div class="section-header table-header">
+                            <h2 class="text-center text-white">Prayer Schedule</h2>
+                            <table class="table sj-schedules-table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Prayers</th>
+                                        <th scope="col">Schedule Day</th>
+                                        <th scope="col">Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-body">
+                                    <!-- Data -->
+                                    <tr [ngClass]="item.active === true ? 'current':''" *ngFor="let item of prayers">
+                                        <th scope="row">{{item.prayername}}</th>
+                                        <td>{{item.day}}</td>
+                                        <td>{{item.time}}</td>
+                                    </tr>
+                                    <!-- Data -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

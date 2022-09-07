@@ -1,0 +1,114 @@
+<section class="section-padding">
+    <div class="container">
+        <!-- Filter -->
+        <div class="filter_wrap">
+            <div class="row">
+                <div class="col-md-6 col-6">
+                    <div class="select_arrow ">
+                        <select class="form-control gray_bg">
+                            <option>Filter Category</option>
+                            <option>Hadi's quotes</option>
+                            <option>Today's Prayer</option>
+                            <option>Quran Aayats</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6 col-6">
+                    <div class="layout-switcher">
+                        <ul ngbNav #nav="ngbNav" class="nav nav-pills" id="pills-tab" role="tablist">
+                            <li [ngbNavItem]="1">
+                                <a ngbNavLink><i class="fa fa-bars"></i></a>
+                                <ng-template ngbNavContent>
+                                    <div class="list-view">
+                                        <!-- khotba-list-1 -->
+                                        <div class="khotba_wrap" *ngFor="let item of khotbapost | paginate: { itemsPerPage: 4, currentPage: page }">
+                                            <div class="khotba_img">
+                                                <a routerLink="/khotba-details/{{item.id}}">
+                                                    <img [src]="item.image" [alt]="item.title">
+                                                </a>
+                                            </div>
+                                            <div class="khotba_info_wrap">
+                                                <div class="khotba_info">
+                                                    <h5><a routerLink="/khotba-details/{{item.id}}">{{item.title}}</a></h5>
+                                                    <ul class="khotba_meta">
+                                                        <li><i class="fa fa-user"></i> Message from <a routerLink="/khotba/author/{{author.id}}"
+                                                            *ngFor="let author of getAuthor(item.author)">{{author.name}}</a></li>
+                                                        <li><i class="fa fa-calendar-check-o"></i> {{item.postdate}}</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="khotba_inside">
+                                                    <ul>
+                                                        <!-- Data -->
+                                                        <li *ngFor="let include of item.includes"><a href="{{include.url}}"><i [class]="include.icon"></i></a>
+                                                        </li>
+                                                        <!-- Data -->
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /khotba-list-1 -->
+                                    </div>
+                                </ng-template>
+                            </li>
+                            <li [ngbNavItem]="2">
+                                <a ngbNavLink><i class="fa fa-th-large"></i></a>
+                                <ng-template ngbNavContent>
+                                    <div class="grid-view">
+                                        <div class="row">
+                                            <!-- Data -->
+                                            <div class="col-md-6" *ngFor="let item of khotbapost | paginate: { itemsPerPage: 4, currentPage: page }">
+                                                <div class="blog_wrap margin-btm-60">
+                                                    <div class="blog_img">
+                                                        <a routerLink="/khotba-details/{{item.id}}">
+                                                            <img [src]="item.image" [alt]="item.title">
+                                                        </a>
+                                                    </div>
+                                                    <div class="blog_info">
+                                                        <div class="post_date"><a routerLink="/khotba-details/{{item.id}}"><i
+                                                                    class="fa fa-calendar-check-o"></i> {{item.postdate}}</a>
+                                                        </div>
+                                                        <div class="grid-author">
+                                                            <i class="fa fa-user"></i> Message from <a routerLink="/khotba/author/{{author.id}}"
+                                                            *ngFor="let author of getAuthor(item.author)">{{author.name}}</a>
+                                                        </div>
+                                                        <h5><a routerLink="/khotba-details/{{item.id}}">{{item.title}}</a></h5>
+                                                        <div class="khotba_inside">
+                                                            <ul>
+                                                                <!-- Data -->
+                                                                <li *ngFor="let include of item.includes"><a href="{{include.url}}"><i [class]="include.icon"></i></a>
+                                                                </li>
+                                                                <!-- Data -->
+                                                            </ul>
+                                                        </div>
+                                                        <a routerLink="/khotba-details/{{item.id}}" class="btn dark-btn">Details <i
+                                                                class="fa fa-caret-right"></i> </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Data -->
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Filter -->
+        <div [ngbNavOutlet]="nav"></div>
+        <!-- Pagination -->
+        <div class="pagination_wrap">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Page 1 of 2</p>
+                </div>
+                <div class="col-sm-6">
+                    <pagination-controls (pageChange)="page = $event" responsive="true" previousLabel="<" nextLabel=">">
+                    </pagination-controls>
+                </div>
+            </div>
+        </div>
+        <!-- /Pagination -->
+    </div>
+</section>

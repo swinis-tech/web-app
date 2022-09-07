@@ -1,0 +1,28 @@
+<div class="heading">
+    <h3>Latest khotba</h3>
+    <a routerLink="/khotba" class="btn btn-sm dark-btn pull-right">View All</a>
+</div>
+<!-- Data -->
+<ngb-accordion [closeOthers]="true" activeIds="static-1-1" class="d-block custom-accordion">
+    <ngb-panel id="static-{{item.id}}-{{1+i}}" *ngFor="let item of getRecentPost();let i = index">
+        <ng-template ngbPanelTitle>
+            {{item.title}}
+        </ng-template>
+        <ng-template ngbPanelContent> 
+            <ul class="khotba_meta">
+                <li><i class="fa fa-user"></i> Message from <a routerLink="/khotba/author/{{author.id}}"
+                        *ngFor="let author of getAuthor(item.author)">{{author.name}}</a></li>
+                <li><i class="fa fa-calendar-check-o"></i> {{item.postdate}}</li>
+            </ul>
+            <div class="khotba_inside">
+                <ul>
+                    <!-- Data -->
+                    <li *ngFor="let include of item.includes"><a href="{{include.url}}"><i [class]="include.icon"></i></a>
+                    </li>
+                    <!-- Data -->
+                </ul>
+            </div>
+        </ng-template>
+    </ngb-panel>
+</ngb-accordion>
+<!-- Data -->

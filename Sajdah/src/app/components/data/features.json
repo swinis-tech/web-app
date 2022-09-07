@@ -1,0 +1,20 @@
+[
+    {
+        "id":1,
+        "icon":"fa fa-flag",
+        "title":"Islam For Brotherhood",
+        "text":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's"
+    },
+    {
+        "id":2,
+        "icon":"fa fa-users",
+        "title":"Duaa For Jannah",
+        "text":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's"
+    },
+    {
+        "id":3,
+        "icon":"fa fa-book",
+        "title":"Lessons From Quran",
+        "text":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's"
+    }
+]

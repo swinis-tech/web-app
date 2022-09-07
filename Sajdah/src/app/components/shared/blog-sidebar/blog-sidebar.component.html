@@ -1,0 +1,52 @@
+<div class="sidebar_wrap">
+    <div class="sidebar_widgets">
+        <div class="search">
+            <form (ngSubmit)="onSubmit()" method="GET">
+                <input type="text" class="form-control" placeholder="Enter Keyword" name="searchText"
+                    [(ngModel)]="searchText" required>
+            </form>
+        </div>
+    </div>
+    <div class="sidebar_widgets">
+        <div class="widget_title">
+            <h6>Categories</h6>
+        </div>
+        <div class="sidebar_nav">
+            <ul>
+                <!-- Data -->
+                <li *ngFor="let item of category">
+                    <a routerLink="/blog/cat/{{item.id}}">{{item.title}} ({{item.count}})</a>
+                </li>
+                <!-- Data -->
+            </ul>
+        </div>
+    </div>
+    <div class="sidebar_widgets">
+        <div class="widget_title">
+            <h6>Recent Post</h6>
+        </div>
+        <div class="recent_post">
+            <ul>
+                <!-- Data -->
+                <li *ngFor="let item of getRecentPost()">
+                    <div class="post_thumb">
+                        <a routerLink="/blog-details/{{item.id}}"><img [src]="item.image" [alt]="item.title"></a>
+                    </div>
+                    <h6><a routerLink="/blog-details/{{item.id}}">{{item.title}}</a></h6>
+                    <p>{{item.postdate}}</p>
+                </li>
+                <!-- Data -->
+            </ul>
+        </div>
+    </div>
+    <div class="sidebar_widgets">
+        <div class="widget_title">
+            <h6>Tags</h6>
+        </div>
+        <div class="tag_cloud">
+            <!-- Data -->
+            <a routerLink="/blog/tag/{{item.id}}" *ngFor="let item of tags">{{item.title}}</a>
+            <!-- Data -->
+        </div>
+    </div>
+</div>

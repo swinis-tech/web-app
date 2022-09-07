@@ -1,0 +1,27 @@
+<section class="latest_blog section-padding">
+    <div class="container">
+        <div class="blog">
+            <div class="section-header text-center">
+                <h2>Latest News</h2>
+                <p>here are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some</p>
+            </div>
+            <div class="row">
+                <!-- Data -->
+                <article class="col-lg-4 col-md-6" *ngFor="let item of getRecentPost()">
+                    <div class="blog_wrap">
+                        <div class="blog_img">
+                            <a routerLink="/blog-details/{{item.id}}"><img [src]="item.image" [alt]="item.title"></a>
+                        </div>
+                        <div class="blog_info">
+                            <div class="post_date"><a routerLink="/blog-details/{{item.id}}">{{item.postdate}}</a></div>
+                            <h5><a routerLink="/blog-details/{{item.id}}">{{item.title}}</a></h5>
+                            <p>{{item.shorttext | slice:0:170}}</p>
+                            <a routerLink="/blog-details/{{item.id}}" class="btn dark-btn">Details <i class="fa fa-caret-right"></i> </a>
+                        </div>
+                    </div>
+                </article>
+                <!-- Data -->
+            </div>
+        </div>
+    </div>
+</section>

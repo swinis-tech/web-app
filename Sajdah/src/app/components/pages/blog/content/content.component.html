@@ -1,0 +1,35 @@
+<section class="section-padding">
+    <div class="container">
+        <div class="row">
+            <!-- Data -->
+            <div class="col-md-6" *ngFor="let item of blogpost | paginate: { itemsPerPage: 4, currentPage: page }">
+                <div class="blog_wrap margin-btm-60">
+                    <div class="blog_img">
+                        <a routerLink="/blog-details/{{item.id}}"><img [src]="item.image" [alt]="item.title"></a>
+                    </div>
+                    <div class="blog_info">
+                        <div class="post_date"><a routerLink="/blog-details/{{item.id}}">{{item.postdate}}</a></div>
+                        <h5><a routerLink="/blog-details/{{item.id}}">{{item.title}}</a></h5>
+                        <p>{{item.shorttext | slice:0:170}}</p>
+                        <a routerLink="/blog-details/{{item.id}}" class="btn dark-btn">Details <i class="fa fa-caret-right"></i> </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Data -->
+        </div>
+        <div class="divider pb-3 clearfix"></div>
+        <!-- Pagination -->
+        <div class="pagination_wrap">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Page 1 of 2</p>
+                </div>
+                <div class="col-sm-6">
+                    <pagination-controls (pageChange)="page = $event" responsive="true" previousLabel="<" nextLabel=">">
+                    </pagination-controls>
+                </div>
+            </div>
+        </div>
+        <!-- /Pagination -->
+    </div>
+</section>

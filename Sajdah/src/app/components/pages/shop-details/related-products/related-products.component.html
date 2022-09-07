@@ -1,0 +1,50 @@
+<section class="section-padding pt-0" *ngFor="let product of shopdetails">
+    <div class="container sj-bg-color">
+        <div class="row">
+            <div class="col-lg-12 sa-pdrl8">
+                <div class="sj-shop-title-area d-flex justify-content-between">
+                    <div class="sj-shop-title">
+                        <h2>Similar Products</h2>
+                    </div>
+                </div>
+            </div>
+            <!-- Data -->
+            <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let item of getProductByCategory(product.category) | slice:0:4">
+                <div class="product">
+                    <div class="product_thumb">
+                        <img [src]="item.image[0]" [alt]="item.title" class="responsive">
+                    </div>
+                    <div class="product_content">
+                        <h6><a routerLink="/shop-details/{{item.id}}">{{item.title}}</a></h6>
+                        <p>${{item.price | number:'1.2-2'}}</p>
+                    </div>
+                    <div class="product_action">
+                        <ul>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                            </li>
+                            <!-- Wishlist -->
+                            <li [ngClass]="isProductInWishlist(item.id) ? 'd-none' : ''">
+                                <a href="javascript:void(0)" (click)="handleAddToWishlist(item)"><i
+                                        class="fa fa-heart-o"></i></a>
+                            </li>
+                            <li class="active"
+                            [ngClass]="isProductInWishlist(item.id) ? '' : 'd-none'">
+                                <a href="javascript:void(0)" (click)="handleDeleteFromWishlist(item)"><i
+                                        class="fa fa-heart-o"></i></a>
+                            </li>
+                        </ul>
+                        <div class="btn-action">
+                            <!-- Cart -->
+                            <a href="javascript:void(0)" class="btn dark-btn shop-btn" (click)="handleAddToCart(item)" *ngIf="item.stock">Add To Cart</a>
+                            <a href="javascript:void(0)" class="btn dark-btn shop-btn" *ngIf="!item.stock" (click)="handleOutofStock()">Add To Cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Data -->
+        </div>
+    </div>
+</section>

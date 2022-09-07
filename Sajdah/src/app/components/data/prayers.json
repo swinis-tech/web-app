@@ -1,0 +1,37 @@
+[
+    {
+        "id":1,
+        "prayername":"Fajr",
+        "day":"Friday",
+        "time":"04:51 AM",
+        "active":false
+    },
+    {
+        "id":2,
+        "prayername":"Dhuhr",
+        "day":"Friday",
+        "time":"12:15 PM",
+        "active":true
+    },
+    {
+        "id":3,
+        "prayername":"Asr",
+        "day":"Friday",
+        "time":"03:43 PM",
+        "active":false
+    },
+    {
+        "id":4,
+        "prayername":"Maghrib",
+        "day":"Friday",
+        "time":"06:20 PM",
+        "active":false
+    },
+    {
+        "id":5,
+        "prayername":"Isha",
+        "day":"Friday",
+        "time":"07:39 PM",
+        "active":false
+    }
+]

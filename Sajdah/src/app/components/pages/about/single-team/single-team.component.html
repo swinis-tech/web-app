@@ -1,0 +1,30 @@
+<section class="section-padding section_bg" *ngFor="let item of author | slice:0:1">
+    <div class="container">
+        <div class="about-imam">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="sa-paster-about-area">
+                        <h2>{{item.name}}</h2>
+                        <p class="designation">{{item.post}}</p>
+                        <div [innerHtml]="item.htmltext"></div>
+                        <div class="sa-team-social">
+                            <h5>Social links</h5>
+                            <ul class="text-center">
+                                <!-- Data -->
+                                <li *ngFor="let social of item.social">
+                                    <a routerLink="{{social.url}}"><i [class]="social.icon"></i></a>
+                                </li>
+                                <!-- Data -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-5 offset-xl-1">
+                    <div class="ss-pastor-img-wrap">
+                        <img [src]="item.image" [alt]="item.name" class="mx-auto d-block w-100">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
