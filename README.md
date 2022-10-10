@@ -18,11 +18,6 @@ Then change directory
 cd swinis-website
 ```
 
-### To open the documentation
-```
-open Documentation/index.html
-```
-
 ### To serve the website
 First, install the [Angular CLI](https://angular.io/cli)
 ```
@@ -42,5 +37,10 @@ npm install
 Serve the website
 ```
 ng serve
+```
+
+### To open the documentation
+```
+open Documentation/index.html
 ```
 
