@@ -1,0 +1,8 @@
+.follow_us ul li:last-child {
+    display: inline-block;
+}
+
+
+.container {
+    max-width: 100%;
+}

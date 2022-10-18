@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HelperService } from '../../helper/helper.service';
-import data from "../../data/navigation.json";
+import data from '../../data/navigation.json';
 import { ProductService } from '../../helper/shop/product.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class HeaderComponent extends HelperService implements OnInit  {
   constructor(
     private productService : ProductService
     ) {
-    super(); 
+    super();
   }
   ngOnInit(): void {
     this.cartlength = this.productService.getProductsCountInCart();

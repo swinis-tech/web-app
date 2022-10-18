@@ -1,88 +1,18 @@
-<header id="header" class="nav-stacked">
-    <!-- Header-top -->
-    <div class="header_top">
+<header class="nav-stacked" id="header">
+    <nav class="navbar navbar-default sj-navbar" id="navigation_bar">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-7 col-6">
-                    <div class="address">
-                        <div class="follow_us">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
-                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5 col-6">
-                    <div class="follow_us">
-                        <ul class="left-links">
-                            <li><a routerLink="/login">Signin</a></li>
-                            <li><a routerLink="/register">Signup</a></li>
-                            <li><a class="btn btn-sm dark-btn" routerLink="/donation">Donate</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Header-top -->
-    <!-- Navigation -->
-    <nav id="navigation_bar" class="navbar navbar-default sj-navbar">
-        <div class="container">
-            <div class="navbar-header">
                 <div class="logo">
-                    <a routerLink="/"><img src="assets/images/sajada.png" alt="img" /></a>
-                </div> <!-- /Logo -->
-                <div id="menu_slide" [ngClass]="navmethod ? 'mobile-open' : ''">
-                    <div id="nav-toggle-label">
-                        <div id="hamburger" (click)="toggleNav()">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <div id="cross" (click)="toggleNav()">
-                            <span></span>
-                            <span></span>
-                        </div>
+                    <a routerLink="/"><img alt="img" src="assets/images/sajada.png"/></a>
+                </div>
+                <div class="address">
+                    <div class="follow_us">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-            <div class="collapse navbar-collapse" id="navigation">
-                <ul class="nav navbar-nav">
-                    <li [ngClass]="item.child === true ? 'dropdown' : ''"
-                    *ngFor="let item of navigation">
-                    <a href="javascript:void(0)" *ngIf="item.child">{{item.linkText}}<span class="nav_arrow"></span></a>
-                    <a routerLink="{{item.link}}" *ngIf="!item.child">{{item.linkText}}</a>
-                    <ul class="sub-menu" *ngIf="item.child">
-                        <li [ngClass]="item.child === true ? 'dropdown' : ''"
-                            *ngFor="let item of item.submenu">
-                            <a href="javascript:void(0)" *ngIf="item.child">{{item.linkText}}<span class="nav_arrow"></span></a>
-                            <a routerLink="{{item.link}}" *ngIf="!item.child">{{item.linkText}}</a>
-                            <ul class="sub-menu" *ngIf="item.child">
-                                <li *ngFor="let item of item.submenu">
-                                    <a routerLink="{{item.link}}">{{item.linkText}}</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                    <li class="dropdown ss-cart-dropdown ss-dropdown-right">
-                        <a class="sa_count" routerLink="/cart"><i class="fa fa-shopping-cart"></i><span>{{cartlength}}</span></a>
-                        <ul class="sub-menu ss-cart-inner">
-                            <app-small-cart></app-small-cart>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
         </div>
     </nav>
-    <!-- Navigation end -->
-    <!-- Mobile Navigation -->
-    <div class="mobile-menu" [ngClass]="navmethod ? 'mobile-open' : ''">
-        <app-mobile-menu></app-mobile-menu>
-    </div>
-    <!-- END/Mobile Navigation -->
 </header>
