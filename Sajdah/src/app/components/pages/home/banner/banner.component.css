@@ -1,4 +1,9 @@
 div {
     margin-bottom: -63px;
-    
+  }
+  div h1 {
+    font-size: 35px;
+  }
+  div p {
+    font-size: 20px;
   }
