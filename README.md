@@ -29,7 +29,7 @@ npm install -g @angular/cli
 Install dependencies:
 
 ```sh
-npm install
+npm install --force
 ```
 
 Serve the website:
