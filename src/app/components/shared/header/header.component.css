@@ -2,7 +2,6 @@
     display: inline-block;
 }
 
-
-.container {
-    max-width: 100%;
+.logo img {
+    height: 100px;
 }
