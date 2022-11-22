@@ -1,8 +1,8 @@
 <section class="section-padding">
     <div class="container">
         <!-- Data -->
-        <div class="mawlads_wrap" *ngFor="let item of mawladpost | paginate: { itemsPerPage: 4, currentPage: page }">
-            <div class="mawlad_date" [innerHtml]="getDateInitial(item.date)"></div> 
+        <div class="mawlads_wrap" *ngFor="let item of mawladHelperService.mawladpost | paginate: { itemsPerPage: 4, currentPage: mawladHelperService.page }">
+            <div class="mawlad_date" [innerHtml]="mawladHelperService.getDateInitial(item.date)"></div>
             <div class="mawlad_img">
                 <a routerLink="/mawlad-details/{{item.id}}"><img [src]="item.image" [alt]="item.title"></a>
             </div>
@@ -25,7 +25,7 @@
                     <p>Page 1 of 2</p>
                 </div>
                 <div class="col-sm-6">
-                    <pagination-controls (pageChange)="page = $event" responsive="true" previousLabel="<" nextLabel=">">
+                    <pagination-controls (pageChange)="mawladHelperService.page = $event" [responsive]="true" previousLabel="<" nextLabel=">">
                     </pagination-controls>
                 </div>
             </div>

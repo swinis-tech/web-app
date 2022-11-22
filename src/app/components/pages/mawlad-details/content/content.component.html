@@ -1,11 +1,11 @@
-<section class="post_detail section-padding" *ngFor="let item of mawladdetails">
+<section class="post_detail section-padding" *ngFor="let item of mawladHelperService.mawladdetails">
     <div class="container">
         <div class="row">
             <div class="col-md-8">
                 <div class="post_img">
                     <img [src]="item.image" [alt]="item.title" class="w-100">
                     <div class="mawlad_timer">
-                        <div class="date" [innerHtml]="getDateInitial(item.date)"></div>
+                        <div class="date" [innerHtml]="mawladHelperService.getDateInitial(item.date)"></div>
                         <div class="timer">
                             <countdown [text]="text" class="countdown-box" units="Days | Hours | Minutes | Seconds"
                                     end="December 31, 2021"></countdown>
@@ -28,7 +28,7 @@
                 <div class="tags_share">
                     <div class="psot_share border-0">
                         <span><strong>Share:</strong></span>
-                        <a href="javascript:void(0)" (click)="openSocialPopup(social)" *ngFor="let social of socialShare(item.title)">
+                        <a href="javascript:void(0)" (click)="mawladHelperService.openSocialPopup(social)" *ngFor="let social of mawladHelperService.socialShare(item.title)">
                             <i [class]="social.iconClass"></i></a>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                         <ul class="commentlist">
                             <!-- Data -->
                             <li class="comment" *ngFor="let review of item.reviews">
-                                <div class="comment the-comment" *ngFor="let user of getAuthor(review.user)">
+                                <div class="comment the-comment" *ngFor="let user of mawladHelperService.getAuthor(review.user)">
                                     <div class="comment-avatar">
                                         <img [alt]="user.name" [src]="user.image" class="avatar">
                                     </div>
@@ -58,7 +58,7 @@
                                 <ol>
                                     <!-- Data -->
                                     <li class="comment" *ngFor="let review of review.replies">
-                                        <div class="comment the-comment" *ngFor="let user of getAuthor(review.user)">
+                                        <div class="comment the-comment" *ngFor="let user of mawladHelperService.getAuthor(review.user)">
                                             <div class="comment-avatar">
                                                 <img [alt]="user.name" [src]="user.image" class="avatar">
                                             </div>

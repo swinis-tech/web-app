@@ -6,6 +6,8 @@ import { BlogHelperService } from 'src/app/components/helper/blog-helper.service
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.css']
 })
-export class ContentComponent extends BlogHelperService {
+export class ContentComponent {
+  constructor(public blogHelperService: BlogHelperService) {
+  }
 
 }

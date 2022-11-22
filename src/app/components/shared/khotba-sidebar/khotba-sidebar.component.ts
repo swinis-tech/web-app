@@ -6,6 +6,8 @@ import { KhotbaHelperService } from '../../helper/khotba-helper.service';
   templateUrl: './khotba-sidebar.component.html',
   styleUrls: ['./khotba-sidebar.component.css']
 })
-export class KhotbaSidebarComponent extends KhotbaHelperService {
+export class KhotbaSidebarComponent {
+  constructor(public khotbaHelperService: KhotbaHelperService) {
+  }
 
 }

@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <!-- Data -->
-            <div class="col-md-6" *ngFor="let item of blogpost | paginate: { itemsPerPage: 4, currentPage: page }">
+            <div class="col-md-6" *ngFor="let item of blogHelperService.blogpost | paginate: { itemsPerPage: 4, currentPage: blogHelperService.page }">
                 <div class="blog_wrap margin-btm-60">
                     <div class="blog_img">
                         <a routerLink="/blog-details/{{item.id}}"><img [src]="item.image" [alt]="item.title"></a>
@@ -25,7 +25,7 @@
                     <p>Page 1 of 2</p>
                 </div>
                 <div class="col-sm-6">
-                    <pagination-controls (pageChange)="page = $event" responsive="true" previousLabel="<" nextLabel=">">
+                    <pagination-controls (pageChange)="blogHelperService.page = $event" [responsive]="true" previousLabel="<" nextLabel=">">
                     </pagination-controls>
                 </div>
             </div>

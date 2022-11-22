@@ -1,5 +1,5 @@
 import { Observable, Subject } from 'rxjs';
-import { Product } from '../../models/product';
+import {Product} from '../../data/shop/shop';
 
 export class ProductServiceHelper {
     // Cart
@@ -55,7 +55,7 @@ export class ProductServiceHelper {
             items;
         if (storage != null && storage != '') {
             items = JSON.parse(storage);
-            
+
             items.splice( items.indexOf( id.toString() ), 1 );
 
             localStorage.setItem('sajdah_cart', JSON.stringify(items));
@@ -140,7 +140,7 @@ export class ProductServiceHelper {
             items;
         if (storage != null && storage != '') {
             items = JSON.parse(storage);
-            
+
             items.splice( items.indexOf( id.toString() ), 1 );
 
             localStorage.setItem('sajdah_wishlist', JSON.stringify(items));
@@ -172,7 +172,7 @@ export class ProductServiceHelper {
     protected getWishlistProductsFromStorage() {
         return localStorage.getItem('sajdah_wishlist') != null ? localStorage.getItem('sajdah_wishlist') : '';
     }
-    
+
     protected getWishlistProductsLengthFromStorage() {
         let storage = this.getWishlistProductsFromStorage();
         return (storage != null && storage != '') ? JSON.parse(storage).length : 0;

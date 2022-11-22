@@ -1,4 +1,4 @@
-<section class=" section-padding sj-product-details-section pb-0" *ngFor="let item of shopdetails">
+<section class=" section-padding sj-product-details-section pb-0" *ngFor="let item of shopService.shopDetails">
     <div class="container sa-bg-color">
         <div class="row">
             <div class="col-lg-5 col-md-12 ss-synced-slider-2">
@@ -34,26 +34,26 @@
                             </div>
                             <h4>${{item.price | number:'1.2-2'}}</h4>
                             <div class="quantity">
-                                <button class="minus-btn" type="button" name="button" (click)="decrement()"><i class="fa fa-minus" aria-hidden="true"></i></button>
-                                <input type="text" name="name" value="{{counter}}">
-                                <button class="plus-btn" type="button" name="button" (click)="increment()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                <button class="minus-btn" type="button" name="button" (click)="shopService.decrement()"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                <input type="text" name="name" value="{{shopService.counter}}">
+                                <button class="plus-btn" type="button" name="button" (click)="shopService.increment()"><i class="fa fa-plus" aria-hidden="true"></i></button>
                             </div>
                         </div>
                         <div class="ss-product-btn mb-4">
-                            <a href="javascript:void(0)" class="btn dark-btn" (click)="handleAddToCart(item)" *ngIf="item.stock">Add To Cart</a>
-                            <a href="javascript:void(0)" class="btn dark-btn" *ngIf="!item.stock" (click)="handleOutofStock()">Add To Cart</a>
+                            <a href="javascript:void(0)" class="btn dark-btn" (click)="shopService.handleAddToCart(item)" *ngIf="item.stock">Add To Cart</a>
+                            <a href="javascript:void(0)" class="btn dark-btn" *ngIf="!item.stock" (click)="shopService.handleOutofStock()">Add To Cart</a>
                         </div>
                         <h5>Short Description</h5>
-                        <p>{{item.shorttext}}</p>
+                        <p>{{item.shortDesc}}</p>
                         <div class="sj-shop-product-bottom-meta">
                             <div class="sj-shop-tags-meta">
                                 <span><strong>Tags:</strong>
-                                    <a routerLink="/shop/tag/{{tag.id}}" *ngFor="let tag of getTags(item.tags) | slice:0:3"> {{tag.title}} , </a>
+                                    <a routerLink="/shop/tag/{{tag.id}}" *ngFor="let tag of shopService.getTags(item.tags) | slice:0:3"> {{tag.title}} , </a>
                                 </span>
                             </div>
                             <div class="sj-shop-catg-meta">
                                 <span><strong>Category:</strong>
-                                    <a routerLink="/shop/cat/{{cat.id}}" *ngFor="let cat of getCategories(item.category) | slice:0:3"> {{cat.title}} , </a>
+                                    <a routerLink="/shop/cat/{{cat.id}}" *ngFor="let cat of shopService.getCategories(item.category) | slice:0:3"> {{cat.title}} , </a>
                                 </span>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
         </div>
     </div>
 </section>
-<section class="section-padding sj-product-details-section pb-0" *ngFor="let item of shopdetails">
+<section class="section-padding sj-product-details-section pb-0" *ngFor="let item of shopService.shopDetails">
     <div class="container sj-mrt30 sa-bg-color">
         <div class="row">
             <div class="col-lg-12 no-padding">
@@ -73,7 +73,7 @@
                             <a ngbNavLink>Description</a>
                             <ng-template ngbNavContent>
                                 <h2>Product Details</h2>
-                                <div [innerHtml]="item.htmltext"></div>
+                                <div [innerHtml]="item.htmlText"></div>
                             </ng-template>
                         </li>
                         <li [ngbNavItem]="2">
@@ -85,13 +85,13 @@
                                         <ul class="commentlist bd">
                                             <!-- Data -->
                                             <li class="comment" *ngFor="let review of item.reviews">
-                                                <div class="comment the-comment" *ngFor="let user of getAuthor(review.user)">
+                                                <div class="comment the-comment" *ngFor="let user of shopService.getAuthor(review.user)">
                                                     <div class="comment-avatar">
                                                         <img [alt]="user.name" [src]="user.image" class="avatar">
                                                     </div>
                                                     <div class="comment-content">
                                                         <div class="comment-meta">
-                                                            <span class="comment-author"> <a href="#" class="url">{{user.name}}</a></span> <span class="comment-time">/ {{review.commentdate}}</span>
+                                                            <span class="comment-author"> <a href="#" class="url">{{user.name}}</a></span> <span class="comment-time">/ {{review.commentDate}}</span>
                                                         </div>
                                                         <div class="sj-review-ratings">
                                                             <ngb-rating [max]="5" [(rate)]="review.rating" [readonly]="true">

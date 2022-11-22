@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { CountUpModule } from 'ngx-countup';
-import { NgMasonryGridModule  } from 'ng-masonry-grid';
-import { CountdownModule } from "ng2-countdown-timer";
+// import { NgMasonryGridModule  } from 'ng-masonry-grid';
+import { CountdownModule } from 'ng2-countdown-timer';
 
 import { HomeTwoRoutingModule } from './home-two-routing.module';
 import { HomeTwoComponent } from './home-two.component';
@@ -40,7 +40,7 @@ import { BlogsComponent } from './blogs/blogs.component';
     SlickCarouselModule,
     NgbModule,
     CountUpModule,
-    NgMasonryGridModule,
+    // NgMasonryGridModule,
     CountdownModule
   ]
 })

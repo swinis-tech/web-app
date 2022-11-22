@@ -5,11 +5,11 @@
                 <h6>Recent Khotba</h6>
             </div>
             <!-- Data -->
-            <div class="khotba_list" *ngFor="let item of getRecentPost()">
+            <div class="khotba_list" *ngFor="let item of khotbaHelperService.getRecentPost()">
                 <h6><a routerLink="/khotba-details/{{item.id}}">{{item.title}}</a></h6>
                 <ul class="khotba_meta">
                     <li><i class="fa fa-user"></i> Message from <a routerLink="/khotba/author/{{author.id}}"
-                        *ngFor="let author of getAuthor(item.author)">{{author.name}}</a></li>
+                        *ngFor="let author of khotbaHelperService.getAuthor(item.author)">{{author.name}}</a></li>
                     <li><i class="fa fa-calendar-check-o"></i> {{item.postdate}}</li>
                 </ul>
             </div>

@@ -4,7 +4,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { CountUpModule } from 'ngx-countup';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { NgMasonryGridModule  } from 'ng-masonry-grid';
+// import { NgMasonryGridModule  } from 'ng-masonry-grid';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
@@ -39,7 +39,7 @@ import { BlogsComponent } from './blogs/blogs.component';
     NgbModule,
     CountUpModule,
     CarouselModule,
-    NgMasonryGridModule
+    // NgMasonryGridModule
   ]
 })
 export class HomeModule { }
