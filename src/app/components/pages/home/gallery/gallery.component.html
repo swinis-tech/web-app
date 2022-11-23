@@ -17,6 +17,14 @@
 <!--                        </ng-masonry-grid-item>-->
 <!--                        &lt;!&ndash; Data &ndash;&gt;-->
 <!--                    </ng-masonry-grid>-->
+
+                  <ngx-masonry class="gallery-masonry gallery-lg">
+                    <div ngxMasonryItem class="gallery-item" [ngClass]="i+1 === 3 ? 'ht-2':'ht-1'" *ngFor="let item of gallery;let i = index">
+                      <div class="thumb">
+                          <img [src]="item.image" alt="img">
+                      </div>
+                    </div>
+                  </ngx-masonry>
                 </div>
             </div>
         </div>
