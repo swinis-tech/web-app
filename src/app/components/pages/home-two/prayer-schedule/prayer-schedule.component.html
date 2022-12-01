@@ -16,9 +16,9 @@
                                 </thead>
                                 <tbody class="table-body">
                                     <!-- Data -->
-                                    <tr [ngClass]="item.active === true ? 'current':''" *ngFor="let item of prayers">
-                                        <th scope="row">{{item.prayername}}</th>
-                                        <td>{{item.day}}</td>
+                                    <tr [ngClass]="item.prayer === getNextPrayer() ? 'current':''" *ngFor="let item of prayerTimes">
+                                        <th scope="row">{{ item.prayer | titlecase }}</th>
+                                        <td>{{ getDayOfWeek() }}</td>
                                         <td>{{item.time}}</td>
                                     </tr>
                                     <!-- Data -->
