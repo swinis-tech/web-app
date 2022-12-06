@@ -2,6 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import data from '../../../data/prayers.json';
 import {PrayerTimesService} from '../../../../prayer-times/prayer-times.service';
 
+interface Offset {
+  asr: number,
+  maghrib: number,
+  isha: number
+}
+
 @Component({
   selector: 'app-prayer-schedule',
   templateUrl: './prayer-schedule.component.html',
@@ -14,11 +20,39 @@ export class PrayerScheduleComponent implements OnInit {
     prayer: k, time: v
   })).filter(v => this.prayerNames.includes(v.prayer.toLowerCase()));
 
+  public offset: Offset = {
+    asr: 10,
+    maghrib: 7,
+    isha: 15
+  }
+
+
+  public iqamahTimes = this.prayerTimes.map(prayer => {
+    if (prayer.prayer in this.offset) {
+      // @ts-ignore
+      return {
+        ...prayer,
+        iqamah: this.floatToTime(this.timeToFloat(prayer.time)  + this.offset[prayer.prayer as keyof Offset] / 60)
+      }
+    } else if (prayer.prayer === "dhuhr") {
+      return {
+        ...prayer,
+        iqamah: "13:45"
+      }
+    } else {
+      return {
+        ...prayer,
+        iqamah: prayer.time.toString()
+      }
+    }
+  })
+
   constructor(public prayerTimesService: PrayerTimesService) {
   }
 
   ngOnInit(): void {
     console.log(this.prayerTimes);
+    console.log(this.iqamahTimes);
   }
 
   getDayOfWeek() {
@@ -49,6 +83,14 @@ export class PrayerScheduleComponent implements OnInit {
     let hours = timeArray[0];
     let minutes = timeArray[1];
     return hours + minutes / 60;
+  }
+
+  floatToTime(time: number) {
+    console.log(time)
+    let hour = Math.floor(time)
+    console.log(hour)
+    let min = time % 1
+    return hour + ":" + Math.round(min * 60)
   }
 
 }
