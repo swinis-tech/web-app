@@ -26,3 +26,11 @@
 .table thead th {
   text-transform: none;
 }
+
+h2 {
+  margin-bottom: 0
+}
+
+h3, h4 {
+  color: white;
+}

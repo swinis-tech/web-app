@@ -16,7 +16,9 @@ interface Offset {
 export class PrayerScheduleComponent implements OnInit {
   private readonly daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   private readonly prayerNames = ['fajr', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha'];
-  public prayerTimes = Object.entries(this.prayerTimesService.getTimes(new Date(), [-37.8226, 145.0354])).map(([k, v]) => ({
+
+  public today: Date = new Date()
+  public prayerTimes = Object.entries(this.prayerTimesService.getTimes(this.today, [-37.8226, 145.0354])).map(([k, v]) => ({
     prayer: k, time: v
   })).filter(v => this.prayerNames.includes(v.prayer.toLowerCase()));
 

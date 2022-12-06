@@ -5,23 +5,26 @@
                 <div class="sj_custom sj_bg_wrap sj_bg_overlay">
                     <div class="sj-prayer-timeing">
                         <div class="section-header table-header">
-                            <h2 class="text-center text-white">Prayer Schedule</h2>
+                            <h2 class="text-center text-white">Swinburne Musalla</h2>
+                            <h3>Prayer Schedule</h3>
+                            <h4>{{ today.toDateString() }}</h4>
                             <table class="table sj-schedules-table">
                                 <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">Prayers</th>
-                                        <th scope="col">Adhan</th>
-                                        <th scope="col">Iqamah</th>
-                                    </tr>
+                                <tr>
+                                    <th scope="col">Prayers</th>
+                                    <th scope="col">Adhan</th>
+                                    <th scope="col">Iqamah</th>
+                                </tr>
                                 </thead>
                                 <tbody class="table-body">
-                                    <!-- Data -->
-                                    <tr [ngClass]="item.prayer === getNextPrayer() ? 'current':''" *ngFor="let item of iqamahTimes">
-                                        <th scope="row">{{ item.prayer | titlecase }}</th>
-                                        <td>{{item.time}}</td>
-                                        <td>{{ item.iqamah }}</td>
-                                    </tr>
-                                    <!-- Data -->
+                                <!-- Data -->
+                                <tr *ngFor="let item of iqamahTimes"
+                                    [ngClass]="item.prayer === getNextPrayer() ? 'current':''">
+                                    <th scope="row">{{ item.prayer | titlecase }}</th>
+                                    <td>{{item.time}}</td>
+                                    <td>{{ item.iqamah }}</td>
+                                </tr>
+                                <!-- Data -->
                                 </tbody>
                             </table>
                         </div>
