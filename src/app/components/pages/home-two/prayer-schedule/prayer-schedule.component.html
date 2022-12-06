@@ -10,16 +10,16 @@
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">Prayers</th>
-                                        <th scope="col">Schedule Day</th>
-                                        <th scope="col">Time</th>
+                                        <th scope="col">Athan</th>
+                                        <th scope="col">Iqamah</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-body">
                                     <!-- Data -->
-                                    <tr [ngClass]="item.prayer === getNextPrayer() ? 'current':''" *ngFor="let item of prayerTimes">
+                                    <tr [ngClass]="item.prayer === getNextPrayer() ? 'current':''" *ngFor="let item of iqamahTimes">
                                         <th scope="row">{{ item.prayer | titlecase }}</th>
-                                        <td>{{ getDayOfWeek() }}</td>
                                         <td>{{item.time}}</td>
+                                        <td>{{ item.iqamah }}</td>
                                     </tr>
                                     <!-- Data -->
                                 </tbody>
