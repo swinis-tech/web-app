@@ -1,0 +1,28 @@
+.sj-prayer {
+  background: none;
+}
+
+.row {
+  min-height: 100vh;
+  justify-content: center;
+  min-width: 100%;
+}
+
+.row > div {
+  min-width: 100%;
+}
+
+.sj_custom {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sj_custom > div {
+  flex-grow: 1;
+}
+
+.table thead th {
+  text-transform: none;
+}
