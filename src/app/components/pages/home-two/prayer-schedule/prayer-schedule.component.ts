@@ -39,7 +39,18 @@ export class PrayerScheduleComponent implements OnInit {
         ...prayer,
         iqamah: "13:45"
       }
-    } else {
+    } else if (prayer.prayer === "sunrise") {
+      return {
+        ...prayer,
+        iqamah: "--:--"
+      }
+    } else if (prayer.prayer === "fajr") {
+      return {
+        ...prayer,
+        iqamah: "05:20"
+      }
+    }
+    else {
       return {
         ...prayer,
         iqamah: prayer.time.toString()
