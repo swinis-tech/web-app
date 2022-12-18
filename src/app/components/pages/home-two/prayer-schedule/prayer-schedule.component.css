@@ -1,7 +1,3 @@
-.sj-prayer {
-  background: none;
-}
-
 .row {
   min-height: 100vh;
   justify-content: center;
@@ -33,4 +29,11 @@ h2 {
 
 h3, h4 {
   color: white;
+}
+
+#component-root {
+    overflow: clip;
+    max-height: 100vh;
+    max-width: 100%;
+    background: none;
 }
