@@ -17,7 +17,7 @@ import { Location, LocationStrategy, PathLocationStrategy } from '@angular/commo
 export class AppComponent implements OnInit {
   constructor(private titleService: Title, private breadcrumbService: BreadcrumbService) {
   }
-  
+
   ngOnInit(): void {
     this.breadcrumbService.breadcrumbChanged.subscribe(crumbs => {
       this.titleService.setTitle(this.createTitle(crumbs));
@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
     window.scroll(0,0);
   }
   private createTitle(routesCollection: Breadcrumb[]) {
-    const title = 'Sajdah - Mosque & Shop - Angular Template';
+    const title = 'SWINIS | Swinburne Islamic Society';
     const titles = routesCollection.filter((route) => route.displayName);
 
     if (!titles.length) { return title; }
