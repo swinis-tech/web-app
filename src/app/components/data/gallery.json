@@ -1,11 +1,13 @@
 [
     {
         "id":1,
-        "image":"assets/images/Home/Gallery/Gallery-02.png"
+        "image":"assets/images/Home/Gallery/swinis1.jpg",
+        "title": "SWINIS AGM"
     },
     {
         "id":1,
-        "image":"assets/images/Home/Gallery/Gallery-01.png"
+        "image":"assets/images/Home/Gallery/swinis2.jpg",
+        "title": "Hello World"
     },
     {
         "id":1,

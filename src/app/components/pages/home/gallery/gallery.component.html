@@ -10,8 +10,9 @@
                 <div class="gallery-wrapper gallery-has-zoom">
                   <ngx-masonry class="gallery-masonry gallery-lg" [ordered]="true">
                     <div ngxMasonryItem class="gallery-item" [ngClass]="i+1 === 3 ? 'ht-2':'ht-1'" *ngFor="let item of gallery;let i = index">
-                      <div class="thumb">
+                      <div class="thumb image-container">
                           <img [src]="item.image" alt="img">
+                          <div class="overlay">{{ item.title }}</div>
                       </div>
                     </div>
                   </ngx-masonry>
