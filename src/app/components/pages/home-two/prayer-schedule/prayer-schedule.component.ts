@@ -25,7 +25,7 @@ export class PrayerScheduleComponent implements OnInit {
   public offset: Offset = {
     asr: 10,
     maghrib: 7,
-    isha: 15
+    isha: 5
   }
 
 
