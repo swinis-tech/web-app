@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
     window.scroll(0,0);
   }
   private createTitle(routesCollection: Breadcrumb[]) {
-    const title = 'SWINIS | Swinburne Islamic Society';
+    const title = 'Prayer Times - Swinburne Islamic Society';
     const titles = routesCollection.filter((route) => route.displayName);
 
     if (!titles.length) { return title; }
