@@ -18,10 +18,10 @@
                                 </thead>
                                 <tbody class="table-body">
                                 <!-- Data -->
-                                <tr *ngFor="let item of iqamahTimes"
-                                    [ngClass]="item.prayer === getNextPrayer() ? 'current':''">
-                                    <th scope="row">{{ item.prayer | titlecase }}</th>
-                                    <td>{{item.time}}</td>
+                                <tr *ngFor="let item of outputTimes"
+                                    [ngClass]="item.name === getNextPrayer() ? 'current':''">
+                                    <th scope="row">{{ item.name| titlecase }}</th>
+                                    <td>{{item.athan}}</td>
                                     <td>{{ item.iqamah }}</td>
                                 </tr>
                                 <!-- Data -->
