@@ -1,11 +1,26 @@
 import {Component, OnInit} from '@angular/core';
-import data from '../../../data/prayers.json';
-import {PrayerTimesService} from '../../../../prayer-times/prayer-times.service';
+import {
+  PrayerTimesService
+} from '../../../../prayer-times/prayer-times.service';
 
-interface Offset {
-  asr: number,
-  maghrib: number,
-  isha: number
+
+type OutputPrayerTimesNames = 'fajr' | 'sunrise' | 'dhuhr' | 'asr' | 'maghrib' | 'isha'
+
+type OutputPrayer = {
+  name: OutputPrayerTimesNames,
+  athan: string,
+  iqamah: string
+}
+
+type OutputPrayerTimes = OutputPrayer[]
+
+type HardcodedIqamahTimes = {
+    [name in OutputPrayerTimesNames]?: string;
+}
+
+/** Number of minutes from athan to iqamah */
+type IqamahOffset = {
+    [name in OutputPrayerTimesNames]?: number
 }
 
 @Component({
@@ -14,96 +29,98 @@ interface Offset {
   styleUrls: ['./prayer-schedule.component.css'],
 })
 export class PrayerScheduleComponent implements OnInit {
-  private readonly daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  private readonly prayerNames = ['fajr', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha'];
+  private outputPrayerNames: Set<OutputPrayerTimesNames> = new Set(['fajr', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha'])
 
+  private readonly prayTimes
+  public outputTimes: OutputPrayerTimes
   public today: Date = new Date()
-  public prayerTimes = Object.entries(this.prayerTimesService.getTimes(this.today, [-37.8226, 145.0354])).map(([k, v]) => ({
-    prayer: k, time: v
-  })).filter(v => this.prayerNames.includes(v.prayer.toLowerCase()));
 
-  public offset: Offset = {
+  private offset: IqamahOffset = {
     asr: 10,
     maghrib: 7,
     isha: 5
   }
 
-
-  public iqamahTimes = this.prayerTimes.map(prayer => {
-    if (prayer.prayer in this.offset) {
-      // @ts-ignore
-      return {
-        ...prayer,
-        iqamah: this.floatToTime(this.timeToFloat(prayer.time)  + this.offset[prayer.prayer as keyof Offset] / 60)
-      }
-    } else if (prayer.prayer === "dhuhr") {
-      return {
-        ...prayer,
-        iqamah: "13:45"
-      }
-    } else if (prayer.prayer === "sunrise") {
-      return {
-        ...prayer,
-        iqamah: "--:--"
-      }
-    } else if (prayer.prayer === "fajr") {
-      return {
-        ...prayer,
-        iqamah: "05:20"
-      }
-    }
-    else {
-      return {
-        ...prayer,
-        iqamah: prayer.time.toString()
-      }
-    }
-  })
-
-  constructor(public prayerTimesService: PrayerTimesService) {
+  private hardcodedTimes: HardcodedIqamahTimes = {
+    dhuhr: '01:45 pm',
+    fajr: '05:20 am',
+    sunrise: '--:--'
   }
+
+  private AM_SUFFIX = 'am' as const
+  private PM_SUFFIX = 'pm' as const
+
+
+  constructor(prayerTimesService: PrayerTimesService) {
+    this.prayTimes = prayerTimesService.getTimes(this.today, [-37.8226, 145.0354], 'auto', 'auto', 'Float')
+    this.outputTimes = this.getIqamahTimes()
+  }
+
+  private getIqamahTimes(): OutputPrayerTimes {
+    const output = Object.entries(this.prayTimes)
+      .filter(([k, v]) => this.outputPrayerNames.has(k as any))
+      .map(([k, v]) => ({
+            name: k as OutputPrayerTimesNames,
+            athan: this.to12HourFormat(v),
+            iqamah: this.getIqamahTime(k as OutputPrayerTimesNames)
+        }))
+
+    return output
+  }
+
+  private getIqamahTime(timeName: OutputPrayerTimesNames): string {
+    if (timeName in this.hardcodedTimes) return this.hardcodedTimes[timeName]!
+
+    let time = this.prayTimes[timeName]
+    if (timeName in this.offset) {
+      time += this.offset[timeName]! / 60
+    }
+    return this.to12HourFormat(time)
+  }
+
+  private to12HourFormat(time: number): string {
+    let suffix = (time < 12) ? this.AM_SUFFIX : this.PM_SUFFIX
+    let minutes = Math.round((time % 1) * 60)
+    let hours = Math.floor(time % 12)
+    return this.leftFill2Digits(hours) + ':' + this.leftFill2Digits(minutes) + ' ' + suffix
+  }
+
+  private leftFill2Digits(num: number) {
+    return num.toString().padStart(2, '0');
+  }
+
+
+
 
   ngOnInit(): void {
-    console.log(this.prayerTimes);
-    console.log(this.iqamahTimes);
+    console.log(this.prayTimes);
+    console.log(this.outputTimes);
   }
 
-  getDayOfWeek() {
-    return this.daysOfWeek[(new Date()).getDay()];
-  }
 
   getNextPrayer() {
-    let currentDate = new Date();
+    let currentDate = this.today
     let currentTime = currentDate.getHours() + currentDate.getMinutes() / 60;
     let prevTime = 24;
     let nextPrayer = 'fajr';
-    for (const prayer of this.prayerTimes) {
-      let prayerTime = prayer.time;
+    for (const prayer of this.outputTimes) {
+      let prayerTime = prayer.athan
       let time = this.timeToFloat(prayerTime);
       if (time >= currentTime && time < prevTime) {
         prevTime = time;
-        nextPrayer = prayer.prayer;
+        nextPrayer = prayer.name;
       }
     }
     return nextPrayer;
   }
 
   /**
-   * @param time string in "hh:mm: format, e.g. "09:34"
+   * @param time string in "hh:mm am/pm format, e.g. "09:34 pm"
    */
   timeToFloat(time: string) {
-    let timeArray = time.split(':').map(x => +x);
-    let hours = timeArray[0];
-    let minutes = timeArray[1];
+    let [timeArray, suffix] = time.split(' ')
+    let [hours, minutes] = timeArray.split(':').map(x => +x)
+    hours += suffix === this.PM_SUFFIX ? 12 : 0
     return hours + minutes / 60;
   }
-
-  floatToTime(time: number) {
-    console.log(time)
-    let hour = Math.floor(time)
-    console.log(hour)
-    let min = time % 1
-    return hour + ":" + Math.round(min * 60)
-  }
-
 }
