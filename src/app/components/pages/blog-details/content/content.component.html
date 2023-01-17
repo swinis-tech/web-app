@@ -1,4 +1,4 @@
-<section class="post_detail section-padding"*ngFor="let item of blogdetails">
+<section class="post_detail section-padding" *ngFor="let item of blogHelperService.blogdetails">
     <div class="container">
         <div class="row">
             <div class="col-md-8">
@@ -8,7 +8,7 @@
                 <h2>{{item.title}}</h2>
                 <div class="post_meta">
                     <ul>
-                        <li><i class="fa fa-user"></i> Post by: <a routerLink="/blog/author/{{author.id}}" class="meta_admin" *ngFor="let author of getAuthor(item.author)">{{author.name}}</a></li>
+                        <li><i class="fa fa-user"></i> Post by: <a routerLink="/blog/author/{{author.id}}" class="meta_admin" *ngFor="let author of blogHelperService.getAuthor(item.author)">{{author.name}}</a></li>
                         <li><i class="fa fa-calendar-check-o"></i>{{item.postdate}}</li>
                     </ul>
                 </div>
@@ -19,7 +19,7 @@
                         <div class="col-md-6">
                             <div class="psot_share">
                                 <span><strong>Share:</strong></span>
-                                <a href="javascript:void(0)" (click)="openSocialPopup(social)" *ngFor="let social of socialShare(item.title)">
+                                <a href="javascript:void(0)" (click)="blogHelperService.openSocialPopup(social)" *ngFor="let social of blogHelperService.socialShare(item.title)">
                                     <i [class]="social.iconClass"></i>
                                 </a>
                             </div>
@@ -27,7 +27,7 @@
                         <div class="col-md-6">
                             <div class="psot_tags">
                                 <span><strong>Tags:</strong></span>
-                                <a routerLink="/blog/tag/{{tag.id}}" *ngFor="let tag of getTags(item.tags) | slice:0:3"> {{tag.title}}, </a>
+                                <a routerLink="/blog/tag/{{tag.id}}" *ngFor="let tag of blogHelperService.getTags(item.tags) | slice:0:3"> {{tag.title}}, </a>
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                         <ul class="commentlist">
                             <!-- Data -->
                             <li class="comment" *ngFor="let review of item.reviews">
-                                <div class="comment the-comment" *ngFor="let user of getAuthor(review.user)">
+                                <div class="comment the-comment" *ngFor="let user of blogHelperService.getAuthor(review.user)">
                                     <div class="comment-avatar">
                                         <img [alt]="user.name" [src]="user.image" class="avatar">
                                     </div>
@@ -58,7 +58,7 @@
                                 <ol>
                                     <!-- Data -->
                                     <li class="comment" *ngFor="let review of review.replies">
-                                        <div class="comment the-comment" *ngFor="let user of getAuthor(review.user)">
+                                        <div class="comment the-comment" *ngFor="let user of blogHelperService.getAuthor(review.user)">
                                             <div class="comment-avatar">
                                                 <img [alt]="user.name" [src]="user.image" class="avatar">
                                             </div>

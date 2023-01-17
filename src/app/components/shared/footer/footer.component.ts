@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import data from "../../data/instagram.json";
+import data from '../../data/instagram';
 
 @Component({
   selector: 'app-footer',
@@ -9,16 +9,17 @@ import data from "../../data/instagram.json";
 export class FooterComponent implements OnInit {
   public instagram = data;
   constructor() { }
-  scrollToTop() {
-    (function smoothscroll() {
-      var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+  scrollToTop(): void {
+    function smoothScroll(): void {
+      const currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
       if (currentScroll > 0) {
-        window.requestAnimationFrame(smoothscroll);
+        window.requestAnimationFrame(smoothScroll);
         window.scrollTo(0, currentScroll - (currentScroll / 8));
       }
-    })();
+    }
+
+    smoothScroll();
   }
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 }

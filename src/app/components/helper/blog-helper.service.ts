@@ -1,9 +1,9 @@
-import { Injectable, AfterContentInit, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import authors from '../data/author.json';
-import blog from '../data/blog/blog.json';
-import blogcategory from '../data/category.json';
-import blogtags from '../data/tags.json';
+import {AfterContentInit, Injectable, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import authors, {Author} from '../data/author';
+import blog, {Blog} from '../data/blog/blog';
+import blogcategory, {Category} from '../data/category';
+import blogtags, {Tag} from '../data/tags';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +15,10 @@ export class BlogHelperService implements AfterContentInit, OnInit {
   public blogpost = blog;
   public blogdetails = blog;
   public category = blogcategory;
-  public blogcategory = blogcategory;
+  public blogcategory: Category[] | string = blogcategory;
   public tags = blogtags;
-  public blogtags = blogtags;
-  public author = authors;
+  public blogtags: Tag[] | string = blogtags;
+  public author: Author[] | string = authors;
   public searchText: string;
   public searchQuery: string;
   constructor(private router: Router, private route: ActivatedRoute) {
@@ -26,38 +26,38 @@ export class BlogHelperService implements AfterContentInit, OnInit {
     this.searchQuery = '';
   }
   // category
-  public getCategories(items: string | any[]) {
-    var elems = blogcategory.filter((item: { id: string; }) => {
-      return items.includes(item.id)
+  public getCategories(items: string | number[]) {
+    return blogcategory.filter((item) => {
+      return (items as number[]).includes(item.id);
     });
-    return elems;
   }
   // Tags
   public getTags(items: string | any[]) {
-    var elems = blogtags.filter((item: { id: string; }) => {
-      return items.includes(item.id)
+    return blogtags.filter((item) => {
+      return (items as any[]).includes(item.id);
     });
-    return elems;
   }
   // Author
   public getAuthor(items: string | any[]) {
-    var elems = authors.filter((item: { id: string; }) => {
-      return items.includes(item.id)
+    return authors.filter((item) => {
+      return (items as any[]).includes(item.id);
     });
-    return elems;
   }
   // Count Category
   public setCategoriesCount() {
-    for (var i = 0; i < this.blogcategory.length; i++) {
-      var count = this.blogpost.filter((post: { category: number[]; }) => { return post.category.includes(parseInt(this.blogcategory[i].id)) });
-      count = count.length;
-      this.blogcategory[i].count = count;
+    for (let i = 0; i < this.blogcategory.length; i++) {
+      const data = this.blogpost.filter((post: { category: number[]; }) => {
+        return post.category.includes((this.blogcategory as Category[])[i].id);
+      });
+      (this.blogcategory[i] as Category).count = data.length;
     }
   }
   // Related post
   public getPostByCategory(items: string | any[]) {
-    var elems = blog.filter((post: { id: string; category: any[]; }) => { return parseInt(post.id) !== parseInt(this.route.snapshot.params.id) && post.category.some(r => items.includes(r)) });
-    return elems;
+    return blog.filter((post) => {
+      // tslint:disable-next-line:radix
+      return post.id !== parseInt(this.route.snapshot.params.id) && post.category.some(r => (items as any[]).includes(r));
+    });
   }
   // Search Filter
   onSubmit() {
@@ -112,19 +112,19 @@ export class BlogHelperService implements AfterContentInit, OnInit {
   }
   // Fetch All filter
   public setPosts() {
-    var postsByCategory = this.getCategory() != undefined ? this.getPostsByCategory(this.getCategory()) : '',
-      postsByTags = this.getTag() != undefined ? this.getPostsByTags(this.getTag()) : '',
-      postsByAuthor = this.getAuthorPost() != undefined ? this.getPostsByAuthors(this.getAuthorPost()) : '',
+    const postsByCategory = this.getCategory() != undefined ? this.getPostsByCategory(this.getCategory() as string) : '',
+      postsByTags = this.getTag() != undefined ? this.getPostsByTags(this.getTag() as string) : '',
+      postsByAuthor = this.getAuthorPost() != undefined ? this.getPostsByAuthors(this.getAuthorPost() as string) : '',
       postsBySearch = this.getSearch() != undefined ? this.getPostsBySearch(this.getSearch()) : '';
 
     if ((postsByCategory != '' || postsByCategory != undefined || postsByCategory != null) && postsByCategory.length > 0) {
-      this.blogpost = postsByCategory;
+      this.blogpost = postsByCategory as Blog[];
     } else if ((postsByTags != '' || postsByTags != undefined || postsByTags != null) && postsByTags.length > 0) {
-      this.blogpost = postsByTags;
+      this.blogpost = postsByTags as Blog[];
     } else if ((postsByAuthor != '' || postsByAuthor != undefined || postsByAuthor != null) && postsByAuthor.length > 0) {
-      this.blogpost = postsByAuthor;
+      this.blogpost = postsByAuthor as Blog[];
     } else if ((postsBySearch != '' || postsBySearch != undefined || postsBySearch != null) && postsBySearch.length > 0) {
-      this.blogpost = postsBySearch;
+      this.blogpost = postsBySearch as Blog[];
     }
   }
   // Post Details
@@ -138,7 +138,7 @@ export class BlogHelperService implements AfterContentInit, OnInit {
     this.setSearch(this.route.snapshot.params.query);
     this.setPosts();
     this.setPost(this.route.snapshot.params.id);
-  } 
+  }
   // Recent post
   public changeToMonth(month: string | number | any) {
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -147,19 +147,19 @@ export class BlogHelperService implements AfterContentInit, OnInit {
 
   public setDemoDate() {
     var today = new Date();
-    this.blogpost.slice(0, 3).map((post: { timestamp: number; postdate: string; }) => (
+    this.blogpost.slice(0, 3).map((post) => (
       post.timestamp = today.getTime() - (3 * 24 * 60 * 60 * 1000),
       // Remove this date on your live demo. This is only used for preview purposed. Your date should actually be updated
-      // in the blog.json object
+      // in the blog.ts object
       post.postdate = `${this.changeToMonth(today.getMonth())} ${today.getDate() - 2}, ${today.getFullYear()}`
     ));
   }
 
   public getRecentPost() {
-    var elems = blog.filter((post: { timestamp: number | any; postdate: string | number | Date; }) => {
+    return (blog as Blog[]).filter((post) => {
+      // @ts-ignore
       return post.timestamp < new Date(post.postdate);
     });
-    return elems;
   }
 
   ngOnInit(): void {
@@ -192,7 +192,7 @@ export class BlogHelperService implements AfterContentInit, OnInit {
       }
     ];
     return socialIcons;
-  } 
+  }
   openSocialPopup(social: any){
     window.open(social.link, "MsgWindow", "width=600,height=600")
   }

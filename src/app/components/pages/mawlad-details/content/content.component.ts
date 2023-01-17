@@ -6,11 +6,13 @@ import { MawladHelperService } from 'src/app/components/helper/mawlad-helper.ser
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.css']
 })
-export class ContentComponent extends MawladHelperService {
-  text:any = {
-    Days: "Days",
-    Hours: "Hours",
-    Minutes: "Minutes",
-    Seconds: "Seconds"
+export class ContentComponent {
+  text: any = {
+    Days: 'Days',
+    Hours: 'Hours',
+    Minutes: 'Minutes',
+    Seconds: 'Seconds'
   };
+  constructor(public mawladHelperService: MawladHelperService) {
+  }
 }

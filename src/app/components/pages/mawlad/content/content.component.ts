@@ -6,6 +6,6 @@ import { MawladHelperService } from 'src/app/components/helper/mawlad-helper.ser
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.css']
 })
-export class ContentComponent extends MawladHelperService {
-
+export class ContentComponent {
+  constructor(public mawladHelperService: MawladHelperService) { }
 }

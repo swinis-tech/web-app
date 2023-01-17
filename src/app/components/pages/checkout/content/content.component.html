@@ -87,10 +87,10 @@
                                         </thead>
                                         <tbody>
                                             <!-- Data -->
-                                            <tr *ngFor="let item of cartItems">
+                                            <tr *ngFor="let item of cartHelperService.cartItems">
                                                 <td>{{item.title}}</td>
-                                                <td>{{getItemQuantity(item)}}</td>
-                                                <td>${{item.price * getItemQuantity(item) | number:'1.2-2'}}</td>
+                                                <td>{{cartHelperService.getItemQuantity(item)}}</td>
+                                                <td>${{item.price * cartHelperService.getItemQuantity(item) | number:'1.2-2'}}</td>
                                             </tr>
                                             <!-- Data -->
                                         </tbody>
@@ -98,7 +98,7 @@
                                             <tr class="hm-table-footer">
                                                 <td>Order total</td>
                                                 <td></td>
-                                                <td>${{calculateprice() + 2.99 | number:'1.2-2'}}</td>
+                                                <td>${{cartHelperService.calculateprice() + 2.99 | number:'1.2-2'}}</td>
                                             </tr>
                                         </tfoot>
                                     </table>
