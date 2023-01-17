@@ -9,7 +9,7 @@ import khotba from '../data/khotba/khotba.json';
 })
 export class KhotbaHelperService implements AfterContentInit, OnInit {
   // pagination
-  page: number = 1;
+  page = 1;
   public khotbapost = khotba;
   public khotbadetails = khotba;
   public tags = khotbatags;
@@ -18,10 +18,9 @@ export class KhotbaHelperService implements AfterContentInit, OnInit {
   constructor(private route: ActivatedRoute) {}
   // Tags
   public getTags(items: string | any[]) {
-    var elems = khotbatags.filter((item) => {
+    return khotbatags.filter((item) => {
       return (items as any[]).includes(item.id);
     });
-    return elems;
   }
   // Author
   public getAuthor(items: string | any[]) {
@@ -47,9 +46,10 @@ export class KhotbaHelperService implements AfterContentInit, OnInit {
 
   public getRecentPost() {
     var elems = khotba.filter((post: { timestamp: number | any; postdate: string | number | Date; }) => {
-      return post.timestamp < new Date(post.postdate);
+      return (post.timestamp || '') < new Date(post.postdate);
     });
-    return elems;
+    // arbitrarily chose 4 because that's how many were visible in the original iteration
+    return elems.slice(0, 4)
   }
   // Filter
   // Tag Filter
@@ -99,7 +99,7 @@ export class KhotbaHelperService implements AfterContentInit, OnInit {
   // Social Share
   public pageUrl = window.location.href;
   public socialShare(title: string) {
-    var socialIcons = [
+    var socialIcons: SocialIcon[] = [
       {
         title: "facebook",
         iconClass: "fa fa-facebook-f",
@@ -123,7 +123,13 @@ export class KhotbaHelperService implements AfterContentInit, OnInit {
     ];
     return socialIcons;
   }
-  openSocialPopup(social: any){
+  openSocialPopup(social: SocialIcon): void {
     window.open(social.link, "MsgWindow", "width=600,height=600")
   }
+}
+
+type SocialIcon = {
+  title: string,
+  iconClass: string,
+  link: string
 }
