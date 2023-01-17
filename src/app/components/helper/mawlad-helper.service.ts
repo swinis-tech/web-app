@@ -9,7 +9,7 @@ import mawlad from '../data/mawlad/mawlad';
 export class MawladHelperService implements AfterContentInit, OnInit {
 
   // pagination
-  page: number = 1;
+  page = 1;
   public mawladpost = mawlad;
   public mawladdetails = mawlad;
   public author = authors;
@@ -40,15 +40,14 @@ export class MawladHelperService implements AfterContentInit, OnInit {
     this.mawladpost.slice(0, 4).map((post) => (
       post.timestamp = today.getTime() - (3 * 24 * 60 * 60 * 1000),
       // Remove this date on your live demo. This is only used for preview purposed. Your date should actually be updated
-      // in the mawlad.ts object
+      // in the mawlad.json object
       post.date = `${today.getDate() - 2} ${this.changeToMonth(today.getMonth())}, ${today.getFullYear()}`
     ));
   }
 
   public getRecentPost() {
     return mawlad.filter((post) => {
-      // @ts-ignore
-      return post.timestamp < new Date(post.date);
+      return true
     });
   }
   // Post Details
