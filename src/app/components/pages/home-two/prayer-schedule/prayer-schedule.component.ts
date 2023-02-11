@@ -72,20 +72,23 @@ export class PrayerScheduleComponent implements OnInit {
     if (timeName in this.hardcodedTimes) return this.hardcodedTimes[timeName]!
 
     let time = this.prayTimes[timeName]
-    if (timeName in this.offset) {
-      time += this.offset[timeName]! / 60
+    let offset = this.offset[timeName]
+    if (offset !== undefined) {
+      time += offset / 60
     }
     return this.to12HourFormat(time)
   }
 
   private to12HourFormat(time: number): string {
-    let suffix = (time < 12) ? this.AM_SUFFIX : this.PM_SUFFIX
     let minutes = Math.round((time % 1) * 60)
-    let hours = Math.floor(time % 12)
+    let hours = (Math.floor(time) + Math.floor(minutes / 60)) % 24
+    minutes %= 60
+    let suffix = (hours < 12) ? this.AM_SUFFIX : this.PM_SUFFIX
+    hours = (hours % 12) || 12
     return this.leftFill2Digits(hours) + ':' + this.leftFill2Digits(minutes) + ' ' + suffix
   }
 
-  private leftFill2Digits(num: number) {
+  private leftFill2Digits(num: number): string {
     return num.toString().padStart(2, '0');
   }
 
