@@ -36,15 +36,16 @@ export class PrayerScheduleComponent implements OnInit {
   public today: Date = new Date()
 
   private offset: IqamahOffset = {
-    fajr: 30,
+    fajr: 20,
     asr: 10,
     maghrib: 7,
     isha: 15
   }
 
   private hardcodedTimes: HardcodedIqamahTimes = {
-    dhuhr: '01:45 pm',
-    sunrise: '--:--'
+    dhuhr: '12:45 pm',
+    sunrise: '--:--',
+    isha: '08:15 pm'
   }
 
   private AM_SUFFIX = 'am' as const

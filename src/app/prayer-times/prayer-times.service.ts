@@ -562,11 +562,7 @@ export class PrayerTimesService {
 
     // GMT offset for a given date
     private gmtOffset(date: InputDateTuple): number {
-        var localDate = new Date(date[0], date[1] - 1, date[2], 12, 0, 0, 0);
-        var GMTString = localDate.toUTCString();
-        var GMTDate = new Date(GMTString.substring(0, GMTString.lastIndexOf(' ') - 1));
-        var hoursDiff = (+localDate - +GMTDate) / (1000 * 60 * 60);
-        return hoursDiff;
+        return new Date(date[0], date[1] - 1, date[2], 12).getTimezoneOffset() / -60;
     }
 
 
