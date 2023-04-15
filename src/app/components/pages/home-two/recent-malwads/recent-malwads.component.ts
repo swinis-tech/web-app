@@ -6,7 +6,8 @@ import { MawladHelperService } from 'src/app/components/helper/mawlad-helper.ser
   templateUrl: './recent-malwads.component.html',
   styleUrls: ['./recent-malwads.component.css']
 })
-export class RecentMalwadsComponent extends MawladHelperService {
+export class RecentMalwadsComponent {
+  constructor(public mawladHelperService: MawladHelperService) { }
   settings = {
     slidesToShow: 3,
     slidesToScroll: 1,

@@ -6,5 +6,6 @@ import { BlogHelperService } from '../../helper/blog-helper.service';
   templateUrl: './blog-sidebar.component.html',
   styleUrls: ['./blog-sidebar.component.css']
 })
-export class BlogSidebarComponent extends BlogHelperService {
+export class BlogSidebarComponent {
+  constructor(public blogHelperService: BlogHelperService) { }
 }

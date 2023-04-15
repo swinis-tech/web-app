@@ -25,9 +25,9 @@
                         <!-- Table body -->
                         <tbody>
                             <!-- Data -->
-                            <tr *ngFor="let item of cartItems">
+                            <tr *ngFor="let item of cartHelperService.cartItems">
                                 <td class="product-remove hm-align text-center">
-                                    <a href="javascript:void(0)" (click)="handleDeleteFromCart(item)"><i class="fa fa-times"></i></a>
+                                    <a href="javascript:void(0)" (click)="cartHelperService.handleDeleteFromCart(item)"><i class="fa fa-times"></i></a>
                                 </td>
                                 <td data-title="Product" class="has-title">
                                     <div class="product-thumbnail">
@@ -36,12 +36,12 @@
                                     <a routerLink="/shop-details/{{item.id}}" class="btn-link">{{item.title}}</a>
                                 </td>
                                 <td class="quantity hm-align has-title" data-title="Quantity">
-                                    <button type="button" class="minus btn dark-btn btn-outline-secondary hm-qty-btn" (click)="handleDecrementQty(item)">-</button>
-                                    <input type="text" class="input-text qty text" name="quantity" value="{{getItemQuantity(item)}}" title="Qty" readonly>
-                                    <button type="button" class="plus btn dark-btn btn-outline-secondary hm-qty-btn" (click)="handleAddToCart(item)">+</button>
+                                    <button type="button" class="minus btn dark-btn btn-outline-secondary hm-qty-btn" (click)="cartHelperService.handleDecrementQty(item)">-</button>
+                                    <input type="text" class="input-text qty text" name="quantity" value="{{cartHelperService.getItemQuantity(item)}}" title="Qty" readonly>
+                                    <button type="button" class="plus btn dark-btn btn-outline-secondary hm-qty-btn" (click)="cartHelperService.handleAddToCart(item)">+</button>
                                 </td>
                                 <td class="product-price hm-align has-title" data-title="Price">
-                                    <span class="product-currency">$</span> <span class="product-amount">{{item.price * getItemQuantity(item) | number:'1.2-2'}}</span>
+                                    <span class="product-currency">$</span> <span class="product-amount">{{item.price * cartHelperService.getItemQuantity(item) | number:'1.2-2'}}</span>
                                 </td>
                             </tr>
                             <!-- Data -->
@@ -83,7 +83,7 @@
                                 <tbody>
                                     <tr>
                                         <td> <b>Subtotal</b> </td>
-                                        <td class="text-right">$ {{calculateprice() | number:'1.2-2'}}</td>
+                                        <td class="text-right">$ {{cartHelperService.calculateprice() | number:'1.2-2'}}</td>
                                     </tr>
                                     <tr>
                                         <td> <b>Shipping</b> </td>
@@ -91,7 +91,7 @@
                                     </tr>
                                     <tr>
                                         <td> <b>Total</b> </td>
-                                        <td class="text-right">$ {{calculateprice() + 2.99 | number:'1.2-2'}}</td>
+                                        <td class="text-right">$ {{cartHelperService.calculateprice() + 2.99 | number:'1.2-2'}}</td>
                                     </tr>
                                 </tbody>
                             </table>

@@ -11,14 +11,14 @@
 </div>
 <ngx-slick-carousel #slickModal="slick-carousel" [config]="settings" class="mawlad-slider">
     <!-- Data -->
-    <div ngxSlickItem class="mawlad-slider-item" *ngFor="let item of getRecentPost()">
+    <div ngxSlickItem class="mawlad-slider-item" *ngFor="let item of mawladHelperService.getRecentPost()">
         <div class="row">
             <div class="col-12">
                 <div class="mawlad_list">
                     <ul>
                         <li>
                             <div class="mawlad_info">
-                                <div class="mawlad_date" [innerHtml]="getDateInitial(item.date)"></div>
+                                <div class="mawlad_date" [innerHtml]="mawladHelperService.getDateInitial(item.date)"></div>
                                 <h6><a routerLink="/mawlad-details/{{item.id}}">{{item.title | slice:0:25}}..</a></h6>
                                 <ul>
                                     <li><i class="fa fa-clock-o"></i> {{item.timeday}}</li>

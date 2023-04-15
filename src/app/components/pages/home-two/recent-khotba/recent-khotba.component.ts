@@ -6,6 +6,6 @@ import { KhotbaHelperService } from 'src/app/components/helper/khotba-helper.ser
   templateUrl: './recent-khotba.component.html',
   styleUrls: ['./recent-khotba.component.css']
 })
-export class RecentKhotbaComponent extends KhotbaHelperService {
-
-} 
+export class RecentKhotbaComponent {
+  constructor(public khotbaHelperService: KhotbaHelperService) { }
+}

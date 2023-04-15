@@ -6,5 +6,7 @@ import { ShopService } from 'src/app/components/helper/shop/shop.service';
   templateUrl: './related-products.component.html',
   styleUrls: ['./related-products.component.css']
 })
-export class RelatedProductsComponent extends ShopService {
+export class RelatedProductsComponent {
+  constructor(public shopService: ShopService) {
+  }
 }

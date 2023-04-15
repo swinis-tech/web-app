@@ -1,12 +1,12 @@
-<li *ngFor="let item of cartItems">
+<li *ngFor="let item of cartHelperService.cartItems">
     <a routerLink="/shop-details/{{item.id}}" class="d-flex p-2">
         <div class="mr-2 align-self-center ss-cart-img">
             <img [src]="item.image[0]" [alt]="item.title" class="rounded-circle">
         </div>
         <div class="media-body relative">
             <span>{{item.title}}</span>
-            <span class="ss-cart-price">${{item.price * getItemQuantity(item) | number:'1.2-2'}}</span>
-            <span class="remove-cart" (click)="handleDeleteFromCart(item)"><i class="fa fa-times"></i></span>
+            <span class="ss-cart-price">${{item.price * cartHelperService.getItemQuantity(item) | number:'1.2-2'}}</span>
+            <span class="remove-cart" (click)="cartHelperService.handleDeleteFromCart(item)"><i class="fa fa-times"></i></span>
         </div>
     </a>
 </li>

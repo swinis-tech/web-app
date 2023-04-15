@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import data from "../../../data/banner.json";
+import data from "../../../data/banner";
 import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({

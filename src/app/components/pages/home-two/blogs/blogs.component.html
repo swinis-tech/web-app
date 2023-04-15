@@ -7,7 +7,7 @@
             </div>
             <div class="row">
                 <!-- Data -->
-                <article class="col-md-6" *ngFor="let item of getRecentPost() | slice:0:2">
+                <article class="col-md-6" *ngFor="let item of blogHelperService.getRecentPost() | slice:0:2">
                     <div class="blog_wrap">
                         <div class="blog_img">
                             <a routerLink="/blog-details/{{item.id}}"><img [src]="item.image" [alt]="item.title"></a>

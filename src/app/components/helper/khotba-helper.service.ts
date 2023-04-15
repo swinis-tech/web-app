@@ -1,7 +1,7 @@
-import { Injectable, AfterContentInit, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import authors from '../data/author.json';
-import khotbatags from '../data/tags.json';
+import {AfterContentInit, Injectable, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import authors, {Author} from '../data/author';
+import khotbatags, {Tag} from '../data/tags';
 import khotba from '../data/khotba/khotba.json';
 
 @Injectable({
@@ -9,26 +9,24 @@ import khotba from '../data/khotba/khotba.json';
 })
 export class KhotbaHelperService implements AfterContentInit, OnInit {
   // pagination
-  page: number = 1;
+  page = 1;
   public khotbapost = khotba;
   public khotbadetails = khotba;
   public tags = khotbatags;
-  public khotbatags = khotbatags;
-  public author = authors;
+  public khotbatags: Tag[] | string = khotbatags;
+  public author: Author[] | string = authors;
   constructor(private route: ActivatedRoute) {}
   // Tags
   public getTags(items: string | any[]) {
-    var elems = khotbatags.filter((item: { id: string; }) => {
-      return items.includes(item.id)
+    return khotbatags.filter((item) => {
+      return (items as any[]).includes(item.id);
     });
-    return elems;
-  } 
+  }
   // Author
   public getAuthor(items: string | any[]) {
-    var elems = authors.filter((item: { id: string; }) => {
-      return items.includes(item.id)
+    return authors.filter((item) => {
+      return (items as any[]).includes(item.id)
     });
-    return elems;
   }
   // Recent post
   public changeToMonth(month: string | number | any) {
@@ -48,9 +46,10 @@ export class KhotbaHelperService implements AfterContentInit, OnInit {
 
   public getRecentPost() {
     var elems = khotba.filter((post: { timestamp: number | any; postdate: string | number | Date; }) => {
-      return post.timestamp < new Date(post.postdate);
+      return (post.timestamp || '') < new Date(post.postdate);
     });
-    return elems;
+    // arbitrarily chose 4 because that's how many were visible in the original iteration
+    return elems.slice(0, 4)
   }
   // Filter
   // Tag Filter
@@ -75,14 +74,14 @@ export class KhotbaHelperService implements AfterContentInit, OnInit {
   }
   // Fetch All filter
   public setPosts() {
-    var postsByTags = this.getTag() != undefined ? this.getPostsByTags(this.getTag()) : '';
-    var postsByAuthor = this.getAuthorPost() != undefined ? this.getPostsByAuthors(this.getAuthorPost()) : '';
+    var postsByTags = this.getTag() != undefined ? this.getPostsByTags(this.getTag() as string) : '';
+    var postsByAuthor = this.getAuthorPost() != undefined ? this.getPostsByAuthors(this.getAuthorPost() as string) : '';
 
     if ((postsByTags != '' || postsByTags != undefined || postsByTags != null) && postsByTags.length > 0) {
       this.khotbapost = postsByTags;
     } else if ((postsByAuthor != '' || postsByAuthor != undefined || postsByAuthor != null) && postsByAuthor.length > 0) {
       this.khotbapost = postsByAuthor;
-    } 
+    }
   }
   // Post Details
   public setKhotba(id: any) {
@@ -93,14 +92,14 @@ export class KhotbaHelperService implements AfterContentInit, OnInit {
     this.setAuthor(this.route.snapshot.params.authorId);
     this.setPosts();
     this.setKhotba(this.route.snapshot.params.id);
-  } 
+  }
   ngOnInit(): void {
     this.setDemoDate();
   }
   // Social Share
   public pageUrl = window.location.href;
   public socialShare(title: string) {
-    var socialIcons = [
+    var socialIcons: SocialIcon[] = [
       {
         title: "facebook",
         iconClass: "fa fa-facebook-f",
@@ -123,8 +122,14 @@ export class KhotbaHelperService implements AfterContentInit, OnInit {
       }
     ];
     return socialIcons;
-  } 
-  openSocialPopup(social: any){
+  }
+  openSocialPopup(social: SocialIcon): void {
     window.open(social.link, "MsgWindow", "width=600,height=600")
   }
+}
+
+type SocialIcon = {
+  title: string,
+  iconClass: string,
+  link: string
 }

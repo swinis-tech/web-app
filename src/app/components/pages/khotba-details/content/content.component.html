@@ -1,4 +1,4 @@
-<section class="post_detail section-padding" *ngFor="let item of khotbadetails">
+<section class="post_detail section-padding" *ngFor="let item of khotbaHelperService.khotbadetails">
     <div class="container">
         <div class="row">
             <div class="col-md-8">
@@ -12,11 +12,11 @@
                         </li>
                         <!-- Data -->
                     </ul>
-                </div> 
+                </div>
                 <h2>{{item.title}}</h2>
                 <ul class="khotba_meta">
                     <li><i class="fa fa-user"></i> Message from <a routerLink="/khotba/author/{{author.id}}"
-                        *ngFor="let author of getAuthor(item.author)">{{author.name}}</a></li>
+                        *ngFor="let author of khotbaHelperService.getAuthor(item.author)">{{author.name}}</a></li>
                     <li><i class="fa fa-calendar-check-o"></i> {{item.postdate}}</li>
                 </ul>
                 <div [innerHtml]="item.htmltext"></div>
@@ -26,7 +26,7 @@
                         <div class="col-md-6">
                             <div class="psot_share">
                                 <span><strong>Share:</strong></span>
-                                <a href="javascript:void(0)" (click)="openSocialPopup(social)" *ngFor="let social of socialShare(item.title)">
+                                <a href="javascript:void(0)" (click)="khotbaHelperService.openSocialPopup(social)" *ngFor="let social of khotbaHelperService.socialShare(item.title)">
                                     <i [class]="social.iconClass"></i>
                                 </a>
                             </div>
@@ -34,7 +34,7 @@
                         <div class="col-md-6">
                             <div class="psot_tags">
                                 <span><strong>Tags:</strong></span>
-                                <a routerLink="/khotba/tag/{{tag.id}}" *ngFor="let tag of getTags(item.tags) | slice:0:3"> {{tag.title}}, </a>
+                                <a routerLink="/khotba/tag/{{tag.id}}" *ngFor="let tag of khotbaHelperService.getTags(item.tags) | slice:0:3"> {{tag.title}}, </a>
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                         <ul class="commentlist">
                             <!-- Data -->
                             <li class="comment" *ngFor="let review of item.reviews">
-                                <div class="comment the-comment" *ngFor="let user of getAuthor(review.user)">
+                                <div class="comment the-comment" *ngFor="let user of khotbaHelperService.getAuthor(review.user)">
                                     <div class="comment-avatar">
                                         <img [alt]="user.name" [src]="user.image" class="avatar">
                                     </div>
@@ -65,7 +65,7 @@
                                 <ol>
                                     <!-- Data -->
                                     <li class="comment" *ngFor="let review of review.replies">
-                                        <div class="comment the-comment" *ngFor="let user of getAuthor(review.user)">
+                                        <div class="comment the-comment" *ngFor="let user of khotbaHelperService.getAuthor(review.user)">
                                             <div class="comment-avatar">
                                                 <img [alt]="user.name" [src]="user.image" class="avatar">
                                             </div>
