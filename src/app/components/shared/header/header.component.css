@@ -7,8 +7,9 @@
 }
 
 .logo {
-    padding: 20px;
+    padding: 20px 0;
 }
+
 
 @media (max-width: 500px) {
     .logo img {
