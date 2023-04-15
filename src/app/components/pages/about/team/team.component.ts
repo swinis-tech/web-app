@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import data from "../../../data/author.json";
+import data from "../../../data/author";
 
 @Component({
   selector: 'app-team',

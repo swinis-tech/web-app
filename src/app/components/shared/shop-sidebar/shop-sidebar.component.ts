@@ -6,5 +6,7 @@ import { ShopService } from '../../helper/shop/shop.service';
   templateUrl: './shop-sidebar.component.html',
   styleUrls: ['./shop-sidebar.component.css']
 })
-export class ShopSidebarComponent extends ShopService {
+export class ShopSidebarComponent {
+  constructor(public shopService: ShopService) {
+  }
 }

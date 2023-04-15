@@ -6,6 +6,6 @@ import { CartHelperService } from 'src/app/components/helper/shop/cart-helper.se
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.css']
 })
-export class ContentComponent extends CartHelperService {
-
+export class ContentComponent {
+  constructor(public cartHelperService: CartHelperService) {}
 }

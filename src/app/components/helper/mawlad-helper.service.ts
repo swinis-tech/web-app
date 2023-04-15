@@ -1,7 +1,7 @@
-import { Injectable, AfterContentInit, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import authors from '../data/author.json';
-import mawlad from '../data/mawlad/mawlad.json';
+import {AfterContentInit, Injectable, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import authors from '../data/author';
+import mawlad from '../data/mawlad/mawlad';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import mawlad from '../data/mawlad/mawlad.json';
 export class MawladHelperService implements AfterContentInit, OnInit {
 
   // pagination
-  page: number = 1;
+  page = 1;
   public mawladpost = mawlad;
   public mawladdetails = mawlad;
   public author = authors;
@@ -25,10 +25,9 @@ export class MawladHelperService implements AfterContentInit, OnInit {
   };
   // Author
   public getAuthor(items: string | any[]) {
-    var elems = authors.filter((item: { id: string; }) => {
-      return items.includes(item.id)
+    return authors.filter((item) => {
+      return (items as any[]).includes(item.id);
     });
-    return elems;
   }
   // Recent post
   public changeToMonth(month: string | number | any) {
@@ -37,8 +36,8 @@ export class MawladHelperService implements AfterContentInit, OnInit {
   }
 
   public setDemoDate() {
-    var today = new Date();
-    this.mawladpost.slice(0, 4).map((post: { timestamp: number; date: string; }) => (
+    const today = new Date();
+    this.mawladpost.slice(0, 4).map((post) => (
       post.timestamp = today.getTime() - (3 * 24 * 60 * 60 * 1000),
       // Remove this date on your live demo. This is only used for preview purposed. Your date should actually be updated
       // in the mawlad.json object
@@ -47,10 +46,9 @@ export class MawladHelperService implements AfterContentInit, OnInit {
   }
 
   public getRecentPost() {
-    var elems = mawlad.filter((post: { timestamp: number | any; date: string | number | Date; }) => {
-      return post.timestamp < new Date(post.date);
+    return mawlad.filter((post) => {
+      return true
     });
-    return elems;
   }
   // Post Details
   public setmawlad(id: any) {

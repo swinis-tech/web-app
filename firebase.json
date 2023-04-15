@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "site": "swinis-web-update-angular",
+    "public": "dist/swinis-web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

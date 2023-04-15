@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Product } from '../../models/product';
 
 import { ProductServiceHelper } from './product-service-helper';
-import productblock from '../../data/shop/shop.json';
+import productblock, {Product} from '../../data/shop/shop';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +12,15 @@ export class ProductService extends ProductServiceHelper {
   // Return all products from object
   getProducts(): Product[] {
     return this.products
-  } 
+  }
   // Add item to cart
   addToCart( product: Product ){
     this.addProductToStorage( product.id );
-  } 
+  }
   // Delete item from cart
   deleteFromCart( product: Product ){
     this.deleteProductFromStorage( product.id );
-  } 
+  }
   // Remove a single quantity of an item from cart
   decrementQuantity( product: Product ){
       this.decrementQuantityFromStorage( product.id );
@@ -37,20 +36,20 @@ export class ProductService extends ProductServiceHelper {
   getProductsFromCart(){
     return this.getProductsObject( this.products );
   }
-  getGrandTotal(products: Product[]){ 
+  getGrandTotal(products: Product[]){
       return products.reduce((subtotal: number, item: Product
         ) => subtotal + this.getProductCountInCart(item) * item.price,0)
   }
-  
+
   // WIshlist
   // Add item to Wishlist
   addToWishlist( product: Product ){
     this.addWishlistProductToStorage( product.id );
-  } 
+  }
   // Delete item from Wishlist
   deleteFromWishlist( product: Product ){
     this.deleteWishlistProductFromStorage( product.id );
-  } 
+  }
   // Remove a single quantity of an item from Wishlist
   decrementWishlistQuantity( product: Product ){
       this.decrementWishlistQuantityFromStorage( product.id );

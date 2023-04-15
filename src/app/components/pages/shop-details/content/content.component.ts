@@ -6,14 +6,16 @@ import { ShopService } from 'src/app/components/helper/shop/shop.service';
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.css']
 })
-export class ContentComponent extends ShopService {
+export class ContentComponent {
+  constructor(public shopService: ShopService) { }
+
   settings = {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
     fade: true,
     asNavFor: '.ss-slider-sync-nav'
-  }
+  };
   settingsThumb = {
     slidesToShow: 3,
     slidesToScroll: 1,
