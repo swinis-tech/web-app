@@ -8,6 +8,7 @@
 
 .logo {
     padding: 20px 0;
+    padding-top: 15px;
 }
 
 
@@ -15,4 +16,8 @@
     .logo img {
         height: 50px;
     }
+}
+
+.transparent {
+    background: rgba(37, 40, 58, 0.5);
 }
