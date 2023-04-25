@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {
   PrayerTimesService
 } from '../../../../prayer-times/prayer-times.service';
+import { FirestoreService } from 'src/app/firestore/firestore.service';
 
 
 type OutputPrayerTimesNames = 'fajr' | 'sunrise' | 'dhuhr' | 'asr' | 'maghrib' | 'isha'
@@ -14,12 +15,12 @@ type OutputPrayer = {
 
 type OutputPrayerTimes = OutputPrayer[]
 
-type HardcodedIqamahTimes = {
+export type HardcodedIqamahTimes = {
     [name in OutputPrayerTimesNames]?: string;
 }
 
 /** Number of minutes from athan to iqamah */
-type IqamahOffset = {
+export type IqamahOffset = {
     [name in OutputPrayerTimesNames]?: number
 }
 
@@ -32,29 +33,29 @@ export class PrayerScheduleComponent implements OnInit {
   private outputPrayerNames: Set<OutputPrayerTimesNames> = new Set(['fajr', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha'])
 
   private readonly prayTimes
+  //@ts-ignore
   public outputTimes: OutputPrayerTimes
   public today: Date = new Date()
 
-  private offset: IqamahOffset = {
-    fajr: 20,
-    asr: 10,
-    maghrib: 7,
-    isha: 15
-  }
+  //@ts-ignore
+  private offset: IqamahOffset
 
-  private hardcodedTimes: HardcodedIqamahTimes = {
-    dhuhr: '12:45 pm',
-    sunrise: '--:--',
-    isha: '08:15 pm'
-  }
+  //@ts-ignore
+  private hardcodedTimes: HardcodedIqamahTimes
 
   private AM_SUFFIX = 'am' as const
   private PM_SUFFIX = 'pm' as const
 
 
-  constructor(prayerTimesService: PrayerTimesService) {
+  constructor(prayerTimesService: PrayerTimesService, firestoreServce: FirestoreService) {
     this.prayTimes = prayerTimesService.getTimes(this.today, [-37.8226, 145.0354], 'auto', 'auto', 'Float')
-    this.outputTimes = this.getIqamahTimes()
+    firestoreServce.getIqamahOffsets().then((offsets) => {
+      this.offset = offsets;
+      firestoreServce.getHardcodedTimes().then(hardcodedTimes => {
+        this.hardcodedTimes = hardcodedTimes;
+        this.outputTimes = this.getIqamahTimes();
+      })
+    })
   }
 
   private getIqamahTimes(): OutputPrayerTimes {
