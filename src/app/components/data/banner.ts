@@ -19,15 +19,7 @@ const data = [
         "image":"assets/images/sj-1.png",
         "title":"Welcome to the Swinburne Islamic Society",
         "text":"Home of the Muslim community at Swinburne"
-    },
-    {
-        "id":4,
-        "bgimage":"assets/images/banners/eidulfitr.jpg",
-        "image":"assets/images/sj-1.png",
-        "title":"Welcome to the Swinburne Islamic Society",
-        "text":"Home of the Muslim community at Swinburne"
     }
-
 ];
 
 export default data;
