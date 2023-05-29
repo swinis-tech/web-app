@@ -1,10 +1,12 @@
-import { IqamahOffset, HardcodedIqamahTimes } from './../components/pages/home-two/prayer-schedule/prayer-schedule.component';
+import {
+  HardcodedIqamahTimes,
+  IqamahOffset,
+} from '../components/pages/home-two/prayer-schedule/prayer-schedule.component';
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import { Firestore, getFirestore } from 'firebase/firestore';
-import { collection, addDoc } from 'firebase/firestore';
-import { getDocs } from "firebase/firestore"; 
+import { doc, Firestore, getDoc, getFirestore } from 'firebase/firestore';
 
+const firestoreCollection = 'iqamah-data';
 
 @Injectable({
   providedIn: 'root',
@@ -27,56 +29,27 @@ export class FirestoreService {
     this.db = getFirestore(app);
   }
 
-  async setData() {
-    try {
-      const docRef = await addDoc(collection(this.db, 'users'), {
-        first: 'Ada',
-        last: 'Lovelace',
-        born: 1815,
-      });
-      console.log('Document written with ID: ', docRef.id);
-    } catch (e) {
-      console.error('Error adding document: ', e);
-    }
-
-    try {
-      const docRef = await addDoc(collection(this.db, 'users'), {
-        first: 'Alan',
-        middle: 'Mathison',
-        last: 'Turing',
-        born: 1912,
-      });
-
-      console.log('Document written with ID: ', docRef.id);
-    } catch (e) {
-      console.error('Error adding document: ', e);
-    }
-  }
-
   async getIqamahOffsets(): Promise<IqamahOffset> {
-    const querySnapshot = await getDocs(collection(this.db, "iqamah-data"));
+    const docRef = doc(this.db, firestoreCollection, 'iqamah-offset');
+    const docSnap = await getDoc(docRef);
+
     let data: IqamahOffset = {};
-    querySnapshot.forEach((doc) => {
-      if (doc.data().type === 'offset') {
-        data = doc.data();
-        delete (data as any)['type']
-      }
-    });
+    if (docSnap.exists()) {
+      data = docSnap.data();
+    }
 
     return data;
   }
 
   async getHardcodedTimes(): Promise<HardcodedIqamahTimes> {
-    const querySnapshot = await getDocs(collection(this.db, "iqamah-data"));
+    const docRef = doc(this.db, firestoreCollection, 'hardcoded-iqamah');
+    const docSnap = await getDoc(docRef);
+
     let data: HardcodedIqamahTimes = {};
-    querySnapshot.forEach((doc) => {
-      if (doc.data().type === 'hardcoded') {
-        data = doc.data();
-        delete (data as any)['type']
-      }
-    });
+    if (docSnap.exists()) {
+      data = docSnap.data();
+    }
 
     return data;
   }
-
 }
