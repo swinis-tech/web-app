@@ -8,6 +8,16 @@ import { doc, Firestore, getDoc, getFirestore } from 'firebase/firestore';
 
 const firestoreCollection = 'iqamah-data';
 
+export type PrayerData = {
+  hardcodedIqamah: HardcodedIqamahTimes;
+  iqamahOffset: IqamahOffset;
+  friday: {
+    adhan: string;
+    iqamah: string;
+    name: "jumu'ah 1" | "jumu'ah 2";
+  }[];
+};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -51,5 +61,16 @@ export class FirestoreService {
     }
 
     return data;
+  }
+
+  async getData(): Promise<PrayerData> {
+    const docRef = doc(this.db, 'prayers', 'prayerData');
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      return docSnap.data() as PrayerData;
+    }
+
+    throw 'No such document!';
   }
 }

@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { PrayerTimesService } from '../../../../prayer-times/prayer-times.service';
+import {
+  PrayerNames,
+  PrayerTimesService,
+} from '../../../../prayer-times/prayer-times.service';
 import { FirestoreService } from 'src/app/firestore/firestore.service';
 
 type OutputPrayerNames =
@@ -8,11 +11,13 @@ type OutputPrayerNames =
   | 'dhuhr'
   | 'asr'
   | 'maghrib'
-  | 'isha';
+  | 'isha'
+  | "jumu'ah 1"
+  | "jumu'ah 2";
 
 type OutputPrayer = {
   name: OutputPrayerNames;
-  athan: string;
+  adhan: string;
   iqamah: string;
 };
 
@@ -31,14 +36,6 @@ export type IqamahOffset = {
 export class PrayerScheduleComponent {
   private static AM_SUFFIX = 'am' as const;
   private static PM_SUFFIX = 'pm' as const;
-  private static outputPrayerNames = [
-    'fajr',
-    'sunrise',
-    'dhuhr',
-    'asr',
-    'maghrib',
-    'isha',
-  ] as const;
 
   public outputTimes!: OutputPrayer[];
   public today: Date = new Date();
@@ -49,7 +46,7 @@ export class PrayerScheduleComponent {
 
   constructor(
     prayerTimesService: PrayerTimesService,
-    firestoreServce: FirestoreService
+    firestoreService: FirestoreService
   ) {
     this.prayTimes = prayerTimesService.getTimes(
       this.today,
@@ -59,16 +56,11 @@ export class PrayerScheduleComponent {
       'Float'
     );
 
-    firestoreServce
-      .getIqamahOffsets()
-      .then((offsets) => {
-        this.offset = offsets;
-        firestoreServce.getHardcodedTimes().then((hardcodedTimes) => {
-          this.hardcodedTimes = hardcodedTimes;
-          this.outputTimes = this.getIqamahTimes();
-        });
-      })
-      .catch((a) => console.log(a));
+    firestoreService.getData().then((prayerData) => {
+      this.offset = prayerData.iqamahOffset;
+      this.hardcodedTimes = prayerData.hardcodedIqamah;
+      this.outputTimes = this.getIqamahTimes().concat(prayerData.friday);
+    });
   }
 
   getNextPrayer(): OutputPrayerNames {
@@ -76,8 +68,14 @@ export class PrayerScheduleComponent {
     let currentTime = currentDate.getHours() + currentDate.getMinutes() / 60;
     let prevTime = 24;
     let nextPrayer: OutputPrayerNames = 'fajr';
-    for (const prayer of this.outputTimes) {
-      let time = this.timeToFloat(prayer.athan);
+
+    let times = this.outputTimes;
+    if (this.today.getDay() !== 5) {
+      times = times.slice(0, times.length - 2);
+    }
+
+    for (const prayer of times) {
+      let time = this.timeToFloat(prayer.adhan);
       if (time >= currentTime && time < prevTime) {
         prevTime = time;
         nextPrayer = prayer.name;
@@ -99,14 +97,23 @@ export class PrayerScheduleComponent {
   }
 
   private getIqamahTimes(): OutputPrayer[] {
-    return PrayerScheduleComponent.outputPrayerNames.map((prayer) => ({
+    const prayerNames: (PrayerNames & OutputPrayerNames)[] = [
+      'fajr',
+      'sunrise',
+      'dhuhr',
+      'asr',
+      'maghrib',
+      'isha',
+    ];
+
+    return prayerNames.map((prayer) => ({
       name: prayer,
-      athan: this.to12HourFormat(this.prayTimes[prayer]),
+      adhan: this.to12HourFormat(this.prayTimes[prayer]),
       iqamah: this.getIqamahTime(prayer),
     }));
   }
 
-  private getIqamahTime(timeName: OutputPrayerNames): string {
+  private getIqamahTime(timeName: PrayerNames & OutputPrayerNames): string {
     let hardcodedTime = this.hardcodedTimes[timeName];
     if (hardcodedTime !== undefined) {
       return hardcodedTime;

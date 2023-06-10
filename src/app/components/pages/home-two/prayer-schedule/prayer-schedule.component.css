@@ -37,3 +37,7 @@ h3, h4 {
     max-width: 100%;
     background: none;
 }
+
+.table-body > tr:nth-child(7) {
+    border-top: 16px solid #25283a;
+}
