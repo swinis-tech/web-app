@@ -41,3 +41,13 @@ h3, h4 {
 .table-body > tr:nth-child(7) {
     border-top: 16px solid #25283a;
 }
+
+
+.location-link > span {
+    font-size: 16px;
+    text-decoration: underline;
+}
+
+.location {
+    padding-bottom: 16px;
+}
