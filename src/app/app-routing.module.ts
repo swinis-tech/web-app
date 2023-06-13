@@ -38,7 +38,6 @@ const routes: Routes = [
   // { path: 'blog/search/:query', loadChildren: () => import('./components/pages/blog/blog.module').then(m => m.BlogModule), data: { breadcrumb: "Blog" } },
   // { path: 'blog', loadChildren: () => import('./components/pages/blog/blog.module').then(m => m.BlogModule), data: { breadcrumb: "Blog" } },
   // { path: 'blog-details/:id', loadChildren: () => import('./components/pages/blog-details/blog-details.module').then(m => m.BlogDetailsModule), data: { breadcrumb: "Blog Details" } },
-    { path: '', loadComponent: () => import('./components/pages/home-two/prayer-schedule/prayer-schedule.component').then(mod => mod.PrayerScheduleComponent) },
     { path: 'prayers', component: PrayerScheduleComponent }
 ];
 
