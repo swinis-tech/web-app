@@ -30,7 +30,6 @@ import { BlogsComponent } from './blogs/blogs.component';
     RecentKhotbaComponent,
     UpcomingMalwadsComponent,
     GalleryComponent,
-    PrayerScheduleComponent,
     BlogsComponent
   ],
   imports: [

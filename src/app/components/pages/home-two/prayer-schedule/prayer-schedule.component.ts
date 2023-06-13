@@ -4,6 +4,7 @@ import {
   PrayerTimesService,
 } from '../../../../prayer-times/prayer-times.service';
 import { FirestoreService } from 'src/app/firestore/firestore.service';
+import {NgClass, NgFor, NgIf, TitleCasePipe} from "@angular/common";
 
 type OutputPrayerNames =
   | 'fajr'
@@ -31,6 +32,8 @@ export type IqamahOffset = {
 @Component({
   selector: 'app-prayer-schedule',
   templateUrl: './prayer-schedule.component.html',
+  standalone: true,
+  imports: [TitleCasePipe, NgClass, NgIf, NgFor],
   styleUrls: ['./prayer-schedule.component.css'],
 })
 export class PrayerScheduleComponent implements OnDestroy {
