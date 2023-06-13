@@ -94,9 +94,6 @@ export class PrayerScheduleComponent implements OnDestroy {
   }
 
   getNextPrayer(): OutputPrayerNames {
-    if (!this.outputTimes) {
-    }
-
     let currentDate = new Date();
     let currentTime = currentDate.getHours() + currentDate.getMinutes() / 60;
     let prevTime = 24;
@@ -114,6 +111,27 @@ export class PrayerScheduleComponent implements OnDestroy {
       }
     }
     return nextPrayer;
+  }
+
+  getCurrentPrayer(): OutputPrayerNames {
+    let currentDate = new Date();
+    let currentTime = currentDate.getHours() + currentDate.getMinutes() / 60;
+    let prevTime = 0;
+    let currentPrayer: OutputPrayerNames = 'isha'
+    let times = this.outputTimes;
+    if (currentDate.getDay() !== 5) {
+      times = times.slice(0, times.length - 2);
+    }
+
+    for (const prayer of times) {
+      let time = this.timeToFloat(prayer.adhan)
+      if (time <= currentTime && time > prevTime) {
+        prevTime = time;
+        currentPrayer = prayer.name
+      }
+    }
+
+    return currentPrayer;
   }
 
   /**
