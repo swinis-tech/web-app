@@ -28,9 +28,11 @@ export class HeaderComponent implements OnInit {
     if (window.pageYOffset > 100) {
       let element = <HTMLElement>document.getElementById('header');
       element.classList.add('sticky');
+      element.classList.remove('transparent');
     } else {
       let element = <HTMLElement>document.getElementById('header');
       element.classList.remove('sticky');
+      element.classList.add('transparent');
     }
   }
 

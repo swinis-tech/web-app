@@ -1,17 +1,24 @@
 const data = [
     {
-        id: 1,
-        bgimage: 'assets/images/banners/banner-1.jpg',
-        image: 'assets/images/sj-1.png',
-        title: 'Allah Knows Best',
-        text: 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some'
+        "id":1,
+        "bgimage":"assets/images/banners/mussalah.jpg",
+        "image":"assets/images/sj-1.png",
+        "title":"Welcome to the Swinburne Islamic Society",
+        "text":"Home of the Muslim community at Swinburne"
     },
     {
-        id: 2,
-        bgimage: 'assets/images/banners/banner-2.jpg',
-        image: 'assets/images/sj-1.png',
-        title: 'We believe in jannah',
-        text: 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some'
+        "id":2,
+        "bgimage":"assets/images/banners/eiduladhaa.jpg",
+        "image":"assets/images/sj-1.png",
+        "title":"Welcome to the Swinburne Islamic Society",
+        "text":"Home of the Muslim community at Swinburne"
+    },
+    {
+        "id":3,
+        "bgimage":"assets/images/banners/annualiftar.jpg",
+        "image":"assets/images/sj-1.png",
+        "title":"Welcome to the Swinburne Islamic Society",
+        "text":"Home of the Muslim community at Swinburne"
     }
 ];
 
