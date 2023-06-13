@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {
   PrayerNames,
   PrayerTimesService,
@@ -33,9 +33,11 @@ export type IqamahOffset = {
   templateUrl: './prayer-schedule.component.html',
   styleUrls: ['./prayer-schedule.component.css'],
 })
-export class PrayerScheduleComponent {
+export class PrayerScheduleComponent implements OnDestroy {
   private static AM_SUFFIX = 'am' as const;
   private static PM_SUFFIX = 'pm' as const;
+
+  private static HAWTHORN_COORDINATES: [number, number] = [-37.8226, 145.0354]
 
   public outputTimes!: OutputPrayer[];
   public today: Date = new Date();
@@ -43,6 +45,10 @@ export class PrayerScheduleComponent {
   private readonly prayTimes;
   private offset!: IqamahOffset;
   private hardcodedTimes!: HardcodedIqamahTimes;
+  public countdown: string = ''
+  private id: number = 0
+
+  private tomorrowTimes
 
   constructor(
     prayerTimesService: PrayerTimesService,
@@ -50,33 +56,59 @@ export class PrayerScheduleComponent {
   ) {
     this.prayTimes = prayerTimesService.getTimes(
       this.today,
-      [-37.8226, 145.0354],
+      PrayerScheduleComponent.HAWTHORN_COORDINATES,
       'auto',
       'auto',
       'Float'
     );
 
+    const tomorrow = new Date()
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    this.tomorrowTimes = prayerTimesService.getTimes(
+      tomorrow,
+      PrayerScheduleComponent.HAWTHORN_COORDINATES,
+      'auto',
+      'auto',
+      'Float'
+    )
+
     firestoreService.getData().then((prayerData) => {
       this.offset = prayerData.iqamahOffset;
       this.hardcodedTimes = prayerData.hardcodedIqamah;
       this.outputTimes = this.getIqamahTimes().concat(prayerData.friday);
+
+      this.countdown = this.getCountdown();
+      this.id = setInterval(() => {
+        this.countdown = this.getCountdown()
+      }, 1000)
     });
+
   }
 
+  ngOnDestroy() {
+    if (this.id) {
+      clearInterval(this.id)
+    }
+  }
+
+
   getNextPrayer(): OutputPrayerNames {
-    let currentDate = this.today;
+    if (!this.outputTimes) {
+
+    }
+
+    let currentDate = new Date();
     let currentTime = currentDate.getHours() + currentDate.getMinutes() / 60;
     let prevTime = 24;
     let nextPrayer: OutputPrayerNames = 'fajr';
-
     let times = this.outputTimes;
-    if (this.today.getDay() !== 5) {
+    if (currentDate.getDay() !== 5) {
       times = times.slice(0, times.length - 2);
     }
 
     for (const prayer of times) {
       let time = this.timeToFloat(prayer.adhan);
-      if (time >= currentTime && time < prevTime) {
+      if (time > currentTime && time < prevTime) {
         prevTime = time;
         nextPrayer = prayer.name;
       }
@@ -87,7 +119,7 @@ export class PrayerScheduleComponent {
   /**
    * @param time string in "hh:mm am/pm format, e.g. "09:34 pm"
    */
-  timeToFloat(time: string) {
+  timeToFloat(time: string): number {
     let [noSuffixTime, suffix] = time.split(' ');
     let [hours, minutes] = noSuffixTime.split(':').map((x) => +x);
     hours %= 12;
@@ -128,9 +160,8 @@ export class PrayerScheduleComponent {
   }
 
   private to12HourFormat(time: number): string {
-    let minutes = Math.round((time % 1) * 60);
+    const minutes = Math.round((time % 1) * 60);
     let hours = (Math.floor(time) + Math.floor(minutes / 60)) % 24;
-    minutes %= 60;
     let suffix =
       hours < 12
         ? PrayerScheduleComponent.AM_SUFFIX
@@ -141,5 +172,34 @@ export class PrayerScheduleComponent {
 
   private to2Digits(num: number): string {
     return num.toString().padStart(2, '0');
+  }
+
+  private getFloatCountdown(): number {
+    const next = this.getNextPrayer();
+    const nextPrayer = this.outputTimes.find(prayer => prayer.name === next)!;
+    let nextPrayerTime = this.timeToFloat(nextPrayer.adhan)
+    let date = new Date();
+    let currentTime = date.getHours() + date.getMinutes() / 60 + date.getSeconds() / 3600
+    if (currentTime > nextPrayerTime) {
+      nextPrayerTime = this.tomorrowTimes.fajr + 24
+    }
+    return nextPrayerTime - currentTime
+  }
+
+  public getCountdown(): string {
+    const countdown = this.getFloatCountdown()
+    let minutes = (countdown % 1) * 60
+    let seconds = Math.round((minutes % 1) * 60)
+    minutes = Math.floor(minutes)
+    let hours = Math.floor(countdown)
+    const time = [hours, minutes, seconds]
+    const suffixes = ['h', 'min', 's']
+    const timeStrings = time.map((x, i) => {
+      if (x > 0) {
+        return x + suffixes[i]
+      }
+      return ''
+    })
+    return timeStrings.join(' ')
   }
 }

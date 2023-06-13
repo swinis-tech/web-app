@@ -17,11 +17,11 @@
                             </div>
                             <div style="display: flex; color: white; justify-content: space-between; font-size: 16px;background: #3dc88f; padding: 0 8px">
 
-                                <span>
-                                    Next: Fajr
+                                <span *ngIf="outputTimes">
+                                    Next: {{ getNextPrayer() | titlecase }}
                                 </span>
                                 <span>
-                                    1h 20min 34s
+                                    {{ countdown  }}
                                 </span>
                             </div>
                             <table class="table sj-schedules-table">
