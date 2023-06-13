@@ -1,10 +1,10 @@
-import {Component, OnDestroy} from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {
   PrayerNames,
   PrayerTimesService,
 } from '../../../../prayer-times/prayer-times.service';
 import { FirestoreService } from 'src/app/firestore/firestore.service';
-import {NgClass, NgFor, NgIf, TitleCasePipe} from "@angular/common";
+import { NgClass, NgFor, NgIf, TitleCasePipe } from '@angular/common';
 
 type OutputPrayerNames =
   | 'fajr'
@@ -40,7 +40,7 @@ export class PrayerScheduleComponent implements OnDestroy {
   private static AM_SUFFIX = 'am' as const;
   private static PM_SUFFIX = 'pm' as const;
 
-  private static HAWTHORN_COORDINATES: [number, number] = [-37.8226, 145.0354]
+  private static HAWTHORN_COORDINATES: [number, number] = [-37.8226, 145.0354];
 
   public outputTimes!: OutputPrayer[];
   public today: Date = new Date();
@@ -48,10 +48,10 @@ export class PrayerScheduleComponent implements OnDestroy {
   private readonly prayTimes;
   private offset!: IqamahOffset;
   private hardcodedTimes!: HardcodedIqamahTimes;
-  public countdown: string = ''
-  private id: number = 0
+  public countdown: string = '';
+  private id: number = 0;
 
-  private tomorrowTimes
+  private tomorrowTimes;
 
   constructor(
     prayerTimesService: PrayerTimesService,
@@ -65,15 +65,15 @@ export class PrayerScheduleComponent implements OnDestroy {
       'Float'
     );
 
-    const tomorrow = new Date()
-    tomorrow.setDate(tomorrow.getDate() + 1)
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
     this.tomorrowTimes = prayerTimesService.getTimes(
       tomorrow,
       PrayerScheduleComponent.HAWTHORN_COORDINATES,
       'auto',
       'auto',
       'Float'
-    )
+    );
 
     firestoreService.getData().then((prayerData) => {
       this.offset = prayerData.iqamahOffset;
@@ -82,22 +82,19 @@ export class PrayerScheduleComponent implements OnDestroy {
 
       this.countdown = this.getCountdown();
       this.id = setInterval(() => {
-        this.countdown = this.getCountdown()
-      }, 1000)
+        this.countdown = this.getCountdown();
+      }, 1000);
     });
-
   }
 
   ngOnDestroy() {
     if (this.id) {
-      clearInterval(this.id)
+      clearInterval(this.id);
     }
   }
 
-
   getNextPrayer(): OutputPrayerNames {
     if (!this.outputTimes) {
-
     }
 
     let currentDate = new Date();
@@ -179,30 +176,31 @@ export class PrayerScheduleComponent implements OnDestroy {
 
   private getFloatCountdown(): number {
     const next = this.getNextPrayer();
-    const nextPrayer = this.outputTimes.find(prayer => prayer.name === next)!;
-    let nextPrayerTime = this.timeToFloat(nextPrayer.adhan)
+    const nextPrayer = this.outputTimes.find((prayer) => prayer.name === next)!;
+    let nextPrayerTime = this.timeToFloat(nextPrayer.adhan);
     let date = new Date();
-    let currentTime = date.getHours() + date.getMinutes() / 60 + date.getSeconds() / 3600
+    let currentTime =
+      date.getHours() + date.getMinutes() / 60 + date.getSeconds() / 3600;
     if (currentTime > nextPrayerTime) {
-      nextPrayerTime = this.tomorrowTimes.fajr + 24
+      nextPrayerTime = this.tomorrowTimes.fajr + 24;
     }
-    return nextPrayerTime - currentTime
+    return nextPrayerTime - currentTime;
   }
 
   public getCountdown(): string {
-    const countdown = this.getFloatCountdown()
-    let minutes = (countdown % 1) * 60
-    let seconds = Math.round((minutes % 1) * 60)
-    minutes = Math.floor(minutes)
-    let hours = Math.floor(countdown)
-    const time = [hours, minutes, seconds]
-    const suffixes = ['h', 'min', 's']
+    const countdown = this.getFloatCountdown();
+    let minutes = (countdown % 1) * 60;
+    let seconds = Math.round((minutes % 1) * 60);
+    minutes = Math.floor(minutes);
+    let hours = Math.floor(countdown);
+    const time = [hours, minutes, seconds];
+    const suffixes = ['h', 'min', 's'];
     const timeStrings = time.map((x, i) => {
       if (x > 0) {
-        return x + suffixes[i]
+        return x + suffixes[i];
       }
-      return ''
-    })
-    return timeStrings.join(' ')
+      return '';
+    });
+    return timeStrings.join(' ');
   }
 }
