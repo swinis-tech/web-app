@@ -50,6 +50,8 @@ export class PrayerScheduleComponent implements OnDestroy {
   private hardcodedTimes!: HardcodedIqamahTimes;
   public countdown: string = '';
   private id: number = 0;
+  private cachedId: number = 0
+  private dataSource: 'cache' | 'server' = 'cache'
 
   private tomorrowTimes;
 
@@ -75,7 +77,28 @@ export class PrayerScheduleComponent implements OnDestroy {
       'Float'
     );
 
+    firestoreService.getDataFromCache().then((prayerData) => {
+      console.log('got data from cache')
+      console.log(prayerData)
+      if (this.dataSource === 'cache') {
+        this.offset = prayerData.iqamahOffset;
+        this.hardcodedTimes = prayerData.hardcodedIqamah;
+        this.outputTimes = this.getIqamahTimes().concat(prayerData.friday);
+
+        this.countdown = this.getCountdown();
+        this.cachedId = setInterval(() => {
+          this.countdown = this.getCountdown();
+        }, 1000);
+      }
+    }).catch(r => console.log(r))
+
     firestoreService.getData().then((prayerData) => {
+      console.log('got data from server')
+      console.log(prayerData)
+      this.dataSource = 'server'
+      if (this.cachedId) {
+        clearInterval(this.cachedId)
+      }
       this.offset = prayerData.iqamahOffset;
       this.hardcodedTimes = prayerData.hardcodedIqamah;
       this.outputTimes = this.getIqamahTimes().concat(prayerData.friday);
@@ -90,6 +113,9 @@ export class PrayerScheduleComponent implements OnDestroy {
   ngOnDestroy() {
     if (this.id) {
       clearInterval(this.id);
+    }
+    if (this.cachedId) {
+      clearInterval(this.cachedId)
     }
   }
 
