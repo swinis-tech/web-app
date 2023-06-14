@@ -78,8 +78,6 @@ export class PrayerScheduleComponent implements OnDestroy {
     );
 
     firestoreService.getDataFromCache().then((prayerData) => {
-      console.log('got data from cache')
-      console.log(prayerData)
       if (this.dataSource === 'cache') {
         this.offset = prayerData.iqamahOffset;
         this.hardcodedTimes = prayerData.hardcodedIqamah;
@@ -93,8 +91,6 @@ export class PrayerScheduleComponent implements OnDestroy {
     }).catch(r => console.log(r))
 
     firestoreService.getData().then((prayerData) => {
-      console.log('got data from server')
-      console.log(prayerData)
       this.dataSource = 'server'
       if (this.cachedId) {
         clearInterval(this.cachedId)
