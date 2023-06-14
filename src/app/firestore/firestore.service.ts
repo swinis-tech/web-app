@@ -4,9 +4,14 @@ import {
 } from '../components/pages/home-two/prayer-schedule/prayer-schedule.component';
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import { doc, Firestore, getDoc, getFirestore } from 'firebase/firestore';
-
-const firestoreCollection = 'iqamah-data';
+import {
+  doc,
+  Firestore,
+  getDoc,
+  getFirestore,
+  initializeFirestore,
+  persistentLocalCache,
+} from 'firebase/firestore';
 
 export type PrayerData = {
   hardcodedIqamah: HardcodedIqamahTimes;
@@ -22,7 +27,7 @@ export type PrayerData = {
   providedIn: 'root',
 })
 export class FirestoreService {
-  private db: Firestore;
+  private readonly db: Firestore;
 
   constructor() {
     const firebaseConfig = {
@@ -36,31 +41,10 @@ export class FirestoreService {
 
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
+    initializeFirestore(app, {
+      localCache: persistentLocalCache(),
+    });
     this.db = getFirestore(app);
-  }
-
-  async getIqamahOffsets(): Promise<IqamahOffset> {
-    const docRef = doc(this.db, firestoreCollection, 'iqamah-offset');
-    const docSnap = await getDoc(docRef);
-
-    let data: IqamahOffset = {};
-    if (docSnap.exists()) {
-      data = docSnap.data();
-    }
-
-    return data;
-  }
-
-  async getHardcodedTimes(): Promise<HardcodedIqamahTimes> {
-    const docRef = doc(this.db, firestoreCollection, 'hardcoded-iqamah');
-    const docSnap = await getDoc(docRef);
-
-    let data: HardcodedIqamahTimes = {};
-    if (docSnap.exists()) {
-      data = docSnap.data();
-    }
-
-    return data;
   }
 
   async getData(): Promise<PrayerData> {
