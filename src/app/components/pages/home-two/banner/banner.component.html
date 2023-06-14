@@ -1,16 +1,19 @@
 <section id="intro">
-    <!-- Data -->
-    <div *ngFor="let item of banner | slice:0:1">
-        <div class="item section-padding" [style.background-image]="'url('+item.bgimage+')'">
-            <div class="container">
-                <div class="intro_text white_text">
-                    <img [src]="item.image" [alt]="item.title">
-                    <h1>{{item.title}}</h1>
-                    <p>{{item.text}}</p>
-                    <a routerLink="/khotba" class="btn dark-btn">read quotes</a>
-                </div>
-            </div>
+  <!-- Data -->
+  <div *ngFor="let item of banner | slice : 0 : 1">
+    <div
+      class="item section-padding"
+      [style.background-image]="'url(' + item.bgimage + ')'"
+    >
+      <div class="container">
+        <div class="intro_text white_text">
+          <img [src]="item.image" [alt]="item.title" />
+          <h1>{{ item.title }}</h1>
+          <p>{{ item.text }}</p>
+          <a routerLink="/khotba" class="btn dark-btn">read quotes</a>
         </div>
+      </div>
     </div>
-    <!-- Data -->
+  </div>
+  <!-- Data -->
 </section>

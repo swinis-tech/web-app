@@ -1,19 +1,27 @@
-import {AfterContentInit, AfterViewInit, Injectable, OnInit} from '@angular/core';
-import {ProductService} from './product.service';
-import productBlockData, {Product} from '../../data/shop/shop';
+import {
+  AfterContentInit,
+  AfterViewInit,
+  Injectable,
+  OnInit,
+} from '@angular/core';
+import { ProductService } from './product.service';
+import productBlockData, { Product } from '../../data/shop/shop';
 
-import productCategoryData, {Category} from '../../data/category';
-import productTagData, {Tag} from '../../data/tags';
-import {ActivatedRoute, Router} from '@angular/router';
-import {LabelType, Options} from '@angular-slider/ngx-slider';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import authorData, {Author} from '../../data/author';
-import {Item} from '../filter/item';
+import productCategoryData, { Category } from '../../data/category';
+import productTagData, { Tag } from '../../data/tags';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LabelType, Options } from '@angular-slider/ngx-slider';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import authorData, { Author } from '../../data/author';
+import { Item } from '../filter/item';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class ShopService extends ProductService implements AfterContentInit, AfterViewInit, OnInit {
+export class ShopService
+  extends ProductService
+  implements AfterContentInit, AfterViewInit, OnInit
+{
   constructor(
     private modalService: NgbModal,
     private productService: ProductService,
@@ -64,17 +72,21 @@ export class ShopService extends ProductService implements AfterContentInit, Aft
         default:
           return '$' + value;
       }
-    }
+    },
   };
   // Social Share
   public pageUrl = window.location.href;
   // Filter
   items: Item[] = productBlockData;
   categories = productCategoryData;
-  filteredItems: Item[] | Product[] = [] = [...this.items];
+  filteredItems: Item[] | Product[] = ([] = [...this.items]);
   open(content: any, item: any): void {
     this.modalContent = item;
-    this.modalService.open(content, { centered: true, size: 'lg', windowClass: 'quick-view-modal' });
+    this.modalService.open(content, {
+      centered: true,
+      size: 'lg',
+      windowClass: 'quick-view-modal',
+    });
   }
   increment(): void {
     this.counter += 1;
@@ -86,7 +98,7 @@ export class ShopService extends ProductService implements AfterContentInit, Aft
   }
   // Category
   public getCategories(items: number[]): Category[] {
-    return productCategoryData.filter( (item) => {
+    return productCategoryData.filter((item) => {
       return items.includes(item.id);
     });
   }
@@ -104,18 +116,35 @@ export class ShopService extends ProductService implements AfterContentInit, Aft
   }
   // Recent post
   public changeToMonth(month: string | number | any): string {
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
     return months[month];
   }
 
   public setDemoDate(): void {
     const today = new Date();
-    this.shopBlock.slice(0, 4).map((item) => (
-      item.timestamp = today.getTime() - (3 * 24 * 60 * 60 * 1000),
-      // Remove this date on your live demo. This is only used for preview purposed. Your date should actually be updated
-      // in the blog.ts object
-      item.postdate = `${today.getDate() - 2} ${this.changeToMonth(today.getMonth())}, ${today.getFullYear()}`
-    ));
+    this.shopBlock.slice(0, 4).map(
+      (item) => (
+        (item.timestamp = today.getTime() - 3 * 24 * 60 * 60 * 1000),
+        // Remove this date on your live demo. This is only used for preview purposed. Your date should actually be updated
+        // in the blog.ts object
+        (item.postdate = `${today.getDate() - 2} ${this.changeToMonth(
+          today.getMonth()
+        )}, ${today.getFullYear()}`)
+      )
+    );
   }
 
   public getRecentProduct() {
@@ -127,7 +156,11 @@ export class ShopService extends ProductService implements AfterContentInit, Aft
   }
   // Related Product
   public getProductByCategory(items: number[]) {
-    const elems = productBlockData.filter((product) => product.id !== parseInt(this.router.snapshot.params.id, 10) && product.category.some(r => items.includes(r)));
+    const elems = productBlockData.filter(
+      (product) =>
+        product.id !== parseInt(this.router.snapshot.params.id, 10) &&
+        product.category.some((r) => items.includes(r))
+    );
     return elems;
   }
 
@@ -155,9 +188,11 @@ export class ShopService extends ProductService implements AfterContentInit, Aft
     return this.productCategory;
   }
   public getPostsByCategory(catId: number) {
-    return this.shopBlock = productBlockData.filter((item: { category: number[]; }) => {
-      return item.category.includes(catId);
-    });
+    return (this.shopBlock = productBlockData.filter(
+      (item: { category: number[] }) => {
+        return item.category.includes(catId);
+      }
+    ));
   }
 
   // Tag Filter
@@ -168,9 +203,11 @@ export class ShopService extends ProductService implements AfterContentInit, Aft
     return this.productTag;
   }
   public getPostsByTag(tagId: number) {
-    return this.shopBlock = productBlockData.filter((item: { tags: number[]; }) => {
-      return item.tags.includes(tagId);
-    });
+    return (this.shopBlock = productBlockData.filter(
+      (item: { tags: number[] }) => {
+        return item.tags.includes(tagId);
+      }
+    ));
   }
 
   // Search Filter
@@ -181,9 +218,11 @@ export class ShopService extends ProductService implements AfterContentInit, Aft
     return this.searchQuery;
   }
   public getPostsBySearch(query: string) {
-    return this.shopBlock = productBlockData.filter((item: { title: (string) }) => {
-      return item.title.toLowerCase().includes(query.toLowerCase());
-    });
+    return (this.shopBlock = productBlockData.filter(
+      (item: { title: string }) => {
+        return item.title.toLowerCase().includes(query.toLowerCase());
+      }
+    ));
   }
   // Price Filter
   public setPrice(minPrice: number, maxPrice: number) {
@@ -194,24 +233,52 @@ export class ShopService extends ProductService implements AfterContentInit, Aft
     return [this.minPrice, this.maxPrice];
   }
   public getPostsByPrice(minPrice: number, maxPrice: number) {
-    return this.shopBlock = productBlockData.filter((item: { price: (number) }) => {
-      return item.price > minPrice && item.price <= maxPrice;
-    });
+    return (this.shopBlock = productBlockData.filter(
+      (item: { price: number }) => {
+        return item.price > minPrice && item.price <= maxPrice;
+      }
+    ));
   }
   // Fetch All filter
   public setPosts() {
-    const postsByCategory = this.getCategory() != undefined ? this.getPostsByCategory(this.getCategory() as number) : '';
-    const postsBySearch = this.getSearch() != undefined ? this.getPostsBySearch(this.getSearch()) : '';
-    const postsByTag = this.getTag() != undefined ? this.getPostsByTag(this.getTag()) : '';
-    const postsByPrice = this.getPrice() != undefined ? this.getPostsByPrice(this.getPrice()[0], this.getPrice()[1]) : '';
+    const postsByCategory =
+      this.getCategory() != undefined
+        ? this.getPostsByCategory(this.getCategory() as number)
+        : '';
+    const postsBySearch =
+      this.getSearch() != undefined
+        ? this.getPostsBySearch(this.getSearch())
+        : '';
+    const postsByTag =
+      this.getTag() != undefined ? this.getPostsByTag(this.getTag()) : '';
+    const postsByPrice =
+      this.getPrice() != undefined
+        ? this.getPostsByPrice(this.getPrice()[0], this.getPrice()[1])
+        : '';
 
-    if ((postsByCategory != undefined && postsByCategory != []) && postsByCategory.length > 0) {
+    if (
+      postsByCategory != undefined &&
+      postsByCategory != [] &&
+      postsByCategory.length > 0
+    ) {
       this.shopBlock = postsByCategory as Product[];
-    } else if ((postsBySearch != undefined && postsBySearch != []) && postsBySearch.length > 0) {
+    } else if (
+      postsBySearch != undefined &&
+      postsBySearch != [] &&
+      postsBySearch.length > 0
+    ) {
       this.shopBlock = postsBySearch as Product[];
-    } else if ((postsByTag != undefined && postsByTag != []) && postsByTag.length > 0) {
+    } else if (
+      postsByTag != undefined &&
+      postsByTag != [] &&
+      postsByTag.length > 0
+    ) {
       this.shopBlock = postsByTag as Product[];
-    } else if ((postsByPrice != undefined && postsByPrice != []) && postsByPrice.length > 0) {
+    } else if (
+      postsByPrice != undefined &&
+      postsByPrice != [] &&
+      postsByPrice.length > 0
+    ) {
       this.shopBlock = postsByPrice as Product[];
     } else {
       this.shopBlock = this.productService.getProducts();
@@ -219,19 +286,22 @@ export class ShopService extends ProductService implements AfterContentInit, Aft
   }
   // Detail
   public setProduct(id: any) {
-    this.shopDetails = productBlockData.filter((item: { id: any; }) => item.id == id);
+    this.shopDetails = productBlockData.filter(
+      (item: { id: any }) => item.id == id
+    );
   }
   ngAfterContentInit(): void {
     this.setSearch(this.router.snapshot.params.query);
     this.setCategory(this.router.snapshot.params.catId);
     this.setTag(this.router.snapshot.params.tagId);
-    this.setPrice(this.router.snapshot.params.minPrice, this.router.snapshot.params.maxPrice);
+    this.setPrice(
+      this.router.snapshot.params.minPrice,
+      this.router.snapshot.params.maxPrice
+    );
     this.setPosts();
     this.setProduct(this.router.snapshot.params.id);
   }
-  ngAfterViewInit(): void {
-
-  }
+  ngAfterViewInit(): void {}
   ngOnInit(): void {
     this.shopBlock = this.productService.getProducts();
     this.setCategoriesCount();
@@ -245,7 +315,10 @@ export class ShopService extends ProductService implements AfterContentInit, Aft
   }
   public setCategoriesCount() {
     for (let i = 0; i < (this.productCategory as Category[]).length; i++) {
-      const products = this.productBlock.filter((product: { category: number[]; }) => product.category.includes((this.productCategory as Category[])[i].id));
+      const products = this.productBlock.filter(
+        (product: { category: number[] }) =>
+          product.category.includes((this.productCategory as Category[])[i].id)
+      );
       (this.productCategory as Category[])[i].count = products.length;
     }
   }
@@ -254,23 +327,39 @@ export class ShopService extends ProductService implements AfterContentInit, Aft
       {
         title: 'facebook',
         iconClass: 'fab fa-facebook-f',
-        link: 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(this.pageUrl) + ''
+        link:
+          'https://www.facebook.com/sharer/sharer.php?u=' +
+          encodeURIComponent(this.pageUrl) +
+          '',
       },
       {
         title: 'twitter',
         iconClass: 'fab fa-twitter',
-        link: 'http://twitter.com/intent/tweet?text=' + encodeURIComponent(title) + '&' + encodeURIComponent(this.pageUrl) + ''
+        link:
+          'http://twitter.com/intent/tweet?text=' +
+          encodeURIComponent(title) +
+          '&' +
+          encodeURIComponent(this.pageUrl) +
+          '',
       },
       {
         title: 'linkedin',
         iconClass: 'fab fa-linkedin-in',
-        link: 'https://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(this.pageUrl) + '&title=' + encodeURIComponent(title) + ''
+        link:
+          'https://www.linkedin.com/shareArticle?mini=true&url=' +
+          encodeURIComponent(this.pageUrl) +
+          '&title=' +
+          encodeURIComponent(title) +
+          '',
       },
       {
         title: 'pinterest',
         iconClass: 'fab fa-pinterest-p',
-        link: 'http://pinterest.com/pin/create/button/?url=' + encodeURIComponent(this.pageUrl) + ''
-      }
+        link:
+          'http://pinterest.com/pin/create/button/?url=' +
+          encodeURIComponent(this.pageUrl) +
+          '',
+      },
     ];
     return socialIcons;
   }
@@ -278,7 +367,7 @@ export class ShopService extends ProductService implements AfterContentInit, Aft
     window.open(social.link, 'MsgWindow', 'width=600,height=600');
   }
 
-  filterItemsByCategory(category: Category, id: number, ) {
+  filterItemsByCategory(category: Category, id: number) {
     this.filteredItems = this.items.filter((item: Item) => {
       return item.category.includes(category.id);
     });
@@ -310,7 +399,9 @@ export class ShopService extends ProductService implements AfterContentInit, Aft
     this.productService.addToWishlist(product);
   }
   public handleDeleteFromWishlist(product: Product) {
-    if (confirm('Are you sure you want to delete this item from your Wishlist?')) {
+    if (
+      confirm('Are you sure you want to delete this item from your Wishlist?')
+    ) {
       this.productService.deleteFromWishlist(product);
     }
   }

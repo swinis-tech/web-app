@@ -4,8 +4,8 @@ import { KhotbaHelperService } from 'src/app/components/helper/khotba-helper.ser
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
-  styleUrls: ['./content.component.css']
+  styleUrls: ['./content.component.css'],
 })
 export class ContentComponent {
-  constructor(public khotbaHelperService: KhotbaHelperService) { }
+  constructor(public khotbaHelperService: KhotbaHelperService) {}
 }

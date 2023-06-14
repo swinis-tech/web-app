@@ -1,35 +1,50 @@
 <div class="heading">
-    <h3>Latest mawlads</h3>
-    <div class="sj-slider-arrow pull-right">
-        <div class="sj-left-arrow slick-arrow">
-            <span><i class="fa fa-chevron-up"></i></span>
-        </div>
-        <div class="sj-right-arrow slick-arrow">
-            <span><i class="fa fa-chevron-down"></i></span>
-        </div>
+  <h3>Latest mawlads</h3>
+  <div class="sj-slider-arrow pull-right">
+    <div class="sj-left-arrow slick-arrow">
+      <span><i class="fa fa-chevron-up"></i></span>
     </div>
+    <div class="sj-right-arrow slick-arrow">
+      <span><i class="fa fa-chevron-down"></i></span>
+    </div>
+  </div>
 </div>
-<ngx-slick-carousel #slickModal="slick-carousel" [config]="settings" class="mawlad-slider">
-    <!-- Data -->
-    <div ngxSlickItem class="mawlad-slider-item" *ngFor="let item of mawladHelperService.getRecentPost()">
-        <div class="row">
-            <div class="col-12">
-                <div class="mawlad_list">
-                    <ul>
-                        <li>
-                            <div class="mawlad_info">
-                                <div class="mawlad_date" [innerHtml]="mawladHelperService.getDateInitial(item.date)"></div>
-                                <h6><a routerLink="/mawlad-details/{{item.id}}">{{item.title | slice:0:25}}..</a></h6>
-                                <ul>
-                                    <li><i class="fa fa-clock-o"></i> {{item.timeday}}</li>
-                                    <li><i class="fa fa-map-marker"></i> {{item.location}}</li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+<ngx-slick-carousel
+  #slickModal="slick-carousel"
+  [config]="settings"
+  class="mawlad-slider"
+>
+  <!-- Data -->
+  <div
+    ngxSlickItem
+    class="mawlad-slider-item"
+    *ngFor="let item of mawladHelperService.getRecentPost()"
+  >
+    <div class="row">
+      <div class="col-12">
+        <div class="mawlad_list">
+          <ul>
+            <li>
+              <div class="mawlad_info">
+                <div
+                  class="mawlad_date"
+                  [innerHtml]="mawladHelperService.getDateInitial(item.date)"
+                ></div>
+                <h6>
+                  <a routerLink="/mawlad-details/{{ item.id }}"
+                    >{{ item.title | slice : 0 : 25 }}..</a
+                  >
+                </h6>
+                <ul>
+                  <li><i class="fa fa-clock-o"></i> {{ item.timeday }}</li>
+                  <li><i class="fa fa-map-marker"></i> {{ item.location }}</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
         </div>
+      </div>
     </div>
-    <!-- Data -->
+  </div>
+  <!-- Data -->
 </ngx-slick-carousel>

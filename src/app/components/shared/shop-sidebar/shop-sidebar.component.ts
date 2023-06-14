@@ -4,9 +4,8 @@ import { ShopService } from '../../helper/shop/shop.service';
 @Component({
   selector: 'app-shop-sidebar',
   templateUrl: './shop-sidebar.component.html',
-  styleUrls: ['./shop-sidebar.component.css']
+  styleUrls: ['./shop-sidebar.component.css'],
 })
 export class ShopSidebarComponent {
-  constructor(public shopService: ShopService) {
-  }
+  constructor(public shopService: ShopService) {}
 }

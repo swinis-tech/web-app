@@ -1,25 +1,34 @@
 <section class="sj-feature">
-    <div class="container-fluid no-gutter ">
-        <div class="row">
-            <div class="col-12 offset-lg-5 col-lg-7 p-0">
-                <div class="sj_custom sj_bg_wrap sj_bg_overlay" *ngFor="let item of mawladHelperService.mawladpost | slice:0:1">
-                    <div class="sj_countdown">
-                        <div class="section-header">
-                            <h2 class="text-center text-white">UPCOMING mawlad</h2>
+  <div class="container-fluid no-gutter">
+    <div class="row">
+      <div class="col-12 offset-lg-5 col-lg-7 p-0">
+        <div
+          class="sj_custom sj_bg_wrap sj_bg_overlay"
+          *ngFor="let item of mawladHelperService.mawladpost | slice : 0 : 1"
+        >
+          <div class="sj_countdown">
+            <div class="section-header">
+              <h2 class="text-center text-white">UPCOMING mawlad</h2>
 
-                            <h3 class="text-center text-white"><span class="primary-color">{{ item.title }},</span> More
-                                Details</h3>
-                            <div class="timer-c text-center">
-                                <countdown [text]="text" class="countdown-box" units="Days | Hours | Minutes | Seconds"
-                                    end="December 31, 2021"></countdown>
-                            </div>
-                            <a routerLink="/mawlad" class="btn dark-btn mt-4">
-                                All mawlads
-                            </a>
-                        </div>
-                    </div>
-                </div>
+              <h3 class="text-center text-white">
+                <span class="primary-color">{{ item.title }},</span> More
+                Details
+              </h3>
+              <div class="timer-c text-center">
+                <countdown
+                  [text]="text"
+                  class="countdown-box"
+                  units="Days | Hours | Minutes | Seconds"
+                  end="December 31, 2021"
+                ></countdown>
+              </div>
+              <a routerLink="/mawlad" class="btn dark-btn mt-4">
+                All mawlads
+              </a>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </section>

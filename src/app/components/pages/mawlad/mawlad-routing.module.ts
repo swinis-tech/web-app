@@ -6,6 +6,6 @@ const routes: Routes = [{ path: '', component: MawladComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class MawladRoutingModule { }
+export class MawladRoutingModule {}

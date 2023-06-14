@@ -1,181 +1,176 @@
 import { Observable, Subject } from 'rxjs';
-import {Product} from '../../data/shop/shop';
+import { Product } from '../../data/shop/shop';
 
 export class ProductServiceHelper {
-    // Cart
-    private storageSub = new Subject<String>();
-    public watchStorage(): Observable<String> {
-        return this.storageSub.asObservable();
+  // Cart
+  private storageSub = new Subject<String>();
+  public watchStorage(): Observable<String> {
+    return this.storageSub.asObservable();
+  }
+  protected getProductsObject(products: Product[]) {
+    let storage = this.getProductsFromStorage(),
+      items: string[];
+    if (storage != null && storage != '') {
+      items = JSON.parse(storage);
+
+      return products.filter((product: Product) => {
+        return items.includes(product.id.toString());
+      });
     }
-    protected getProductsObject( products: Product[] ){
-        let storage = this.getProductsFromStorage(),
-            items: string[];
-            if (storage != null && storage != '') {
-                 items = JSON.parse(storage);
-
-                return products.filter((product: Product) => {
-                    return items.includes(product.id.toString());
-                });
-            }
-            return [];
+    return [];
+  }
+  protected addProductToStorage(id: number) {
+    let storage = this.getProductsFromStorage(),
+      items;
+    if (storage != null && storage != '') {
+      items = JSON.parse(storage);
+      items.push(id.toString());
+      localStorage.setItem('sajdah_cart', JSON.stringify(items));
+      this.storageSub.next(JSON.stringify(storage));
+    } else {
+      localStorage.setItem('sajdah_cart', JSON.stringify([id.toString()]));
+      this.storageSub.next(JSON.stringify(storage));
     }
-    protected addProductToStorage(id: number) {
+  }
 
-        let storage = this.getProductsFromStorage(),
-            items;
-        if (storage != null && storage != '') {
-            items = JSON.parse(storage);
-            items.push(id.toString());
-            localStorage.setItem('sajdah_cart', JSON.stringify(items));
-            this.storageSub.next(JSON.stringify(storage));
-        } else {
-            localStorage.setItem('sajdah_cart', JSON.stringify([id.toString()]));
-            this.storageSub.next(JSON.stringify(storage));
-        }
+  protected getProductsFromStorageById(id: number) {
+    let storage = this.getProductsFromStorage(),
+      items;
+    if (storage != null && storage != '') {
+      items = JSON.parse(storage);
 
+      items = items.filter((item: string) => {
+        return parseInt(item) == id;
+      });
+      return items;
     }
+    return [];
+  }
 
-    protected getProductsFromStorageById(id: number) {
-        let storage = this.getProductsFromStorage(),
-            items;
-        if (storage != null && storage != '') {
-            items = JSON.parse(storage);
+  protected decrementQuantityFromStorage(id: number) {
+    let storage = this.getProductsFromStorage(),
+      items;
+    if (storage != null && storage != '') {
+      items = JSON.parse(storage);
 
-            items = items.filter((item: string) => {
-                return parseInt(item) == id;
-            });
-            return items
-        }
-        return [];
+      items.splice(items.indexOf(id.toString()), 1);
+
+      localStorage.setItem('sajdah_cart', JSON.stringify(items));
+      this.storageSub.next(JSON.stringify(items));
     }
+  }
 
-    protected decrementQuantityFromStorage( id: number ){
+  protected deleteProductFromStorage(id: number) {
+    let storage = this.getProductsFromStorage(),
+      items: string[],
+      itemsToDelete;
+    if (storage != null && storage != '') {
+      items = JSON.parse(storage);
 
-        let storage = this.getProductsFromStorage(),
-            items;
-        if (storage != null && storage != '') {
-            items = JSON.parse(storage);
+      itemsToDelete = this.getProductsFromStorageById(id);
 
-            items.splice( items.indexOf( id.toString() ), 1 );
+      itemsToDelete.forEach((item: string) =>
+        items.splice(
+          items.findIndex((e: string) => e == item),
+          1
+        )
+      );
+      localStorage.setItem('sajdah_cart', JSON.stringify(items));
 
-            localStorage.setItem('sajdah_cart', JSON.stringify(items));
-            this.storageSub.next(JSON.stringify(items));
-
-        }
-
+      this.storageSub.next(JSON.stringify(items));
     }
+  }
+  protected getProductsFromStorage() {
+    return localStorage.getItem('sajdah_cart') != null
+      ? localStorage.getItem('sajdah_cart')
+      : '';
+  }
+  protected getProductsLengthFromStorage() {
+    let storage = this.getProductsFromStorage();
+    return storage != null && storage != '' ? JSON.parse(storage).length : 0;
+  }
+  // Wishlist
+  protected getWishlistProductsObject(products: Product[]) {
+    let storage = this.getWishlistProductsFromStorage(),
+      items: string[];
+    if (storage != null && storage != '') {
+      items = JSON.parse(storage);
 
-    protected deleteProductFromStorage(id: number) {
-
-        let storage = this.getProductsFromStorage(),
-            items: string[],
-            itemsToDelete;
-        if (storage != null && storage != '') {
-
-            items = JSON.parse(storage);
-
-            itemsToDelete = this.getProductsFromStorageById(id);
-
-            itemsToDelete.forEach((item: string) => items.splice(items.findIndex((e: string) => e == item), 1));
-            localStorage.setItem('sajdah_cart', JSON.stringify(items));
-
-            this.storageSub.next(JSON.stringify(items));
-
-        }
-
+      return products.filter((product: Product) => {
+        return items.includes(product.id.toString());
+      });
     }
-    protected getProductsFromStorage() {
-        return localStorage.getItem('sajdah_cart') != null ? localStorage.getItem('sajdah_cart') : '';
+    return [];
+  }
+  protected addWishlistProductToStorage(id: number) {
+    let storage = this.getWishlistProductsFromStorage(),
+      items;
+    if (storage != null && storage != '') {
+      items = JSON.parse(storage);
+      items.push(id.toString());
+      localStorage.setItem('sajdah_wishlist', JSON.stringify(items));
+      this.storageSub.next(JSON.stringify(storage));
+    } else {
+      localStorage.setItem('sajdah_wishlist', JSON.stringify([id.toString()]));
+      this.storageSub.next(JSON.stringify(storage));
     }
-    protected getProductsLengthFromStorage() {
-        let storage = this.getProductsFromStorage();
-        return (storage != null && storage != '') ? JSON.parse(storage).length : 0;
+  }
+
+  protected getWishlistProductsFromStorageById(id: number) {
+    let storage = this.getWishlistProductsFromStorage(),
+      items;
+    if (storage != null && storage != '') {
+      items = JSON.parse(storage);
+
+      items = items.filter((item: string) => {
+        return parseInt(item) == id;
+      });
+      return items;
     }
-    // Wishlist
-    protected getWishlistProductsObject( products: Product[] ){
-        let storage = this.getWishlistProductsFromStorage(),
-            items: string[];
-            if (storage != null && storage != '') {
-                 items = JSON.parse(storage);
+    return [];
+  }
 
-                return products.filter((product: Product) => {
-                    return items.includes(product.id.toString());
-                });
-            }
-            return [];
+  protected decrementWishlistQuantityFromStorage(id: number) {
+    let storage = this.getWishlistProductsFromStorage(),
+      items;
+    if (storage != null && storage != '') {
+      items = JSON.parse(storage);
+
+      items.splice(items.indexOf(id.toString()), 1);
+
+      localStorage.setItem('sajdah_wishlist', JSON.stringify(items));
+      this.storageSub.next(JSON.stringify(items));
     }
-    protected addWishlistProductToStorage(id: number) {
+  }
 
-        let storage = this.getWishlistProductsFromStorage(),
-            items;
-        if (storage != null && storage != '') {
-            items = JSON.parse(storage);
-            items.push(id.toString());
-            localStorage.setItem('sajdah_wishlist', JSON.stringify(items));
-            this.storageSub.next(JSON.stringify(storage));
-        } else {
-            localStorage.setItem('sajdah_wishlist', JSON.stringify([id.toString()]));
-            this.storageSub.next(JSON.stringify(storage));
-        }
+  protected deleteWishlistProductFromStorage(id: number) {
+    let storage = this.getWishlistProductsFromStorage(),
+      items: string[],
+      itemsToDelete;
+    if (storage != null && storage != '') {
+      items = JSON.parse(storage);
 
+      itemsToDelete = this.getWishlistProductsFromStorageById(id);
+
+      itemsToDelete.forEach((item: string) =>
+        items.splice(
+          items.findIndex((e: string) => e == item),
+          1
+        )
+      );
+      localStorage.setItem('sajdah_wishlist', JSON.stringify(items));
+
+      this.storageSub.next(JSON.stringify(items));
     }
+  }
+  protected getWishlistProductsFromStorage() {
+    return localStorage.getItem('sajdah_wishlist') != null
+      ? localStorage.getItem('sajdah_wishlist')
+      : '';
+  }
 
-    protected getWishlistProductsFromStorageById(id: number) {
-        let storage = this.getWishlistProductsFromStorage(),
-            items;
-        if (storage != null && storage != '') {
-            items = JSON.parse(storage);
-
-            items = items.filter((item: string) => {
-                return parseInt(item) == id;
-            });
-            return items
-        }
-        return [];
-    }
-
-    protected decrementWishlistQuantityFromStorage( id: number ){
-
-        let storage = this.getWishlistProductsFromStorage(),
-            items;
-        if (storage != null && storage != '') {
-            items = JSON.parse(storage);
-
-            items.splice( items.indexOf( id.toString() ), 1 );
-
-            localStorage.setItem('sajdah_wishlist', JSON.stringify(items));
-            this.storageSub.next(JSON.stringify(items));
-
-        }
-
-    }
-
-    protected deleteWishlistProductFromStorage(id: number) {
-
-        let storage = this.getWishlistProductsFromStorage(),
-            items: string[],
-            itemsToDelete;
-        if (storage != null && storage != '') {
-
-            items = JSON.parse(storage);
-
-            itemsToDelete = this.getWishlistProductsFromStorageById(id);
-
-            itemsToDelete.forEach((item: string) => items.splice(items.findIndex((e: string) => e == item), 1));
-            localStorage.setItem('sajdah_wishlist', JSON.stringify(items));
-
-            this.storageSub.next(JSON.stringify(items));
-
-        }
-
-    }
-    protected getWishlistProductsFromStorage() {
-        return localStorage.getItem('sajdah_wishlist') != null ? localStorage.getItem('sajdah_wishlist') : '';
-    }
-
-    protected getWishlistProductsLengthFromStorage() {
-        let storage = this.getWishlistProductsFromStorage();
-        return (storage != null && storage != '') ? JSON.parse(storage).length : 0;
-    }
-
+  protected getWishlistProductsLengthFromStorage() {
+    let storage = this.getWishlistProductsFromStorage();
+    return storage != null && storage != '' ? JSON.parse(storage).length : 0;
+  }
 }

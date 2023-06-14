@@ -4,10 +4,10 @@ import { MawladHelperService } from 'src/app/components/helper/mawlad-helper.ser
 @Component({
   selector: 'app-recent-malwads',
   templateUrl: './recent-malwads.component.html',
-  styleUrls: ['./recent-malwads.component.css']
+  styleUrls: ['./recent-malwads.component.css'],
 })
 export class RecentMalwadsComponent {
-  constructor(public mawladHelperService: MawladHelperService) { }
+  constructor(public mawladHelperService: MawladHelperService) {}
   settings = {
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -25,22 +25,22 @@ export class RecentMalwadsComponent {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 1,
-        }
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 1
-        }
+          slidesToScroll: 1,
+        },
       },
       {
         breakpoint: 480,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 1
-        }
-      }
-    ]
-  }
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
 }

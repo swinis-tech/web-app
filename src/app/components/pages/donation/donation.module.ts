@@ -8,18 +8,14 @@ import { DonationComponent } from './donation.component';
 import { SharedModule } from '../../shared/shared.module';
 import { ContentComponent } from './content/content.component';
 
-
 @NgModule({
-  declarations: [
-    DonationComponent,
-    ContentComponent
-  ],
+  declarations: [DonationComponent, ContentComponent],
   imports: [
     CommonModule,
     DonationRoutingModule,
     SharedModule,
     NgbModule,
-    FormsModule
-  ]
+    FormsModule,
+  ],
 })
-export class DonationModule { }
+export class DonationModule {}

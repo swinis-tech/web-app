@@ -8,18 +8,14 @@ import { ShopRightComponent } from './shop-right.component';
 import { SharedModule } from '../../shared/shared.module';
 import { ContentComponent } from './content/content.component';
 
-
 @NgModule({
-  declarations: [
-    ShopRightComponent,
-    ContentComponent
-  ],
+  declarations: [ShopRightComponent, ContentComponent],
   imports: [
     CommonModule,
     ShopRightRoutingModule,
     SharedModule,
     NgbModule,
-    NgxPaginationModule
-  ]
+    NgxPaginationModule,
+  ],
 })
-export class ShopRightModule { }
+export class ShopRightModule {}

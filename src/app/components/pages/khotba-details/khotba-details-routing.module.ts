@@ -6,6 +6,6 @@ const routes: Routes = [{ path: '', component: KhotbaDetailsComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class KhotbaDetailsRoutingModule { }
+export class KhotbaDetailsRoutingModule {}

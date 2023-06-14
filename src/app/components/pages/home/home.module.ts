@@ -16,8 +16,7 @@ import { RecentKhotbaComponent } from './recent-khotba/recent-khotba.component';
 import { VideoComponent } from './video/video.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { BlogsComponent } from './blogs/blogs.component';
-import {NgxMasonryModule} from 'ngx-masonry';
-
+import { NgxMasonryModule } from 'ngx-masonry';
 
 @NgModule({
   declarations: [
@@ -29,7 +28,7 @@ import {NgxMasonryModule} from 'ngx-masonry';
     RecentKhotbaComponent,
     VideoComponent,
     GalleryComponent,
-    BlogsComponent
+    BlogsComponent,
   ],
   imports: [
     CommonModule,
@@ -39,7 +38,7 @@ import {NgxMasonryModule} from 'ngx-masonry';
     NgbModule,
     CountUpModule,
     CarouselModule,
-    NgxMasonryModule
-  ]
+    NgxMasonryModule,
+  ],
 })
-export class HomeModule { }
+export class HomeModule {}

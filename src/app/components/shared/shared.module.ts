@@ -16,8 +16,6 @@ import { BlogSidebarComponent } from './blog-sidebar/blog-sidebar.component';
 import { SmallCartComponent } from './small-cart/small-cart.component';
 import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
 
-
-
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -27,7 +25,7 @@ import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
     ShopSidebarComponent,
     BlogSidebarComponent,
     SmallCartComponent,
-    MobileMenuComponent
+    MobileMenuComponent,
   ],
   imports: [
     CommonModule,
@@ -36,7 +34,7 @@ import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
     BreadcrumbModule,
     FormsModule,
     SlickCarouselModule,
-    NgxSliderModule
+    NgxSliderModule,
   ],
   exports: [
     HeaderComponent,
@@ -44,7 +42,7 @@ import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
     BreadcrumbComponent,
     KhotbaSidebarComponent,
     ShopSidebarComponent,
-    BlogSidebarComponent
-  ]
+    BlogSidebarComponent,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}

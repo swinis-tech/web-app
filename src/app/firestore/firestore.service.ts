@@ -44,7 +44,9 @@ export class FirestoreService {
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     initializeFirestore(app, {
-      localCache: persistentLocalCache({tabManager: persistentMultipleTabManager()}),
+      localCache: persistentLocalCache({
+        tabManager: persistentMultipleTabManager(),
+      }),
     });
     this.db = getFirestore(app);
   }
@@ -62,7 +64,7 @@ export class FirestoreService {
 
   async getDataFromCache(): Promise<PrayerData> {
     const docRef = doc(this.db, 'prayers', 'prayerData');
-    const docSnap = await getDocFromCache(docRef)
+    const docSnap = await getDocFromCache(docRef);
 
     if (docSnap.exists()) {
       return docSnap.data() as PrayerData;

@@ -9,19 +9,18 @@ import { SharedModule } from '../../shared/shared.module';
 import { ContentComponent } from './content/content.component';
 import { RelatedProductsComponent } from './related-products/related-products.component';
 
-
 @NgModule({
   declarations: [
     ShopDetailsComponent,
     ContentComponent,
-    RelatedProductsComponent
+    RelatedProductsComponent,
   ],
   imports: [
     CommonModule,
     ShopDetailsRoutingModule,
     SharedModule,
     NgbModule,
-    SlickCarouselModule
-  ]
+    SlickCarouselModule,
+  ],
 })
-export class ShopDetailsModule { }
+export class ShopDetailsModule {}

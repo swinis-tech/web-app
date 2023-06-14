@@ -1,23 +1,25 @@
 <breadcrumb #parent>
-    <section id="inner_intro" class="section-padding">
-        <div class="container">
-            <div class="inner_wp z_index white_text">
-                <ng-template ngFor let-route [ngForOf]="parent.breadcrumbs">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h1>{{ route.displayName }}</h1>
-                        </div>
-                        <div class="col-md-6">
-                            <nav class="breadcrumb">
-                                <ul>
-                                    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-                                    <li class="breadcrumb-item active">{{ route.displayName }}</li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </ng-template>
+  <section id="inner_intro" class="section-padding">
+    <div class="container">
+      <div class="inner_wp z_index white_text">
+        <ng-template ngFor let-route [ngForOf]="parent.breadcrumbs">
+          <div class="row">
+            <div class="col-md-6">
+              <h1>{{ route.displayName }}</h1>
             </div>
-        </div>
-    </section>
+            <div class="col-md-6">
+              <nav class="breadcrumb">
+                <ul>
+                  <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                  <li class="breadcrumb-item active">
+                    {{ route.displayName }}
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </section>
 </breadcrumb>

@@ -19,7 +19,6 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { PrayerScheduleComponent } from './prayer-schedule/prayer-schedule.component';
 import { BlogsComponent } from './blogs/blogs.component';
 
-
 @NgModule({
   declarations: [
     HomeTwoComponent,
@@ -30,7 +29,7 @@ import { BlogsComponent } from './blogs/blogs.component';
     RecentKhotbaComponent,
     UpcomingMalwadsComponent,
     GalleryComponent,
-    BlogsComponent
+    BlogsComponent,
   ],
   imports: [
     CommonModule,
@@ -40,7 +39,7 @@ import { BlogsComponent } from './blogs/blogs.component';
     NgbModule,
     CountUpModule,
     // NgMasonryGridModule,
-    CountdownModule
-  ]
+    CountdownModule,
+  ],
 })
-export class HomeTwoModule { }
+export class HomeTwoModule {}

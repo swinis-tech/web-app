@@ -1,103 +1,119 @@
 <footer id="footer">
-    <!-- Footer-Top -->
-    <div class="footer_top secondary-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 top_widget">
-                    <div class="footer_logo">
-                        <a routerLink="/"><img src="assets/images/sajada.png" alt="logo"></a>
-                    </div>
-                </div>
-                <div class="col-md-4 top_widget">
-                    <div class="newsletter">
-                        <form>
-                            <div class="email_input">
-                                <input type="email" placeholder="Email address" required>
-                            </div>
-                            <button type="submit">Submit <i class="fa fa-caret-right"></i></button>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-md-4 top_widget">
-                    <div class="follow_us">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                            <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
-                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Footer-Top -->
-    <!-- Footer-Widgets -->
+  <!-- Footer-Top -->
+  <div class="footer_top secondary-bg">
     <div class="container">
-        <div class="row">
-            <div class="col-md-4 footer_widget">
-                <div class="widget_inner">
-                    <h5>Contact Us</h5>
-                    <p>9000 Regency Parkway, Suite 400 Cary, NC</p>
-                    <p>E: <a href="mailto:example@example.com">example@example.com</a></p>
-                    <p>P: +011 787 5878 555</p>
-                </div>
-            </div>
-            <div class="col-md-4 footer_widget">
-                <div class="widget_inner">
-                    <div class="instagram_img">
-                        <ul>
-                            <!-- Data -->
-                            <li *ngFor="let item of instagram | slice:0:8">
-                                <a href="#"><img [src]="item.image" alt="ig"></a>
-                            </li>
-                            <!-- Data -->
-                        </ul>
-                        <a href="#" class="insta_url"><i class="fa fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 footer_widget">
-                <div class="widget_inner">
-                    <h5>Useful Links</h5>
-                    <div class="footer_nav">
-                        <ul>
-                            <li><a routerLink="/about">FAQ</a></li>
-                            <li><a routerLink="/login">Account</a></li>
-                            <li><a routerLink="/about">Privacy Policy</a></li>
-                            <li><a routerLink="/cart">Cart</a></li>
-                            <li><a routerLink="/about">Terms & Conditions</a></li>
-                            <li><a routerLink="/checkout">Checkout</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+      <div class="row">
+        <div class="col-md-4 top_widget">
+          <div class="footer_logo">
+            <a routerLink="/"
+              ><img src="assets/images/sajada.png" alt="logo"
+            /></a>
+          </div>
         </div>
-    </div>
-    <!-- /Footer-Widgets -->
-    <!-- Footer-Bottom -->
-    <div class="footer_bottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <p>&copy; 2021 Website All Rights Reserved</p>
-                </div>
-                <div class="col-md-4">
-                    <div id="back-top" class="back-top">
-                        <a href="javascript:void(0)" (click)="scrollToTop()"><i class="fa fa-angle-up" aria-hidden="true"></i> </a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="footer_links">
-                        <a routerLink="/">Home</a>
-                        <a routerLink="/about">About Us</a>
-                        <a routerLink="/khotba">Khotba</a>
-                        <a routerLink="/mawlad">Mawlad</a>
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-4 top_widget">
+          <div class="newsletter">
+            <form>
+              <div class="email_input">
+                <input type="email" placeholder="Email address" required />
+              </div>
+              <button type="submit">
+                Submit <i class="fa fa-caret-right"></i>
+              </button>
+            </form>
+          </div>
         </div>
+        <div class="col-md-4 top_widget">
+          <div class="follow_us">
+            <ul>
+              <li>
+                <a href="#"><i class="fa fa-facebook"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="fa fa-youtube-play"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="fa fa-instagram"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- /Footer-Bottom -->
+  </div>
+  <!-- /Footer-Top -->
+  <!-- Footer-Widgets -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 footer_widget">
+        <div class="widget_inner">
+          <h5>Contact Us</h5>
+          <p>9000 Regency Parkway, Suite 400 Cary, NC</p>
+          <p>E: <a href="mailto:example@example.com">example@example.com</a></p>
+          <p>P: +011 787 5878 555</p>
+        </div>
+      </div>
+      <div class="col-md-4 footer_widget">
+        <div class="widget_inner">
+          <div class="instagram_img">
+            <ul>
+              <!-- Data -->
+              <li *ngFor="let item of instagram | slice : 0 : 8">
+                <a href="#"><img [src]="item.image" alt="ig" /></a>
+              </li>
+              <!-- Data -->
+            </ul>
+            <a href="#" class="insta_url"><i class="fa fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 footer_widget">
+        <div class="widget_inner">
+          <h5>Useful Links</h5>
+          <div class="footer_nav">
+            <ul>
+              <li><a routerLink="/about">FAQ</a></li>
+              <li><a routerLink="/login">Account</a></li>
+              <li><a routerLink="/about">Privacy Policy</a></li>
+              <li><a routerLink="/cart">Cart</a></li>
+              <li><a routerLink="/about">Terms & Conditions</a></li>
+              <li><a routerLink="/checkout">Checkout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Footer-Widgets -->
+  <!-- Footer-Bottom -->
+  <div class="footer_bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <p>&copy; 2021 Website All Rights Reserved</p>
+        </div>
+        <div class="col-md-4">
+          <div id="back-top" class="back-top">
+            <a href="javascript:void(0)" (click)="scrollToTop()"
+              ><i class="fa fa-angle-up" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="footer_links">
+            <a routerLink="/">Home</a>
+            <a routerLink="/about">About Us</a>
+            <a routerLink="/khotba">Khotba</a>
+            <a routerLink="/mawlad">Mawlad</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Footer-Bottom -->
 </footer>

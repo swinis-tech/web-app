@@ -8,18 +8,14 @@ import { ContactComponent } from './contact.component';
 import { SharedModule } from '../../shared/shared.module';
 import { ContentComponent } from './content/content.component';
 
-
 @NgModule({
-  declarations: [
-    ContactComponent,
-    ContentComponent
-  ],
+  declarations: [ContactComponent, ContentComponent],
   imports: [
     CommonModule,
     ContactRoutingModule,
     SharedModule,
     NgbModule,
-    FormsModule
-  ]
+    FormsModule,
+  ],
 })
-export class ContactModule { }
+export class ContactModule {}

@@ -1,35 +1,56 @@
 <section class="section-padding">
-    <div class="container">
-        <!-- Data -->
-        <div class="mawlads_wrap" *ngFor="let item of mawladHelperService.mawladpost | paginate: { itemsPerPage: 4, currentPage: mawladHelperService.page }">
-            <div class="mawlad_date" [innerHtml]="mawladHelperService.getDateInitial(item.date)"></div>
-            <div class="mawlad_img">
-                <a routerLink="/mawlad-details/{{item.id}}"><img [src]="item.image" [alt]="item.title"></a>
-            </div>
-            <div class="mawlad_info">
-                <h4><a routerLink="/mawlad-details/{{item.id}}">{{item.title}}</a></h4>
-                <p>{{item.shorttext}}</p>
-                <ul>
-                    <li><i class="fa fa-clock-o"></i> {{item.timeday}}</li>
-                    <li><i class="fa fa-map-marker"></i> {{item.location}}</li>
-                </ul>
-                <a routerLink="/mawlad-details/{{item.id}}" class="btn dark-btn">Join Now <i class="fa fa-caret-right"></i> </a>
-            </div>
-        </div>
-        <!-- /Data -->
-        <div class="divider pb-3 clearfix"></div>
-        <!-- Pagination -->
-        <div class="pagination_wrap">
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>Page 1 of 2</p>
-                </div>
-                <div class="col-sm-6">
-                    <pagination-controls (pageChange)="mawladHelperService.page = $event" [responsive]="true" previousLabel="<" nextLabel=">">
-                    </pagination-controls>
-                </div>
-            </div>
-        </div>
-        <!-- /Pagination -->
+  <div class="container">
+    <!-- Data -->
+    <div
+      class="mawlads_wrap"
+      *ngFor="
+        let item of mawladHelperService.mawladpost
+          | paginate
+            : { itemsPerPage: 4, currentPage: mawladHelperService.page }
+      "
+    >
+      <div
+        class="mawlad_date"
+        [innerHtml]="mawladHelperService.getDateInitial(item.date)"
+      ></div>
+      <div class="mawlad_img">
+        <a routerLink="/mawlad-details/{{ item.id }}"
+          ><img [src]="item.image" [alt]="item.title"
+        /></a>
+      </div>
+      <div class="mawlad_info">
+        <h4>
+          <a routerLink="/mawlad-details/{{ item.id }}">{{ item.title }}</a>
+        </h4>
+        <p>{{ item.shorttext }}</p>
+        <ul>
+          <li><i class="fa fa-clock-o"></i> {{ item.timeday }}</li>
+          <li><i class="fa fa-map-marker"></i> {{ item.location }}</li>
+        </ul>
+        <a routerLink="/mawlad-details/{{ item.id }}" class="btn dark-btn"
+          >Join Now <i class="fa fa-caret-right"></i>
+        </a>
+      </div>
     </div>
+    <!-- /Data -->
+    <div class="divider pb-3 clearfix"></div>
+    <!-- Pagination -->
+    <div class="pagination_wrap">
+      <div class="row">
+        <div class="col-sm-6">
+          <p>Page 1 of 2</p>
+        </div>
+        <div class="col-sm-6">
+          <pagination-controls
+            (pageChange)="mawladHelperService.page = $event"
+            [responsive]="true"
+            previousLabel="<"
+            nextLabel=">"
+          >
+          </pagination-controls>
+        </div>
+      </div>
+    </div>
+    <!-- /Pagination -->
+  </div>
 </section>

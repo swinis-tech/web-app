@@ -11,7 +11,6 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { TeamComponent } from './team/team.component';
 import { PrayerStylesComponent } from './prayer-styles/prayer-styles.component';
 
-
 @NgModule({
   declarations: [
     AboutComponent,
@@ -19,13 +18,8 @@ import { PrayerStylesComponent } from './prayer-styles/prayer-styles.component';
     SingleTeamComponent,
     AboutUsComponent,
     TeamComponent,
-    PrayerStylesComponent
+    PrayerStylesComponent,
   ],
-  imports: [
-    CommonModule,
-    AboutRoutingModule,
-    SharedModule,
-    NgbModule
-  ]
+  imports: [CommonModule, AboutRoutingModule, SharedModule, NgbModule],
 })
-export class AboutModule { }
+export class AboutModule {}

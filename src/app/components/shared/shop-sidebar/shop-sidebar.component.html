@@ -1,54 +1,75 @@
 <div class="sidebar_wrap">
-    <div class="sidebar_widgets">
-        <div class="search">
-            <form (ngSubmit)="shopService.onSubmit()" method="GET">
-                <input type="text" class="form-control" placeholder="Enter Keyword" name="searchText"
-                [(ngModel)]="shopService.searchText" required>
-            </form>
-        </div>
+  <div class="sidebar_widgets">
+    <div class="search">
+      <form (ngSubmit)="shopService.onSubmit()" method="GET">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter Keyword"
+          name="searchText"
+          [(ngModel)]="shopService.searchText"
+          required
+        />
+      </form>
     </div>
-    <div class="sidebar_widgets">
-        <div class="widget_title">
-            <h6>Categories</h6>
-        </div>
-        <div class="sidebar_nav">
-            <ul>
-                <!-- Data -->
-                <li *ngFor="let item of shopService.category">
-                    <a routerLink="/shop/cat/{{ item.id }}">{{ item.title }}
-<!--                      ({{ item.count }})-->
-                    </a>
-                </li>
-                <!-- Data -->
-            </ul>
-        </div>
+  </div>
+  <div class="sidebar_widgets">
+    <div class="widget_title">
+      <h6>Categories</h6>
     </div>
-    <div class="sidebar_widgets">
-        <div class="widget_title">
-            <h6>Price Range</h6>
-        </div>
-        <div class="sj-price-filter">
-            <div class="thc-range-inner">
-                <ngx-slider [(value)]="shopService.priceFilter[0]" [(highValue)]="shopService.priceFilter[1]" [options]="shopService.priceFilterOptions" [(ngModel)]="shopService.priceFilter" (click)="shopService.handlePriceChange()"></ngx-slider>
-            </div>
-        </div>
+    <div class="sidebar_nav">
+      <ul>
+        <!-- Data -->
+        <li *ngFor="let item of shopService.category">
+          <a routerLink="/shop/cat/{{ item.id }}"
+            >{{ item.title }}
+            <!--                      ({{ item.count }})-->
+          </a>
+        </li>
+        <!-- Data -->
+      </ul>
     </div>
-    <div class="sidebar_widgets">
-        <div class="widget_title">
-            <h6>Ads</h6>
-        </div>
-        <div class="sj-ads">
-            <img src="assets/images/Resized/Ad-sajdah.png" class="mx-auto img-fluid d-block" alt="img">
-        </div>
+  </div>
+  <div class="sidebar_widgets">
+    <div class="widget_title">
+      <h6>Price Range</h6>
     </div>
-    <div class="sidebar_widgets">
-        <div class="widget_title">
-            <h6>Tags</h6>
-        </div>
-        <div class="tag_cloud">
-            <!-- Data -->
-            <a routerLink="/shop/tag/{{item.id}}" *ngFor="let item of shopService.tags">{{item.title}}</a>
-            <!-- Data -->
-        </div>
+    <div class="sj-price-filter">
+      <div class="thc-range-inner">
+        <ngx-slider
+          [(value)]="shopService.priceFilter[0]"
+          [(highValue)]="shopService.priceFilter[1]"
+          [options]="shopService.priceFilterOptions"
+          [(ngModel)]="shopService.priceFilter"
+          (click)="shopService.handlePriceChange()"
+        ></ngx-slider>
+      </div>
     </div>
+  </div>
+  <div class="sidebar_widgets">
+    <div class="widget_title">
+      <h6>Ads</h6>
+    </div>
+    <div class="sj-ads">
+      <img
+        src="assets/images/Resized/Ad-sajdah.png"
+        class="mx-auto img-fluid d-block"
+        alt="img"
+      />
+    </div>
+  </div>
+  <div class="sidebar_widgets">
+    <div class="widget_title">
+      <h6>Tags</h6>
+    </div>
+    <div class="tag_cloud">
+      <!-- Data -->
+      <a
+        routerLink="/shop/tag/{{ item.id }}"
+        *ngFor="let item of shopService.tags"
+        >{{ item.title }}</a
+      >
+      <!-- Data -->
+    </div>
+  </div>
 </div>

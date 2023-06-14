@@ -50,8 +50,8 @@ export class PrayerScheduleComponent implements OnDestroy {
   private hardcodedTimes!: HardcodedIqamahTimes;
   public countdown: string = '';
   private id: number = 0;
-  private cachedId: number = 0
-  private dataSource: 'cache' | 'server' = 'cache'
+  private cachedId: number = 0;
+  private dataSource: 'cache' | 'server' = 'cache';
 
   private tomorrowTimes;
 
@@ -77,23 +77,26 @@ export class PrayerScheduleComponent implements OnDestroy {
       'Float'
     );
 
-    firestoreService.getDataFromCache().then((prayerData) => {
-      if (this.dataSource === 'cache') {
-        this.offset = prayerData.iqamahOffset;
-        this.hardcodedTimes = prayerData.hardcodedIqamah;
-        this.outputTimes = this.getIqamahTimes().concat(prayerData.friday);
+    firestoreService
+      .getDataFromCache()
+      .then((prayerData) => {
+        if (this.dataSource === 'cache') {
+          this.offset = prayerData.iqamahOffset;
+          this.hardcodedTimes = prayerData.hardcodedIqamah;
+          this.outputTimes = this.getIqamahTimes().concat(prayerData.friday);
 
-        this.countdown = this.getCountdown();
-        this.cachedId = setInterval(() => {
           this.countdown = this.getCountdown();
-        }, 1000);
-      }
-    }).catch(r => console.log(r))
+          this.cachedId = setInterval(() => {
+            this.countdown = this.getCountdown();
+          }, 1000);
+        }
+      })
+      .catch((r) => console.log(r));
 
     firestoreService.getData().then((prayerData) => {
-      this.dataSource = 'server'
+      this.dataSource = 'server';
       if (this.cachedId) {
-        clearInterval(this.cachedId)
+        clearInterval(this.cachedId);
       }
       this.offset = prayerData.iqamahOffset;
       this.hardcodedTimes = prayerData.hardcodedIqamah;
@@ -111,7 +114,7 @@ export class PrayerScheduleComponent implements OnDestroy {
       clearInterval(this.id);
     }
     if (this.cachedId) {
-      clearInterval(this.cachedId)
+      clearInterval(this.cachedId);
     }
   }
 
@@ -139,17 +142,17 @@ export class PrayerScheduleComponent implements OnDestroy {
     let currentDate = new Date();
     let currentTime = currentDate.getHours() + currentDate.getMinutes() / 60;
     let prevTime = 0;
-    let currentPrayer: OutputPrayerNames = 'isha'
+    let currentPrayer: OutputPrayerNames = 'isha';
     let times = this.outputTimes;
     if (currentDate.getDay() !== 5) {
       times = times.slice(0, times.length - 2);
     }
 
     for (const prayer of times) {
-      let time = this.timeToFloat(prayer.adhan)
+      let time = this.timeToFloat(prayer.adhan);
       if (time <= currentTime && time > prevTime) {
         prevTime = time;
-        currentPrayer = prayer.name
+        currentPrayer = prayer.name;
       }
     }
 

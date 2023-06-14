@@ -4,8 +4,8 @@ import { MawladHelperService } from 'src/app/components/helper/mawlad-helper.ser
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
-  styleUrls: ['./content.component.css']
+  styleUrls: ['./content.component.css'],
 })
 export class ContentComponent {
-  constructor(public mawladHelperService: MawladHelperService) { }
+  constructor(public mawladHelperService: MawladHelperService) {}
 }

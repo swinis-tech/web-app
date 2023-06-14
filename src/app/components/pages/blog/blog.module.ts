@@ -8,18 +8,14 @@ import { BlogComponent } from './blog.component';
 import { SharedModule } from '../../shared/shared.module';
 import { ContentComponent } from './content/content.component';
 
-
 @NgModule({
-  declarations: [
-    BlogComponent,
-    ContentComponent
-  ],
+  declarations: [BlogComponent, ContentComponent],
   imports: [
     CommonModule,
     BlogRoutingModule,
     SharedModule,
     NgbModule,
-    NgxPaginationModule
-  ]
+    NgxPaginationModule,
+  ],
 })
-export class BlogModule { }
+export class BlogModule {}

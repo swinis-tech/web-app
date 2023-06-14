@@ -1,21 +1,22 @@
 import { Injectable, OnInit } from '@angular/core';
 import { ProductService } from './product.service';
-import {Product} from '../../data/shop/shop';
+import { Product } from '../../data/shop/shop';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WishlistHelperService implements OnInit {
-
-  constructor(
-    private productService: ProductService
-  ) {
-    this.wishlistItems = []
+  constructor(private productService: ProductService) {
+    this.wishlistItems = [];
   }
   public wishlistItems: Product[];
 
   public handleDeleteFromWishlist(product: Product) {
-    if (confirm('Are you sure you want to delete all this item from your Wishlist?')) {
+    if (
+      confirm(
+        'Are you sure you want to delete all this item from your Wishlist?'
+      )
+    ) {
       this.productService.deleteFromWishlist(product);
     }
   }
@@ -34,7 +35,6 @@ export class WishlistHelperService implements OnInit {
 
     this.productService.watchStorage().subscribe((data) => {
       this.wishlistItems = this.productService.getProductsFromWishlist();
-    })
+    });
   }
-
 }

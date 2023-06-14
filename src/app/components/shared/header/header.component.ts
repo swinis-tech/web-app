@@ -1,11 +1,11 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import data from "../../data/navigation.json";
-import {ProductService} from '../../helper/shop/product.service';
+import { Component, HostListener, OnInit } from '@angular/core';
+import data from '../../data/navigation.json';
+import { ProductService } from '../../helper/shop/product.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
   public navigation = data;
@@ -13,14 +13,13 @@ export class HeaderComponent implements OnInit {
 
   navmethod: boolean = false;
 
-  constructor(private productService: ProductService) {
-  }
+  constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
     this.cartlength = this.productService.getProductsCountInCart();
     this.productService.watchStorage().subscribe((data) => {
       this.cartlength = this.productService.getProductsCountInCart();
-    })
+    });
   }
 
   // Sticky Nav

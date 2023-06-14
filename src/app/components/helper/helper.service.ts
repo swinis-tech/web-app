@@ -3,15 +3,14 @@ import $ from 'jquery';
 import 'magnific-popup';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HelperService implements AfterViewInit, OnInit {
-
-  constructor() { }
+  constructor() {}
 
   //Mobile
   open: boolean = false;
-  trigger(item: { open: boolean; }) {
+  trigger(item: { open: boolean }) {
     item.open = !item.open;
   }
   // Search
@@ -24,12 +23,10 @@ export class HelperService implements AfterViewInit, OnInit {
   toggleCart() {
     this.cartMethod = !this.cartMethod;
   }
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
   ngAfterViewInit(): void {
     ($('.popup-youtube') as any).magnificPopup({
-      type: 'iframe'
+      type: 'iframe',
     });
     ($('.gallery-thumb') as any).magnificPopup({
       type: 'image',

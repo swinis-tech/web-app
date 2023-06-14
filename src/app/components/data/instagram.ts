@@ -6,7 +6,7 @@ const data = [
   { id: 5, image: 'assets/images/insta/insta-05.png' },
   { id: 6, image: 'assets/images/insta/insta-06.png' },
   { id: 7, image: 'assets/images/insta/insta-01.png' },
-  { id: 8, image: 'assets/images/insta/insta-02.png' }
+  { id: 8, image: 'assets/images/insta/insta-02.png' },
 ];
 
 export default data;

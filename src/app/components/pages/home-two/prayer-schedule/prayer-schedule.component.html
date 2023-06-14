@@ -1,73 +1,68 @@
 <section class="sj-prayer" id="component-root">
-    <div class="container-fluid no-gutter">
-        <div class="row">
-            <div class="col-12 col-lg-7 p-0">
-                <div class="sj_custom sj_bg_wrap sj_bg_overlay">
-                    <div class="sj-prayer-timeing">
-                        <div class="section-header table-header">
-                            <h2 class="text-center text-white">
-                                Swinburne Musalla
-                            </h2>
-                            <h3>Prayer Schedule</h3>
-                            <h4>{{ today.toDateString() }}</h4>
-                            <div class="location">
-                                <a
-                                    href="https://goo.gl/maps/929uYtPHYsTE9GFn8"
-                                    class="text-white location-link"
-                                >
-                                    <i class="fa fa-map-marker"></i>&nbsp;<span
-                                        >Level 3, GS Building, 34 Wakefield
-                                        Street, Swinburne University of
-                                        Technology, Hawthorn VIC</span
-                                    >&nbsp;<i class="fa fa-external-link"></i>
-                                </a>
-                            </div>
-                            <div
-                                style="
-                                    display: flex;
-                                    color: #201c15;
-                                    justify-content: space-between;
-                                    font-size: 16px;
-                                    background: #3dc88f;
-                                    padding: 0 8px;
-                                "
-                            >
-                                <span *ngIf="outputTimes">
-                                    Next: {{ getNextPrayer() | titlecase }}
-                                </span>
-                                <span>
-                                    {{ countdown }}
-                                </span>
-                            </div>
-                            <table class="table sj-schedules-table">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">Prayers</th>
-                                        <th scope="col">Adhan</th>
-                                        <th scope="col">Iqamah</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-body">
-                                    <tr
-                                        *ngFor="let item of outputTimes"
-                                        [ngClass]="
-                                            item.name === getCurrentPrayer()
-                                                ? 'current'
-                                                : ''
-                                        "
-                                    >
-                                        <th scope="row">
-                                            {{ item.name | titlecase }}
-                                        </th>
-                                        <td>{{ item.adhan }}</td>
-                                        <td>{{ item.iqamah }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+  <div class="container-fluid no-gutter">
+    <div class="row">
+      <div class="col-12 col-lg-7 p-0">
+        <div class="sj_custom sj_bg_wrap sj_bg_overlay">
+          <div class="sj-prayer-timeing">
+            <div class="section-header table-header">
+              <h2 class="text-center text-white">Swinburne Musalla</h2>
+              <h3>Prayer Schedule</h3>
+              <h4>{{ today.toDateString() }}</h4>
+              <div class="location">
+                <a
+                  href="https://goo.gl/maps/929uYtPHYsTE9GFn8"
+                  class="text-white location-link"
+                >
+                  <i class="fa fa-map-marker"></i>&nbsp;<span
+                    >Level 3, GS Building, 34 Wakefield Street, Swinburne
+                    University of Technology, Hawthorn VIC</span
+                  >&nbsp;<i class="fa fa-external-link"></i>
+                </a>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  color: #201c15;
+                  justify-content: space-between;
+                  font-size: 16px;
+                  background: #3dc88f;
+                  padding: 0 8px;
+                "
+              >
+                <span *ngIf="outputTimes">
+                  Next: {{ getNextPrayer() | titlecase }}
+                </span>
+                <span>
+                  {{ countdown }}
+                </span>
+              </div>
+              <table class="table sj-schedules-table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Prayers</th>
+                    <th scope="col">Adhan</th>
+                    <th scope="col">Iqamah</th>
+                  </tr>
+                </thead>
+                <tbody class="table-body">
+                  <tr
+                    *ngFor="let item of outputTimes"
+                    [ngClass]="
+                      item.name === getCurrentPrayer() ? 'current' : ''
+                    "
+                  >
+                    <th scope="row">
+                      {{ item.name | titlecase }}
+                    </th>
+                    <td>{{ item.adhan }}</td>
+                    <td>{{ item.iqamah }}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </section>

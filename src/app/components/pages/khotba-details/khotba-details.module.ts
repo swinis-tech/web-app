@@ -7,17 +7,8 @@ import { KhotbaDetailsComponent } from './khotba-details.component';
 import { SharedModule } from '../../shared/shared.module';
 import { ContentComponent } from './content/content.component';
 
-
 @NgModule({
-  declarations: [
-    KhotbaDetailsComponent,
-    ContentComponent
-  ],
-  imports: [
-    CommonModule,
-    KhotbaDetailsRoutingModule,
-    SharedModule,
-    NgbModule
-  ]
+  declarations: [KhotbaDetailsComponent, ContentComponent],
+  imports: [CommonModule, KhotbaDetailsRoutingModule, SharedModule, NgbModule],
 })
-export class KhotbaDetailsModule { }
+export class KhotbaDetailsModule {}

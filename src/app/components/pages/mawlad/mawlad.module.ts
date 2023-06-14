@@ -8,18 +8,14 @@ import { MawladComponent } from './mawlad.component';
 import { SharedModule } from '../../shared/shared.module';
 import { ContentComponent } from './content/content.component';
 
-
 @NgModule({
-  declarations: [
-    MawladComponent,
-    ContentComponent
-  ],
+  declarations: [MawladComponent, ContentComponent],
   imports: [
     CommonModule,
     MawladRoutingModule,
     SharedModule,
     NgbModule,
-    NgxPaginationModule
-  ]
+    NgxPaginationModule,
+  ],
 })
-export class MawladModule { }
+export class MawladModule {}

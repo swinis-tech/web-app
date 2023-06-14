@@ -1,118 +1,195 @@
-<section class="post_detail section-padding" *ngFor="let item of blogHelperService.blogdetails">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="post_img">
-                    <img [src]="item.image" [alt]="item.title" class="w-100">
-                </div>
-                <h2>{{item.title}}</h2>
-                <div class="post_meta">
-                    <ul>
-                        <li><i class="fa fa-user"></i> Post by: <a routerLink="/blog/author/{{author.id}}" class="meta_admin" *ngFor="let author of blogHelperService.getAuthor(item.author)">{{author.name}}</a></li>
-                        <li><i class="fa fa-calendar-check-o"></i>{{item.postdate}}</li>
-                    </ul>
-                </div>
-                <div [innerHtml]="item.htmltext"></div>
-                <!-- Tags-Share -->
-                <div class="tags_share">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="psot_share">
-                                <span><strong>Share:</strong></span>
-                                <a href="javascript:void(0)" (click)="blogHelperService.openSocialPopup(social)" *ngFor="let social of blogHelperService.socialShare(item.title)">
-                                    <i [class]="social.iconClass"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="psot_tags">
-                                <span><strong>Tags:</strong></span>
-                                <a routerLink="/blog/tag/{{tag.id}}" *ngFor="let tag of blogHelperService.getTags(item.tags) | slice:0:3"> {{tag.title}}, </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Comments -->
-                <div id="comments">
-                    <div class="all_comments">
-                        <h4>{{item.reviews.length}} Comments</h4>
-                        <ul class="commentlist">
-                            <!-- Data -->
-                            <li class="comment" *ngFor="let review of item.reviews">
-                                <div class="comment the-comment" *ngFor="let user of blogHelperService.getAuthor(review.user)">
-                                    <div class="comment-avatar">
-                                        <img [alt]="user.name" [src]="user.image" class="avatar">
-                                    </div>
-                                    <div class="comment-content">
-                                        <div class="comment-meta">
-                                            <span class="comment-author"> <a href="#" class="url">{{user.name}}</a></span> <span class="comment-time">/ {{review.commentdate}}</span>
-                                        </div>
-                                        <div class="text">
-                                            <div class="comment-text">
-                                                <p>{{review.comment}}</p>
-                                                <span class="reply"> <a rel="nofollow" class="comment-reply-link" href="#"><i class="fa fa-comments"></i> Reply</a> </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <ol>
-                                    <!-- Data -->
-                                    <li class="comment" *ngFor="let review of review.replies">
-                                        <div class="comment the-comment" *ngFor="let user of blogHelperService.getAuthor(review.user)">
-                                            <div class="comment-avatar">
-                                                <img [alt]="user.name" [src]="user.image" class="avatar">
-                                            </div>
-                                            <div class="comment-content">
-                                                <div class="comment-meta">
-                                                    <span class="comment-author"> <a href="#" class="url">{{user.name}}</a></span> <span class="comment-time">/ {{review.commentdate}}</span>
-                                                </div>
-                                                <div class="text">
-                                                    <div class="comment-text">
-                                                        <p>{{review.comment}}</p>
-                                                        <span class="reply"> <a rel="nofollow" class="comment-reply-link" href="#"><i class="fa fa-comments"></i> Reply</a> </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <!-- Data -->
-                                </ol>
-                            </li>
-                            <!-- Data -->
-                        </ul>
-                    </div>
-                    <!-- /all-comment -->
-                    <!-- comment-form-->
-                    <div id="respond" class="comment-respond">
-                        <h4>Post A Comments</h4>
-                        <form id="commentform" class="comment-form">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" name="Name" placeholder="Name" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" name="email" placeholder="Email" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <textarea name="Message" cols="45" rows="3" class="form-control" placeholder="Message" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <input class="btn dark-btn" value="Submit" type="submit">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- Sidebar -->
-            <aside class="col-md-4">
-                <app-blog-sidebar></app-blog-sidebar>
-            </aside>
-            <!-- /Sidebar -->
+<section
+  class="post_detail section-padding"
+  *ngFor="let item of blogHelperService.blogdetails"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="post_img">
+          <img [src]="item.image" [alt]="item.title" class="w-100" />
         </div>
+        <h2>{{ item.title }}</h2>
+        <div class="post_meta">
+          <ul>
+            <li>
+              <i class="fa fa-user"></i> Post by:
+              <a
+                routerLink="/blog/author/{{ author.id }}"
+                class="meta_admin"
+                *ngFor="let author of blogHelperService.getAuthor(item.author)"
+                >{{ author.name }}</a
+              >
+            </li>
+            <li><i class="fa fa-calendar-check-o"></i>{{ item.postdate }}</li>
+          </ul>
+        </div>
+        <div [innerHtml]="item.htmltext"></div>
+        <!-- Tags-Share -->
+        <div class="tags_share">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="psot_share">
+                <span><strong>Share:</strong></span>
+                <a
+                  href="javascript:void(0)"
+                  (click)="blogHelperService.openSocialPopup(social)"
+                  *ngFor="
+                    let social of blogHelperService.socialShare(item.title)
+                  "
+                >
+                  <i [class]="social.iconClass"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="psot_tags">
+                <span><strong>Tags:</strong></span>
+                <a
+                  routerLink="/blog/tag/{{ tag.id }}"
+                  *ngFor="
+                    let tag of blogHelperService.getTags(item.tags)
+                      | slice : 0 : 3
+                  "
+                >
+                  {{ tag.title }},
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Comments -->
+        <div id="comments">
+          <div class="all_comments">
+            <h4>{{ item.reviews.length }} Comments</h4>
+            <ul class="commentlist">
+              <!-- Data -->
+              <li class="comment" *ngFor="let review of item.reviews">
+                <div
+                  class="comment the-comment"
+                  *ngFor="let user of blogHelperService.getAuthor(review.user)"
+                >
+                  <div class="comment-avatar">
+                    <img [alt]="user.name" [src]="user.image" class="avatar" />
+                  </div>
+                  <div class="comment-content">
+                    <div class="comment-meta">
+                      <span class="comment-author">
+                        <a href="#" class="url">{{ user.name }}</a></span
+                      >
+                      <span class="comment-time"
+                        >/ {{ review.commentdate }}</span
+                      >
+                    </div>
+                    <div class="text">
+                      <div class="comment-text">
+                        <p>{{ review.comment }}</p>
+                        <span class="reply">
+                          <a rel="nofollow" class="comment-reply-link" href="#"
+                            ><i class="fa fa-comments"></i> Reply</a
+                          >
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <ol>
+                  <!-- Data -->
+                  <li class="comment" *ngFor="let review of review.replies">
+                    <div
+                      class="comment the-comment"
+                      *ngFor="
+                        let user of blogHelperService.getAuthor(review.user)
+                      "
+                    >
+                      <div class="comment-avatar">
+                        <img
+                          [alt]="user.name"
+                          [src]="user.image"
+                          class="avatar"
+                        />
+                      </div>
+                      <div class="comment-content">
+                        <div class="comment-meta">
+                          <span class="comment-author">
+                            <a href="#" class="url">{{ user.name }}</a></span
+                          >
+                          <span class="comment-time"
+                            >/ {{ review.commentdate }}</span
+                          >
+                        </div>
+                        <div class="text">
+                          <div class="comment-text">
+                            <p>{{ review.comment }}</p>
+                            <span class="reply">
+                              <a
+                                rel="nofollow"
+                                class="comment-reply-link"
+                                href="#"
+                                ><i class="fa fa-comments"></i> Reply</a
+                              >
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <!-- Data -->
+                </ol>
+              </li>
+              <!-- Data -->
+            </ul>
+          </div>
+          <!-- /all-comment -->
+          <!-- comment-form-->
+          <div id="respond" class="comment-respond">
+            <h4>Post A Comments</h4>
+            <form id="commentform" class="comment-form">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="Name"
+                      placeholder="Name"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input
+                      type="email"
+                      class="form-control"
+                      name="email"
+                      placeholder="Email"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <textarea
+                  name="Message"
+                  cols="45"
+                  rows="3"
+                  class="form-control"
+                  placeholder="Message"
+                  required
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <input class="btn dark-btn" value="Submit" type="submit" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- Sidebar -->
+      <aside class="col-md-4">
+        <app-blog-sidebar></app-blog-sidebar>
+      </aside>
+      <!-- /Sidebar -->
     </div>
+  </div>
 </section>

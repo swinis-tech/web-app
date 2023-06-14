@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {PrayerScheduleComponent} from './components/pages/home-two/prayer-schedule/prayer-schedule.component';
+import { PrayerScheduleComponent } from './components/pages/home-two/prayer-schedule/prayer-schedule.component';
 
 const routes: Routes = [
   // Home
@@ -43,6 +43,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
