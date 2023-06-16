@@ -1,5 +1,4 @@
 import { Injectable, AfterViewInit, OnInit } from '@angular/core';
-import $ from 'jquery';
 import 'magnific-popup';
 
 @Injectable({
