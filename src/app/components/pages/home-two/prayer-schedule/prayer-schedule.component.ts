@@ -203,8 +203,9 @@ export class PrayerScheduleComponent implements OnDestroy {
   }
 
   private to12HourFormat(time: number): string {
-    const minutes = Math.round((time % 1) * 60);
+    let minutes = Math.round((time % 1) * 60);
     let hours = (Math.floor(time) + Math.floor(minutes / 60)) % 24;
+    minutes %= 60;
     let suffix =
       hours < 12
         ? PrayerScheduleComponent.AM_SUFFIX
