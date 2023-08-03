@@ -91,22 +91,25 @@ export class PrayerScheduleComponent implements OnDestroy {
           }, 1000);
         }
       })
-      .catch((r) => console.log(r));
+      .catch((e) => console.log(e));
 
-    firestoreService.getData().then((prayerData) => {
-      this.dataSource = 'server';
-      if (this.cachedId) {
-        clearInterval(this.cachedId);
-      }
-      this.offset = prayerData.iqamahOffset;
-      this.hardcodedTimes = prayerData.hardcodedIqamah;
-      this.outputTimes = this.getIqamahTimes().concat(prayerData.friday);
+    firestoreService
+      .getDataFromServer()
+      .then((prayerData) => {
+        this.dataSource = 'server';
+        if (this.cachedId) {
+          clearInterval(this.cachedId);
+        }
+        this.offset = prayerData.iqamahOffset;
+        this.hardcodedTimes = prayerData.hardcodedIqamah;
+        this.outputTimes = this.getIqamahTimes().concat(prayerData.friday);
 
-      this.countdown = this.getCountdown();
-      this.id = setInterval(() => {
         this.countdown = this.getCountdown();
-      }, 1000);
-    });
+        this.id = setInterval(() => {
+          this.countdown = this.getCountdown();
+        }, 1000);
+      })
+      .catch((e) => console.log(e));
   }
 
   ngOnDestroy() {
@@ -118,12 +121,17 @@ export class PrayerScheduleComponent implements OnDestroy {
     }
   }
 
-  getNextPrayer(): OutputPrayerNames {
+  getNextPrayer(): OutputPrayerNames | null {
+    if (!this.outputTimes) {
+      return null;
+    }
     let currentDate = new Date();
     let currentTime = currentDate.getHours() + currentDate.getMinutes() / 60;
     let prevTime = 24;
     let nextPrayer: OutputPrayerNames = 'fajr';
     let times = this.outputTimes;
+
+    // Only consider Jumu'ah Prayers on Friday
     if (currentDate.getDay() !== 5) {
       times = times.slice(0, times.length - 2);
     }
@@ -138,7 +146,11 @@ export class PrayerScheduleComponent implements OnDestroy {
     return nextPrayer;
   }
 
-  getCurrentPrayer(): OutputPrayerNames {
+  getCurrentPrayer(): OutputPrayerNames | null {
+    if (!this.outputTimes) {
+      return null;
+    }
+
     let currentDate = new Date();
     let currentTime = currentDate.getHours() + currentDate.getMinutes() / 60;
     let prevTime = 0;
@@ -169,6 +181,15 @@ export class PrayerScheduleComponent implements OnDestroy {
     hours +=
       suffix.toLowerCase() === PrayerScheduleComponent.PM_SUFFIX ? 12 : 0;
     return hours + minutes / 60;
+  }
+
+  timeToClock(time: string) {
+    let [noSuffixTime, suffix] = time.split(' ');
+    let [hours, minutes] = noSuffixTime.split(':').map((x) => +x);
+    hours %= 12;
+    hours +=
+      suffix.toLowerCase() === PrayerScheduleComponent.PM_SUFFIX ? 12 : 0;
+    return [hours, minutes];
   }
 
   private getIqamahTimes(): OutputPrayer[] {
@@ -203,48 +224,52 @@ export class PrayerScheduleComponent implements OnDestroy {
   }
 
   private to12HourFormat(time: number): string {
-    let minutes = Math.round((time % 1) * 60);
-    let hours = (Math.floor(time) + Math.floor(minutes / 60)) % 24;
+    let minutes = Math.round(time * 60);
+    let hours = Math.floor(minutes / 60) % 24;
     minutes %= 60;
+
     let suffix =
       hours < 12
         ? PrayerScheduleComponent.AM_SUFFIX
         : PrayerScheduleComponent.PM_SUFFIX;
     hours = hours % 12 || 12;
-    return this.to2Digits(hours) + ':' + this.to2Digits(minutes) + ' ' + suffix;
+
+    return `${this.to2Digits(hours)}:${this.to2Digits(minutes)} ${suffix}`;
   }
 
   private to2Digits(num: number): string {
     return num.toString().padStart(2, '0');
   }
 
-  private getFloatCountdown(): number {
+  private getSecondsCountdown(): number {
     const next = this.getNextPrayer();
     const nextPrayer = this.outputTimes.find((prayer) => prayer.name === next)!;
-    let nextPrayerTime = this.timeToFloat(nextPrayer.adhan);
+    let nextPrayerTime = this.timeToClock(nextPrayer.adhan);
+    let nextPrayerSeconds = nextPrayerTime[0] * 3600 + nextPrayerTime[1] * 60;
     let date = new Date();
-    let currentTime =
-      date.getHours() + date.getMinutes() / 60 + date.getSeconds() / 3600;
-    if (currentTime > nextPrayerTime) {
-      nextPrayerTime = this.tomorrowTimes.fajr + 24;
+    let currentTimeSeconds =
+      date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds();
+    if (currentTimeSeconds > nextPrayerSeconds) {
+      let nextFajr = Math.round(this.tomorrowTimes.fajr * 3600);
+      nextPrayerSeconds = nextFajr + 24 * 3600;
     }
-    return nextPrayerTime - currentTime;
+    return nextPrayerSeconds - currentTimeSeconds;
   }
 
-  public getCountdown(): string {
-    const countdown = this.getFloatCountdown();
-    let minutes = (countdown % 1) * 60;
-    let seconds = Math.round((minutes % 1) * 60);
-    minutes = Math.floor(minutes);
-    let hours = Math.floor(countdown);
-    const time = [hours, minutes, seconds];
+  private secondsToClock(seconds: number) {
+    let minutes = Math.floor(seconds / 60);
+    seconds %= 60;
+    let hours = Math.floor(minutes / 60);
+    minutes %= 60;
+
+    return [hours, minutes, seconds];
+  }
+
+  private getCountdown(): string {
+    const countdown = this.getSecondsCountdown();
+    const time = this.secondsToClock(countdown);
     const suffixes = ['h', 'min', 's'];
-    const timeStrings = time.map((x, i) => {
-      if (x > 0) {
-        return x + suffixes[i];
-      }
-      return '';
-    });
+    const timeStrings = time.map((x, i) => (x > 0 ? x + suffixes[i] : ''));
     return timeStrings.join(' ');
   }
 }

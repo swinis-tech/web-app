@@ -7,8 +7,8 @@ import { initializeApp } from 'firebase/app';
 import {
   doc,
   Firestore,
-  getDoc,
   getDocFromCache,
+  getDocFromServer,
   getFirestore,
   initializeFirestore,
   persistentLocalCache,
@@ -51,9 +51,9 @@ export class FirestoreService {
     this.db = getFirestore(app);
   }
 
-  async getData(): Promise<PrayerData> {
+  async getDataFromServer(): Promise<PrayerData> {
     const docRef = doc(this.db, 'prayers', 'prayerData');
-    const docSnap = await getDoc(docRef);
+    const docSnap = await getDocFromServer(docRef);
 
     if (docSnap.exists()) {
       return docSnap.data() as PrayerData;

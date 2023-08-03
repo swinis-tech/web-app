@@ -29,8 +29,8 @@
                   padding: 0 8px;
                 "
               >
-                <span *ngIf="outputTimes">
-                  Next: {{ getNextPrayer() | titlecase }}
+                <span *ngIf="getNextPrayer() as nextPrayer">
+                  Next: {{ nextPrayer | titlecase }}
                 </span>
                 <span>
                   {{ countdown }}
