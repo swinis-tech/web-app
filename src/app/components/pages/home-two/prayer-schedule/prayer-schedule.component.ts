@@ -3,7 +3,10 @@ import {
   PrayerNames,
   PrayerTimesService,
 } from '../../../../prayer-times/prayer-times.service';
-import { FirestoreService } from 'src/app/firestore/firestore.service';
+import {
+  FirestoreService,
+  PrayerData,
+} from 'src/app/firestore/firestore.service';
 import { NgClass, NgFor, NgIf, TitleCasePipe } from '@angular/common';
 
 type OutputPrayerNames =
@@ -13,6 +16,7 @@ type OutputPrayerNames =
   | 'asr'
   | 'maghrib'
   | 'isha'
+  | 'taraweeh'
   | "jumu'ah 1"
   | "jumu'ah 2";
 
@@ -21,6 +25,8 @@ type OutputPrayer = {
   adhan: string;
   iqamah: string;
 };
+
+const isRamadan = true;
 
 export type HardcodedIqamahTimes = Partial<Record<OutputPrayerNames, string>>;
 
@@ -81,9 +87,7 @@ export class PrayerScheduleComponent implements OnDestroy {
       .getDataFromCache()
       .then((prayerData) => {
         if (this.dataSource === 'cache') {
-          this.offset = prayerData.iqamahOffset;
-          this.hardcodedTimes = prayerData.hardcodedIqamah;
-          this.outputTimes = this.getIqamahTimes().concat(prayerData.friday);
+          this.processPrayerData(prayerData);
 
           this.countdown = this.getCountdown();
           this.cachedId = setInterval(() => {
@@ -100,9 +104,7 @@ export class PrayerScheduleComponent implements OnDestroy {
         if (this.cachedId) {
           clearInterval(this.cachedId);
         }
-        this.offset = prayerData.iqamahOffset;
-        this.hardcodedTimes = prayerData.hardcodedIqamah;
-        this.outputTimes = this.getIqamahTimes().concat(prayerData.friday);
+        this.processPrayerData(prayerData);
 
         this.countdown = this.getCountdown();
         this.id = setInterval(() => {
@@ -110,6 +112,24 @@ export class PrayerScheduleComponent implements OnDestroy {
         }, 1000);
       })
       .catch((e) => console.log(e));
+  }
+
+  processPrayerData(prayerData: PrayerData) {
+    this.offset = prayerData.iqamahOffset;
+    this.hardcodedTimes = prayerData.hardcodedIqamah;
+    this.outputTimes = this.getIqamahTimes().concat(prayerData.friday);
+    if (isRamadan) {
+      const ishaPrayer = this.outputTimes.find(
+        (prayer) => prayer.name === 'isha'
+      )!;
+      this.outputTimes.splice(6, 0, {
+        name: 'taraweeh',
+        iqamah: '--:--',
+        adhan: this.to12HourFormat(
+          this.timeToFloat(ishaPrayer.iqamah) + 15 / 60
+        ),
+      });
+    }
   }
 
   ngOnDestroy() {

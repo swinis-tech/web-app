@@ -47,15 +47,18 @@
                 <tbody class="table-body">
                   <tr
                     *ngFor="let item of outputTimes"
-                    [ngClass]="
-                      item.name === getCurrentPrayer() ? 'current' : ''
-                    "
+                    [ngClass]="{
+                      current: item.name === getCurrentPrayer(),
+                      'top-border': item.name === 'jumu\'ah 1'
+                    }"
                   >
                     <th scope="row">
                       {{ item.name | titlecase }}
                     </th>
-                    <td>{{ item.adhan }}</td>
-                    <td>{{ item.iqamah }}</td>
+                    <td [colSpan]="item.name === 'taraweeh' && '2'">
+                      {{ item.adhan }}
+                    </td>
+                    <td *ngIf="item.name !== 'taraweeh'">{{ item.iqamah }}</td>
                   </tr>
                 </tbody>
               </table>
